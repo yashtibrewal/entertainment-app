@@ -57,7 +57,7 @@ const Login = () => {
         {/* Additional Links */}
         <p className="text-sm text-gray-400 mt-4 text-center">
           Don't have an account?{' '}
-          <span className="text-red-500 hover:underline cursor-pointer">Sign Up</span>
+          <a href="sign-up" className="text-red-500 hover:underline cursor-pointer">Sign Up</a>
         </p>
       </div>
     </div>
