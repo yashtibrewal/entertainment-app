@@ -12,6 +12,7 @@ import Logout from "./pages/Logout";
 import Layout from "./components/Layout";
 import TV from "./pages/tv";
 import Movie from "./pages/movie";
+import Navbar from "./components/navbar";
 
 function App() {
   return (

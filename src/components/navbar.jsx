@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
+=======
+import React from "react";
+>>>>>>> 6980b88 (Created Navbar UI)
 import MovieCreationIcon from "@mui/icons-material/MovieCreation";
 import { SiWindows11 } from "react-icons/si";
 import { RiFilmFill } from "react-icons/ri";
@@ -31,24 +35,25 @@ const Navbar = () => {
 
       {/* icon container */}
       <div className="icon-container flex flex-col gap-6 md:flex-col md:gap-6 md:items-center sm:flex sm:flex-row">
+       
         {/* Home Icon Link */}
         <Link to="/" className="group">
-          <SiWindows11 className="text-userTextColor group-hover:text-userHover group-focus:text-userHoverColor text-2xl" />
+          <SiWindows11 className="text-userTextColor group-hover:text-userHoverColor group-focus:text-userHoverColor text-2xl" />
         </Link>
 
         {/* Movies Icon Link */}
         <Link to="/movies" className="group">
-          <RiFilmFill className="text-userTextColor group-hover:text-userHover group-focus:text-userHoverColor text-2xl" />
+          <RiFilmFill className="text-userTextColor group-hover:text-userHoverColor group-focus:text-userHoverColor text-2xl" />
         </Link>
 
         {/* Serial or TV Icon Link */}
         <Link to="/tv-series" className="group">
-          <PiTelevision className="text-userTextColor group-hover:text-userHover group-focus:text-userHoverColor text-2xl" />
+          <PiTelevision className="text-userTextColor group-hover:text-userHoverColor group-focus:text-userHoverColor text-2xl" />
         </Link>
 
         {/* Bookmark Icon Link */}
         <Link to="/bookmark" className="group">
-          <FaBookmark className="text-userTextColor group-hover:text-userHover group-focus:text-userHoverColor text-2xl" />
+          <FaBookmark className="text-userTextColor group-hover:text-userHoverColor group-focus:text-userHoverColor text-2xl" />
         </Link>
       </div>
 
