@@ -13,7 +13,7 @@ const Navbar = () => {
     <div className="nav-container w-full md:w-16 h-14 md:h-screen md:ml-5 py-10 rounded-xl flex flex-col md:flex-col items-center justify-between sm:w-screen sm:flex sm:flex-row sm:px-7 sm:ml-0 bg-[#182828]">
       {/* logo container */}
       <div className="logo-container ">
-        <MovieCreationIcon className="text-userIconColor h-[40px] w-[40px]" />
+        <MovieCreationIcon className="text-userHover h-[40px] w-[40px]" />
       </div>
 
       {/* icon container */}
@@ -21,22 +21,22 @@ const Navbar = () => {
        
         {/* Home Icon Link */}
         <Link to="/" className="group">
-          <SiWindows11 className="text-userTextColor group-hover:text-userHoverColor group-focus:text-userHoverColor text-2xl" />
+          <SiWindows11 className="text-userTextColor group-hover:text-userHover group-focus:text-userHoverColor text-2xl" />
         </Link>
 
         {/* Movies Icon Link */}
         <Link to="/movies" className="group">
-          <RiFilmFill className="text-userTextColor group-hover:text-userHoverColor group-focus:text-userHoverColor text-2xl" />
+          <RiFilmFill className="text-userTextColor group-hover:text-userHover group-focus:text-userHoverColor text-2xl" />
         </Link>
 
         {/* Serial or TV Icon Link */}
         <Link to="/tv-series" className="group">
-          <PiTelevision className="text-userTextColor group-hover:text-userHoverColor group-focus:text-userHoverColor text-2xl" />
+          <PiTelevision className="text-userTextColor group-hover:text-userHover group-focus:text-userHoverColor text-2xl" />
         </Link>
 
         {/* Bookmark Icon Link */}
         <Link to="/bookmark" className="group">
-          <FaBookmark className="text-userTextColor group-hover:text-userHoverColor group-focus:text-userHoverColor text-2xl" />
+          <FaBookmark className="text-userTextColor group-hover:text-userHover group-focus:text-userHoverColor text-2xl" />
         </Link>
       </div>
 
