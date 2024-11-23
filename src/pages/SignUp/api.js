@@ -4,7 +4,6 @@ const registerUser = async (name, email, password) => {
   // Set headers with dynamic token
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-
   // Set the body with dynamic data (name, email, password)
   const raw = JSON.stringify({
     name: name,

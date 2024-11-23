@@ -1,6 +1,6 @@
 
 
-const loginUser = async (email, password) => {
+const loginUserApi = async (email, password) => {
   // Set headers with dynamic token
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -35,4 +35,4 @@ const loginUser = async (email, password) => {
   }
 };
 
-export default loginUser;
+export default loginUserApi;
