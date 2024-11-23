@@ -3,7 +3,8 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import MovieCreationIcon from '@mui/icons-material/MovieCreation';
 import { useNavigate } from 'react-router-dom';
-import loginUser from './api';
+import loginUserApi from './api';
+import { useAuth } from '../../store/auth';
 
 const Login = () => {
   // Initialize AOS
@@ -17,13 +18,17 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const login = async () => {
-    const result = await loginUser(email,password);
+  const loginUser = async () => {
+    const result = await loginUserApi(email, password);
 
-    if(result.isSuccess) {
+    const token = result.token;
+    login(token);
+
+    if (result.isSuccess) {
       navigate("/");
-    }else{
+    } else {
       // TODO: Toast this message
       console.log(result.message);
     }
@@ -68,7 +73,7 @@ const Login = () => {
           </div>
           <button
             type="button"
-            onClick={login}
+            onClick={loginUser}
             className="bg-red-500 hover:bg-red-600 text-white py-2 gap-4 rounded-lg text-sm font-medium transition-all"
           >
             Login to your account
