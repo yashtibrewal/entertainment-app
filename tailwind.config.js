@@ -10,7 +10,7 @@ module.exports = {
         userTextColor: '#4B5563', // Slate color for icons (default)
         userHoverColor: '#ffffff', // Hover effect color for icons
         userAvatarColor: '#FF5722', // Custom color for avatar background
-        userHover:'#ff0000'
+        userHover: '#ff0000'
       },
       spacing: {
         userIconSize: '40px', // Custom size for the MovieCreation icon

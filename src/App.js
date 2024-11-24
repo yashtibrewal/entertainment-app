@@ -8,7 +8,6 @@ import TVSeries from "./pages/TVSeries";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import { AuthProvider } from "./store/auth";
-import ProtectedRoute from "./store/ProtectedRoute";
 import Logout from "./pages/Logout";
 import Layout from "./components/Layout";
 

@@ -32,6 +32,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -40,27 +41,27 @@
 /* mediaQuery for Navbar */
 
 @media (max-width: 640px) {
- 
+
 
   .icon-container {
-     display: flex;
-     flex-direction: row;
-   }
- 
-   .nav-container  {
-     display: flex;
-     flex-direction: row;
-      margin: 0;
-      border: none;
-     padding-left: 16px;
-     padding-right: 16px;
-     border: 10px;
-     
-   }
- }
+    display: flex;
+    flex-direction: row;
+  }
 
- /* changing effect of input field as remove "X" */
- input[type="search"]::-webkit-search-cancel-button {
+  .nav-container {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    border: none;
+    padding-left: 16px;
+    padding-right: 16px;
+    border: 10px;
+
+  }
+}
+
+/* changing effect of input field as remove "X" */
+input[type="search"]::-webkit-search-cancel-button {
   display: none;
 }
 
@@ -74,7 +75,8 @@
 
   .flexing {
     flex: 1;
-    max-height: calc(100vh - 56px); /* Adjusts for any navbar or search space */
+    max-height: calc(100vh - 56px);
+    /* Adjusts for any navbar or search space */
   }
 
   .padding {
@@ -82,8 +84,7 @@
   }
 
   .md\:mt-8 {
-    margin-top: 32px; /* Adjust the margin to create space between search and content */
+    margin-top: 32px;
+    /* Adjust the margin to create space between search and content */
   }
 }
-
-
