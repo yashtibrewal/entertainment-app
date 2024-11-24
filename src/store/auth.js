@@ -1,59 +1,57 @@
 import { createContext, useContext, useReducer } from "react";
-import { jwtDecode } from 'jwt-decode'
+import { jwtDecode } from "jwt-decode";
 
-
+const AuthContext = createContext();
 // Action types
-const LOGIN = 'LOGIN';
-const LOGOUT = 'LOGOUT';
+const LOGIN = "LOGIN";
+const LOGOUT = "LOGOUT";
 
+const token = localStorage.getItem("token");
 
-const getUserFromToken = (token) => {
+// Helper function to extract user from jwt token
+function getUserFromToken(token) {
+  if (!token) return null;
   const decodedObj = jwtDecode(token);
-  const user = {};
-  user.name = decodedObj.name;
-  user.role = decodedObj.role;
-  user.id = decodedObj.id;
-  user.email = decodedObj.email;
+  const user = {
+    name: decodedObj.name,
+    role: decodedObj.role,
+    email: decodedObj.email,
+    id: decodedObj.id,
+  };
   return user;
-}
-
-const token = localStorage.getItem('token');
-
+};
+// Initial state
 const initialState = {
-  token: token || null, // Get token from localStorage
-  user: token ? getUserFromToken(token) : null,
+  token, // Get token from localStorage
+  user: getUserFromToken(token),
   isLoggedIn: !!token,
 };
 
+
+// Auth reducer function
 const authReducer = (state, action) => {
-
   switch (action.type) {
-
     case LOGIN:
-      console.log('Login')
       const user = getUserFromToken(action.payload.token);
+      console.log('user', user);
       return {
-        state,
         token: action.payload.token,
         isLoggedIn: true,
-        user
-      }
+        user: user,
+      };
 
     case LOGOUT:
       return {
-        state,
         token: null,
         isLoggedIn: false,
-        user: null
-      }
+        user: null,
+      };
 
     default:
       return state;
   }
+};
 
-}
-
-const AuthContext = createContext();
 
 // helper function to extract user from jwt token
 
