@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import MovieCreationIcon from '@mui/icons-material/MovieCreation';
-import { useNavigate } from 'react-router-dom';
 import loginUserApi from './api';
 import { useAuth } from '../../store/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   // Initialize AOS
@@ -17,21 +17,20 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const loginUser = async () => {
     const result = await loginUserApi(email, password);
 
-    const token = result.token;
-    login(token);
-
     if (result.isSuccess) {
+      const token = result.token;
+      login(token);
       navigate("/");
     } else {
-      // TODO: Toast this message
-      console.log(result.message);
+      console.log(result);
     }
+
   }
 
   return (

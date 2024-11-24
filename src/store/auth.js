@@ -5,13 +5,24 @@ import { jwtDecode } from 'jwt-decode'
 // Action types
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
-const SET_USER = 'SET_USER';
 
+
+const getUserFromToken = (token) => {
+  const decodedObj = jwtDecode(token);
+  const user = {};
+  user.name = decodedObj.name;
+  user.role = decodedObj.role;
+  user.id = decodedObj.id;
+  user.email = decodedObj.email;
+  return user;
+}
+
+const token = localStorage.getItem('token');
 
 const initialState = {
-  token: localStorage.getItem('token') || null, // Get token from localStorage
-  user: null,
-  isAuthenticated: false,
+  token: token || null, // Get token from localStorage
+  user: token ? getUserFromToken(token) : null,
+  isLoggedIn: !!token,
 };
 
 const authReducer = (state, action) => {
@@ -19,23 +30,21 @@ const authReducer = (state, action) => {
   switch (action.type) {
 
     case LOGIN:
+      console.log('Login')
+      const user = getUserFromToken(action.payload.token);
       return {
         state,
         token: action.payload.token,
-        isLoggedIn: true
+        isLoggedIn: true,
+        user
       }
 
     case LOGOUT:
       return {
         state,
         token: null,
-        isLoggedIn: false
-      }
-
-    case SET_USER:
-      return {
-        ...state,
-        user: action.payload.user
+        isLoggedIn: false,
+        user: null
       }
 
     default:
@@ -47,17 +56,6 @@ const authReducer = (state, action) => {
 const AuthContext = createContext();
 
 // helper function to extract user from jwt token
-const createUserFromToken = (token) => {
-
-  const decodedObj = jwtDecode(token);
-  const user = {};
-  user.name = decodedObj.name;
-  user.role = decodedObj.role;
-  user.id = decodedObj.id;
-
-  return user;
-}
-
 
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
@@ -65,9 +63,7 @@ export const AuthProvider = ({ children }) => {
   const login = (token) => {
     localStorage.setItem('token', token);
     try {
-      const user = createUserFromToken(token);
       dispatch({ type: LOGIN, payload: { token } });
-      dispatch({ type: SET_USER, payload: { user } });
     } catch (error) {
       console.log(error);
     }
