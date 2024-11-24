@@ -5,7 +5,7 @@ import Search from "./search";
 function Layout({ children }) {
 
   return (
-    <div className="main-container flex flex-col md:flex-row min-h-screen bg-black text-white">
+    <div className="py-5 main-container flex flex-col md:flex-row min-h-screen bg-black text-white">
       {/* Navbar */}
       <Navbar className="w-full md:w-16 h-auto md:h-screen" />
       <div className=" main-container flexing flex flex-col flex-1">
