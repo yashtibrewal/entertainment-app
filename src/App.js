@@ -33,7 +33,6 @@ function App() {
         <Route path="/logout" element={<Logout />} />
       </Routes>
     </AuthProvider>
-
   );
 }
 
