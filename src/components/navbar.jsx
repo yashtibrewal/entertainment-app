@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="nav-container w-full md:w-16 h-14 md:h-screen md:ml-5 py-10 rounded-xl flex flex-col md:flex-col items-center justify-between sm:w-screen sm:flex sm:flex-row sm:px-7 sm:ml-0 bg-[#182828]">
+    <div className="nav-container w-full md:w-16 h-14 md:h-screen md:ml-2 py-10 rounded-xl flex flex-col md:flex-col items-center justify-between sm:w-screen sm:flex sm:flex-row sm:px-7 sm:ml-0 bg-[#182828]">
       {/* logo container */}
       <div className="logo-container ">
         <MovieCreationIcon className="text-userHover h-[40px] w-[40px]" />

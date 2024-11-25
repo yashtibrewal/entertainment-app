@@ -26,8 +26,9 @@ function App() {
             <Search />
           </div>
 
+
           {/* Routes */}
-          <div className="flexing flex-1 px-16 overflow-auto md:mt-8">
+          <div className="flexing flex-1 px-16 md:mt-8">
             <Routes>
               <Route index path="/" element={<HomePage />} />
               <Route path="/bookmark" element={<Bookmarks />} />
