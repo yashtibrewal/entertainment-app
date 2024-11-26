@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import { AuthProvider } from "./store/auth";
 import Logout from "./pages/Logout";
 import Layout from "./components/Layout";
+import TV from "./pages/tv";
 
 function App() {
   return (
@@ -20,12 +21,14 @@ function App() {
           <Route index path="/login" element={<Login />} />
           {/* // TODO: Fix protected route */}
           {/* <Route element={<ProtectedRoute />}> */}
-            <Route element={<Layout />}>\
-              <Route path="/" element={<HomePage />} />
-              <Route path="/bookmark" element={<Bookmarks />} />
-              <Route path="/movies" element={<Movies />} />
-              <Route path="/tv-series" element={<TVSeries />} />
-            </Route>
+          <Route element={<Layout />}>\
+            <Route path="/" element={<HomePage />} />
+            <Route path="/bookmark" element={<Bookmarks />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/tv-series" element={<TVSeries />} />
+          </Route>
+          {/* <Route path="/movie/:id" element={<Movie />} /> */}
+          <Route path="/tv/:id" element={<TV />} />
           {/* </Route> */}
           <Route path="/logout" element={<Logout />} />
         </Routes>
