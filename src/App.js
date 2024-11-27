@@ -11,6 +11,7 @@ import { AuthProvider } from "./store/auth";
 import Logout from "./pages/Logout";
 import Layout from "./components/Layout";
 import TV from "./pages/tv";
+import Movie from "./pages/movie";
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
             <Route path="/movies" element={<Movies />} />
             <Route path="/tv-series" element={<TVSeries />} />
           </Route>
-          {/* <Route path="/movie/:id" element={<Movie />} /> */}
+          <Route path="/movie/:id" element={<Movie />} />
           <Route path="/tv/:id" element={<TV />} />
           {/* </Route> */}
           <Route path="/logout" element={<Logout />} />
