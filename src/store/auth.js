@@ -35,7 +35,7 @@ const authReducer = (state, action) => {
   switch (action.type) {
     case LOGIN:
       const user = getUserFromToken(action.payload.entertainmentAppToken);
-      localStorage.setItem('tmdbToken', action.payload.entertainmentAppToken);
+      localStorage.setItem('tmdbToken', action.payload.tmdbToken);
       localStorage.setItem('entertainmentAppToken', action.payload.entertainmentAppToken);
       return {
         entertainmentAppToken: action.payload.entertainmentAppToken,
@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
         type: LOGIN,
         payload: {
           entertainmentAppToken: result.entertainmentAppToken,
-          tmdbToken: result.entertainmentAppToken
+          tmdbToken: result.tmdbToken
         }
       });
     } catch (error) {
