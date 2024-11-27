@@ -24,13 +24,12 @@ const Login = () => {
     const result = await loginUserApi(email, password);
 
     if (result.isSuccess) {
-      const token = result.token;
-      login(token);
+      login(result);
       navigate("/");
     } else {
       console.log(result);
     }
-    
+
   }
 
   return (
