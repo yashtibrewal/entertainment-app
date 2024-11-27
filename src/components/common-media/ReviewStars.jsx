@@ -6,7 +6,7 @@ import StarOutlineIcon from '@mui/icons-material/StarOutline';
 function ReviewStars({ rating }) {
 
   const maxVotingValue = 10;
-  const fullStarsCount = Math.floor(rating);
+  const fullStarsCount = Math.floor(rating || 10);
   const halfStar = (rating % 1) >= 0.5;
   const remaining = maxVotingValue - fullStarsCount - (halfStar ? 1 : 0);
 
