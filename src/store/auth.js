@@ -6,12 +6,13 @@ const AuthContext = createContext();
 const LOGIN = "LOGIN";
 const LOGOUT = "LOGOUT";
 
-const token = localStorage.getItem("token");
+const entertainmentAppToken = localStorage.getItem("entertainmentAppToken");
 
 // Helper function to extract user from jwt token
-function getUserFromToken(token) {
-  if (!token) return null;
-  const decodedObj = jwtDecode(token);
+function getUserFromToken(entertainmentAppToken) {
+  console.log(entertainmentAppToken)
+  if (!entertainmentAppToken) return null;
+  const decodedObj = jwtDecode(entertainmentAppToken);
   const user = {
     name: decodedObj.name,
     role: decodedObj.role,
@@ -22,9 +23,9 @@ function getUserFromToken(token) {
 };
 // Initial state
 const initialState = {
-  token, // Get token from localStorage
-  user: getUserFromToken(token),
-  isLoggedIn: !!token,
+  entertainmentAppToken: null,
+  user: null,
+  isLoggedIn: false,
 };
 
 
@@ -32,17 +33,19 @@ const initialState = {
 const authReducer = (state, action) => {
   switch (action.type) {
     case LOGIN:
-      const user = getUserFromToken(action.payload.token);
-      console.log('user', user);
+      const user = getUserFromToken(action.payload.entertainmentAppToken);
       return {
-        token: action.payload.token,
+        token: action.payload.entertainmentAppToken,
+        tmdbToken: action.payload.tmdbToken,
         isLoggedIn: true,
         user: user,
       };
 
     case LOGOUT:
+      localStorage.clear();
       return {
-        token: null,
+        entertainmentAppToken: null,
+        tmdbToken: null,
         isLoggedIn: false,
         user: null,
       };
@@ -58,17 +61,17 @@ const authReducer = (state, action) => {
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const login = (token) => {
-    localStorage.setItem('token', token);
+  const login = (result) => {
+    localStorage.setItem('entertainmentAppToken', entertainmentAppToken);
     try {
-      dispatch({ type: LOGIN, payload: { token } });
+      dispatch({ type: LOGIN, payload: { entertainmentAppToken: result.entertainmentAppToken, tmdbToken: result.entertainmentAppToken } });
     } catch (error) {
       console.log(error);
     }
   }
 
   const logout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('entertainmentAppToken');
     dispatch({ type: LOGOUT })
   }
 
