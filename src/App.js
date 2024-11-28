@@ -21,7 +21,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route index path="/login" element={<Login />} />
         <Route element={<ProtectedRoute />}>
-          <Route element={<Layout />}>\
+          <Route element={<Layout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/bookmark" element={<Bookmarks />} />
             <Route path="/movies" element={<Movies />} />
@@ -33,7 +33,6 @@ function App() {
         <Route path="/logout" element={<Logout />} />
       </Routes>
     </AuthProvider>
-
   );
 }
 
