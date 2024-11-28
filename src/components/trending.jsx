@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import TrendingCart from "./TrendingCart";
 
-const Trending = ({ cards }) => {
+const Trending = ({ trendingMovies }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dragStartX, setDragStartX] = useState(null);
   const [dragDistance, setDragDistance] = useState(0);
@@ -13,10 +13,10 @@ const Trending = ({ cards }) => {
   useEffect(() => {
     if (carouselRef.current) {
       const containerWidth = carouselRef.current.offsetWidth;
-      const contentWidth = cards.length * cardWidth;
+      const contentWidth = trendingMovies.length * cardWidth;
       setIsOverflowing(contentWidth > containerWidth);
     }
-  }, [cards]);
+  }, [trendingMovies]);
 
   const handleMouseDown = (e) => {
     if (!isOverflowing) return;
@@ -41,7 +41,7 @@ const Trending = ({ cards }) => {
 
     // Clamp the index to ensure it's within bounds
     if (newIndex < 0) newIndex = 0;
-    if (newIndex > cards.length - 1) newIndex = cards.length - 1;
+    if (newIndex > trendingMovies.length - 1) newIndex = trendingMovies.length - 1;
 
     setCurrentIndex(newIndex);
     setDragStartX(null);
@@ -66,11 +66,11 @@ const Trending = ({ cards }) => {
         }`}
         style={{
           transform: `translateX(-${currentIndex * cardWidth}px)`,
-          width: `${cards.length * cardWidth}px`,
+          width: `${trendingMovies.length * cardWidth}px`,
         }}
       >
       
-        {cards.map((card, index) => (
+        {trendingMovies.map((card, index) => (
           <div key={index} className="flex-shrink-0">
             <TrendingCart {...card} />
           </div>
