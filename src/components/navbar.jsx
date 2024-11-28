@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
-=======
-import React from "react";
->>>>>>> 6980b88 (Created Navbar UI)
 import MovieCreationIcon from "@mui/icons-material/MovieCreation";
 import { SiWindows11 } from "react-icons/si";
 import { RiFilmFill } from "react-icons/ri";

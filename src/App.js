@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Bookmarks from "./pages/Bookmarks";
 import HomePage from "./pages/HomePage";
 import Movies from "./pages/Movies";
@@ -12,17 +12,15 @@ import Logout from "./pages/Logout";
 import Layout from "./components/Layout";
 import TV from "./pages/tv";
 import Movie from "./pages/movie";
-import Navbar from "./components/navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route index path="/login" element={<Login />} />
-          {/* // TODO: Fix protected route */}
-          {/* <Route element={<ProtectedRoute />}> */}
+    <AuthProvider>
+      <Routes>
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route index path="/login" element={<Login />} />
+        <Route element={<ProtectedRoute />}>
           <Route element={<Layout />}>\
             <Route path="/" element={<HomePage />} />
             <Route path="/bookmark" element={<Bookmarks />} />
@@ -31,11 +29,10 @@ function App() {
           </Route>
           <Route path="/movie/:id" element={<Movie />} />
           <Route path="/tv/:id" element={<TV />} />
-          {/* </Route> */}
-          <Route path="/logout" element={<Logout />} />
-        </Routes>
-      </AuthProvider>
-    </BrowserRouter>
+        </Route>
+        <Route path="/logout" element={<Logout />} />
+      </Routes>
+    </AuthProvider>
 
   );
 }
