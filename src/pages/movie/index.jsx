@@ -54,7 +54,7 @@ function Movie() {
       <div className="w-2/3 space-y-10">
         {/* Title and Rating */}
         <div className="space-y-2">
-          <h1 className="text-4xl text-white">{movieResponse?.name}</h1>
+          <h1 className="text-4xl text-white">{movieResponse?.title}</h1>
           <h1 className="text-lg text-zinc-500">{movieResponse?.tagline}</h1>
         </div>
         <h2 className="text-2xl text-white">
