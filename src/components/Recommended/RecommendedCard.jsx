@@ -14,7 +14,7 @@ const RecommendedCard = ({ id, bookmark, poster_path, title, release_date, adult
     console.log('bookmark called')
     console.log('meda_type', media_type);
     if (media_type === 'movie') {
-      toggleMovieBookmark(id, bookmark).then(({ result }) => {
+      toggleMovieBookmark(id, isBookmarked).then(({ result }) => {
         console.log(result);
         setIsBookmarked(result.bookmark);
       })

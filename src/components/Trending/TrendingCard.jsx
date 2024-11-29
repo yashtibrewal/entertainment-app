@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { RiFilmFill } from "react-icons/ri";
 import { toggleMovieBookmark } from "../Recommended/api";
 
-const TrendingCard = ({ id, poster_path, title, release_date, adult, media_type }) => {
+const TrendingCard = ({ id, bookmark, poster_path, title, release_date, adult, media_type }) => {
   const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
   const [bookmarked, setBookmarked] = useState(false);
 
-  const toggleMovieBookmark = () => {
+  const bookmarkMovie = () => {
     if (media_type === 'movie') {
-      toggleBookmarkMovie(id, bookmarked)
+      toggleMovieBookmark(id, bookmarked)
         .then((result) => {
           if (result.isSuccess) {
             setBookmarked(result.result.bookmark);
@@ -20,15 +20,19 @@ const TrendingCard = ({ id, poster_path, title, release_date, adult, media_type 
     }
   }
 
+  useEffect(() => {
+    setBookmarked(bookmark);
+  }, [bookmark]);
+
   return (
     <div className="bg-black shadow-lg rounded-lg w-96 text-white overflow-hidden trending-cart">
       <div className="relative">
         <img src={`${BASE_IMAGE_URL}${poster_path}`} alt={title} className="w-full h-48 object-cover" />
         <div className="top-2 right-2 absolute bg-transparent p-2 rounded-full text-white cursor-pointer">
           {bookmarked ? (
-            <FaBookmark onClick={toggleMovieBookmark} className="text-white" />
+            <FaBookmark onClick={bookmarkMovie} className="text-white" />
           ) : (
-            <FaRegBookmark onClick={toggleMovieBookmark} className="text-white" />
+            <FaRegBookmark onClick={bookmarkMovie} className="text-white" />
           )}
         </div>
         <div className="bottom-2 left-2 absolute bg-transparent px-2 py-1 rounded text-black text-sm">

@@ -2,18 +2,29 @@ import Trending from "../components/Trending/trending";
 import Recommended from '../components/Recommended/recommended'
 import '../App.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllMovies } from '../components/Redux/MovieSlice';
-import { useEffect } from "react";
+import { fetchAllMovieBookmarks, fetchAllMovies } from '../components/Redux/MovieSlice';
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
   console.log('home page')
+
   const dispatch = useDispatch();
   const { popularMovies, trendingMovies, loading, error } = useSelector((state) => state.movies);
+
   console.log("popularMovies :", popularMovies);
+
+  const [popMovies, setPopMovies] = useState([]);
+
   useEffect(() => {
     dispatch(fetchAllMovies());
+    dispatch(fetchAllMovieBookmarks());
   }, [dispatch]);
 
+  const setMediaAsMovie = movie => { return { ...movie, media_type: 'movie' }; }
+
+  useEffect(() => {
+    setPopMovies(popularMovies.map(setMediaAsMovie));
+  }, [popularMovies])
 
   if (loading) return <p>Loading movies...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -32,7 +43,7 @@ export default function HomePage() {
 
         {/* Responsive grid layout for Recommended */}
         <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-          {popularMovies.map((card, index) => (
+          {popMovies.map((card, index) => (
             <div key={index} className="recommended-card">
               <Recommended card={[card]} />
             </div>

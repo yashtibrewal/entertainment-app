@@ -4,6 +4,7 @@ import Recommended from "../components/Recommended/recommended";
 import { fetchAllMovieBookmarks, fetchAllMovies } from "../components/Redux/MovieSlice";
 
 function Movies() {
+  console.log("Movies Page")
   const dispatch = useDispatch();
   const { popularMovies, trendingMovies, nowPlayingMovies, upcomingMovies, loading, error } = useSelector((state) => state.movies);
   const movieBookmarks = useSelector((state) => state.movies.movieBookmarks);
@@ -47,7 +48,7 @@ function Movies() {
       return acc;
     }, []);
 
-    if (movieBookmarks.length) {
+    if (movieBookmarks?.length) {
       console.log('movieBookmarks', movieBookmarks)
       uniqueMovies = uniqueMovies.map(populateBookmark)
     }
@@ -64,7 +65,7 @@ function Movies() {
       <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
         {allMovies.map((card, index) => (
           <div key={index} className="recommended-card">
-            <Recommended card={[card]} />
+            <Recommended card={[{ ...card, media_type: 'movie' }]} />
           </div>
         ))}
 
