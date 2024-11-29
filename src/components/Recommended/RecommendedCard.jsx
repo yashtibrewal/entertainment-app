@@ -31,7 +31,9 @@ const RecommendedCard = ({ id, bookmark, poster_path, title, release_date, adult
         <div className="relative">
           <img src={`${BASE_IMAGE_URL}${poster_path}`} alt={title} className="w-full h-42 object-cover" />
           <div className="top-2 right-2 absolute bg-transparent rounded-full text-black cursor-pointer">
-            <div className="top-2 right-2 absolute bg-transparent rounded-full text-black cursor-pointer">
+            <div
+              className="top-2 right-2 absolute rounded-full text-black cursor-pointer"
+              style={{ backgroundColor: 'rgba(0, 0, 0, 0.75)', padding: '10px' }}>
               {isBookmarked ? (
                 <FaBookmark onClick={bookmarkContent} className="text-white" />
               ) : (
