@@ -12,6 +12,7 @@ export default function HomePage() {
   const { popularMovies, trendingMovies, loading, error } = useSelector((state) => state.movies);
   const movieBookmarks = useSelector((state) => state.movies.movieBookmarks);
   const [popMovies, setPopMovies] = useState([]);
+  const [trendingMoviesLocal, setTrendingMoviesLocal] = useState([]);
 
   useEffect(() => {
     dispatch(fetchAllMovies());
@@ -37,6 +38,12 @@ export default function HomePage() {
     setPopMovies(popularMoviesWithBookmark);
   }, [popularMovies, populateBookmark])
 
+  useEffect(() => {
+    const trendingMoviesWithMediaType = trendingMovies.map(setMediaAsMovie);
+    const trendingMoviesWithBookmark = trendingMoviesWithMediaType.map(populateBookmark);
+    setTrendingMoviesLocal(trendingMoviesWithBookmark);
+  }, [trendingMovies, populateBookmark]);
+
   if (loading) return <p>Loading movies...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -45,7 +52,7 @@ export default function HomePage() {
     <div className="overflow-x-hidden">
       {/* Trending Section */}
       <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)]">
-        <Trending trendingMovies={trendingMovies} />
+        <Trending trendingMovies={trendingMoviesLocal} />
       </div>
 
       {/* Recommended Section  */}
