@@ -2,10 +2,17 @@ import React from "react";
 
 import '../../App.css'
 import RecommendedCard from "./RecommendedCard";
+import { useNavigate } from "react-router-dom";
 
 const Recommended = ({ card }) => {
 
+  const navigate = useNavigate();
+
   // console.log(card);
+
+  const handleClick = (id, media_type) => {
+    navigate(`/movie/${id}`);
+  }
 
   return (
     <div className="flex flex-col flex-wrap ml-6 text-xl">
@@ -14,7 +21,7 @@ const Recommended = ({ card }) => {
 
       <div className="recommended">
         {card.map((card, index) => (
-          <div className="recommended-card" key={index}>
+          <div className="recommended-card" onClick={(e) => { handleClick(card.id, card.media_type) }} key={index}>
             <RecommendedCard
               id={card.id}
               bookmark={card.bookmark}
