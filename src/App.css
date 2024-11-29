@@ -107,11 +107,6 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 
-
-.recommended-card {
-  background-color: #1a1a1a;
-  /* padding: 16px;
-  border-radius: 8px; */
 .overflow-x-hidden {
   overflow-x: hidden; /* Ensures no horizontal scroll on narrow screens */
 }
