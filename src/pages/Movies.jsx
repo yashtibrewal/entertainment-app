@@ -48,6 +48,7 @@ function Movies() {
       return acc;
     }, []);
 
+    // console.log(movieBookmarks, 'movieBookmarks');
     if (movieBookmarks?.length) {
       console.log('movieBookmarks', movieBookmarks)
       uniqueMovies = uniqueMovies.map(populateBookmark)
