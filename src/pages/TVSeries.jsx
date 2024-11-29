@@ -12,7 +12,7 @@ export default function TVSeries() {
 
   const dispatch = useDispatch();
   const { popular, trending, airingToday, onTheAir, loading, error } = useSelector((state) => state.movies);
-//  console.log("trending :",trending);
+////  console.log("trending :",trending);
 console.log("popular:",popular);//giving me as undefined?
 
   useEffect(() => {

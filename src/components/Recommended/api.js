@@ -31,7 +31,7 @@ const toggleMovieBookmark = async (movie_id, bookmarked) => {
       result
     }
   } catch (error) {
-    console.log(error);
+   console.log(error);
   }
 }
 

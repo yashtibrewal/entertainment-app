@@ -13,7 +13,7 @@ const getMovieApi = async (movie_id, tmdbToken) => {
 
   try {
     const response = await fetch(`${TMDB_BASE_URL}movie/${movie_id}?language=en-US`, requestOptions);
-    console.log(response);
+  //  console.log(response);
     const result = await response.json()
     return {
       isSuccess: true,

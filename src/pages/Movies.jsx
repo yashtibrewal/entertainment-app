@@ -4,7 +4,7 @@ import Recommended from "../components/Recommended/recommended";
 import { fetchAllMovieBookmarks, fetchAllMovies } from "../components/Redux/MovieSlice";
 
 function Movies() {
-  console.log("Movies Page")
+//  console.log("Movies Page")
   const dispatch = useDispatch();
   const { popularMovies, trendingMovies, nowPlayingMovies, upcomingMovies, loading, error } = useSelector((state) => state.movies);
   const movieBookmarks = useSelector((state) => state.movies.movieBookmarks);
@@ -49,7 +49,7 @@ function Movies() {
     }, []);
 
     if (movieBookmarks?.length) {
-      console.log('movieBookmarks', movieBookmarks)
+    //  console.log('movieBookmarks', movieBookmarks)
       uniqueMovies = uniqueMovies.map(populateBookmark)
     }
 

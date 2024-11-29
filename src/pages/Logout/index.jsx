@@ -16,7 +16,7 @@ function Logout() {
         logout(state.token);
         navigate("/login");
       } else {
-        console.log(result);
+      //  console.log(result);
       }
     };
 

@@ -16,45 +16,45 @@ const Navbar = () => {
   const [initial, setInitial] = useState('');
 
   useEffect(() => {
-    console.log('user', user);
+    // console.log('user', user);
     if (user && user.name && user.name.length) {
       setInitial(user.name.substr(0, 1).toUpperCase());
     }
   }, [user])
 
   return (
-    <div className="nav-container w-full md:w-16 h-14 md:h-[calc(100vh-5rem)] md:ml-5 py-10 rounded-xl flex flex-col md:flex-col items-center justify-between sm:w-screen sm:flex sm:flex-row sm:px-7 sm:ml-0 bg-[#182828]">
+    <div className="flex sm:flex sm:flex-row flex-col md:flex-col justify-between items-center bg-[#182828] sm:ml-0 md:ml-5 sm:px-7 py-10 rounded-xl w-full sm:w-screen md:w-16 h-14 md:h-[calc(100vh-5rem)] nav-container">
       {/* logo container */}
-      <div className="logo-container ">
-        <MovieCreationIcon className="text-userHover h-[40px] w-[40px]" />
+      <div className="logo-container">
+        <MovieCreationIcon className="w-[40px] h-[40px] text-userHover" />
       </div>
 
       {/* icon container */}
-      <div className="icon-container flex flex-col gap-6 md:flex-col md:gap-6 md:items-center sm:flex sm:flex-row">
+      <div className="flex sm:flex sm:flex-row flex-col md:flex-col md:items-center gap-6 md:gap-6 icon-container">
         {/* Home Icon Link */}
         <Link to="/" className="group">
-          <SiWindows11 className="text-userTextColor group-hover:text-userHover group-focus:text-userHoverColor text-2xl" />
+          <SiWindows11 className="group-hover:text-userHover group-focus:text-userHoverColor text-2xl text-userTextColor" />
         </Link>
 
         {/* Movies Icon Link */}
         <Link to="/movies" className="group">
-          <RiFilmFill className="text-userTextColor group-hover:text-userHover group-focus:text-userHoverColor text-2xl" />
+          <RiFilmFill className="group-hover:text-userHover group-focus:text-userHoverColor text-2xl text-userTextColor" />
         </Link>
 
         {/* Serial or TV Icon Link */}
         <Link to="/tv-series" className="group">
-          <PiTelevision className="text-userTextColor group-hover:text-userHover group-focus:text-userHoverColor text-2xl" />
+          <PiTelevision className="group-hover:text-userHover group-focus:text-userHoverColor text-2xl text-userTextColor" />
         </Link>
 
         {/* Bookmark Icon Link */}
         <Link to="/bookmark" className="group">
-          <FaBookmark className="text-userTextColor group-hover:text-userHover group-focus:text-userHoverColor text-2xl" />
+          <FaBookmark className="group-hover:text-userHover group-focus:text-userHoverColor text-2xl text-userTextColor" />
         </Link>
       </div>
 
       {/* avatar container */}
       <div className="avatar-container">
-        <Avatar sx={{ bgcolor: deepOrange[500] }} className="h-[40px] w-[40px]">
+        <Avatar sx={{ bgcolor: deepOrange[500] }} className="w-[40px] h-[40px]">
           {initial}
         </Avatar>
       </div>

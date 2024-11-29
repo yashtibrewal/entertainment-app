@@ -27,7 +27,7 @@ const Login = () => {
       login(result);
       navigate("/");
     } else {
-      console.log(result);
+    //  console.log(result);
     }
 
   }

@@ -6,7 +6,7 @@ import { fetchAllMovieBookmarks, fetchAllMovies } from '../components/Redux/Movi
 import { useCallback, useEffect, useState } from "react";
 
 export default function HomePage() {
-  console.log('home page')
+//  console.log('home page')
 
   const dispatch = useDispatch();
   const { popularMovies, trendingMovies, loading, error } = useSelector((state) => state.movies);
@@ -22,7 +22,7 @@ export default function HomePage() {
   const populateBookmark = useCallback((movie) => {
     let bookmark = false;
     const searchedMovie = movieBookmarks.find((bookmarkObj) => bookmarkObj.movie_id === movie.id);
-    console.log(searchedMovie);
+  //  console.log(searchedMovie);
     if (searchedMovie) {
       bookmark = searchedMovie.bookmark;
     }

@@ -19,13 +19,13 @@ const SignUp = () => {
       navigate("/login");
     } else {
       // TODO: Toast the message
-      console.log(result.message);
+    //  console.log(result.message);
     }
   }
 
   return (
     <div
-      className="bg-gray-900 w-screen h-screen flex flex-col justify-center items-center text-white"
+      className="flex flex-col justify-center items-center bg-gray-900 w-screen h-screen text-white"
     >
       {/* Icon Section */}
       <div className="mb-6">
@@ -35,11 +35,11 @@ const SignUp = () => {
       </div>
 
       {/* Form Container */}
-      <div className="w-80 bg-gray-800 shadow-lg rounded-xl p-6">
-        <h1 className="text-2xl font-semibold mb-6">SignUp</h1>
+      <div className="bg-gray-800 shadow-lg p-6 rounded-xl w-80">
+        <h1 className="mb-6 font-semibold text-2xl">SignUp</h1>
 
         {/* Form */}
-        <div className="w-full flex flex-col gap-2">
+        <div className="flex flex-col gap-2 w-full">
           <div className="relative">
             <input
               type="name"
@@ -47,7 +47,7 @@ const SignUp = () => {
               value={name}
               onChange={(event) => setName(event.target.value)}
               placeholder="Name"
-              className="bg-transparent border-b-2 border-gray-600 w-full text-sm py-2 px-1 focus:outline-none focus:border-red-500"
+              className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
             />
           </div>
           <div className="relative">
@@ -57,7 +57,7 @@ const SignUp = () => {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="Email"
-              className="bg-transparent border-b-2 border-gray-600 w-full text-sm py-2 px-1 focus:outline-none focus:border-red-500"
+              className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
             />
           </div>
           <div className="relative">
@@ -67,7 +67,7 @@ const SignUp = () => {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Password"
-              className="bg-transparent border-b-2 border-gray-600  w-full text-sm py-2 px-1 focus:outline-none focus:border-red-500"
+              className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
             />
           </div>
           <div className="relative">
@@ -77,19 +77,19 @@ const SignUp = () => {
               value={repeatPassword}
               onChange={(event) => setRepeatPassword(event.target.value)}
               placeholder="Repeat password"
-              className="bg-transparent border-b-2 border-gray-600  w-full text-sm py-2 px-1 focus:outline-none focus:border-red-500"
+              className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
             />
           </div>
           <button
             type="submit"
             onClick={(event) => signup(event)}
-            className="bg-red-500 hover:bg-red-600 text-white mt-2 py-2 gap-4 rounded-lg text-sm font-medium transition-all"
+            className="gap-4 bg-red-500 hover:bg-red-600 mt-2 py-2 rounded-lg font-medium text-sm text-white transition-all"
           >
             Create an account
           </button>
         </div>
         {/* Additional Links */}
-        <p className="text-sm text-gray-400 mt-4 text-center">
+        <p className="mt-4 text-center text-gray-400 text-sm">
           Already have an account?{' '}
           <a href="/login" className="text-red-500 hover:underline cursor-pointer">Login</a>
         </p>
