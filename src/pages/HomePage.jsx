@@ -3,16 +3,14 @@ import Recommended from '../components/Recommended/recommended'
 import '../App.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllMovieBookmarks, fetchAllMovies } from '../components/Redux/MovieSlice';
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function HomePage() {
   console.log('home page')
 
   const dispatch = useDispatch();
   const { popularMovies, trendingMovies, loading, error } = useSelector((state) => state.movies);
-
-  console.log("popularMovies :", popularMovies);
-
+  const movieBookmarks = useSelector((state) => state.movies.movieBookmarks);
   const [popMovies, setPopMovies] = useState([]);
 
   useEffect(() => {
@@ -20,11 +18,24 @@ export default function HomePage() {
     dispatch(fetchAllMovieBookmarks());
   }, [dispatch]);
 
+  const populateBookmark = useCallback((movie) => {
+    let bookmark = false;
+    const searchedMovie = movieBookmarks.find((bookmarkObj) => bookmarkObj.movie_id === movie.id);
+    console.log(searchedMovie);
+    if (searchedMovie) {
+      bookmark = searchedMovie.bookmark;
+    }
+    const updatedMovie = { ...movie, bookmark };
+    return updatedMovie;
+  }, [movieBookmarks])
+
   const setMediaAsMovie = movie => { return { ...movie, media_type: 'movie' }; }
 
   useEffect(() => {
-    setPopMovies(popularMovies.map(setMediaAsMovie));
-  }, [popularMovies])
+    const popularMoviesWithMedia = popularMovies.map(setMediaAsMovie);
+    const popularMoviesWithBookmark = popularMoviesWithMedia.map(populateBookmark);
+    setPopMovies(popularMoviesWithBookmark);
+  }, [popularMovies, populateBookmark])
 
   if (loading) return <p>Loading movies...</p>;
   if (error) return <p>Error: {error}</p>;

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Recommended from "../components/Recommended/recommended";
 import { fetchAllMovieBookmarks, fetchAllMovies } from "../components/Redux/MovieSlice";
@@ -20,7 +20,7 @@ function Movies() {
     return { ...movie, media_type: 'movie' };
   }
 
-  const populateBookmark = (movie) => {
+  const populateBookmark = useCallback((movie) => {
     let bookmark = false;
     const searchedMovie = movieBookmarks.find((bookmark) => bookmark.movie_id === movie.id);
     if (searchedMovie) {
@@ -28,7 +28,7 @@ function Movies() {
     }
     const updatedMovie = { ...movie, bookmark };
     return updatedMovie;
-  }
+  }, [movieBookmarks]);
 
   const allMovies = useMemo(() => {
     let combinedMovies = [
@@ -48,14 +48,14 @@ function Movies() {
       return acc;
     }, []);
 
-    // console.log(movieBookmarks, 'movieBookmarks');
+    console.log(movieBookmarks, 'movieBookmarks');
     if (movieBookmarks?.length) {
       console.log('movieBookmarks', movieBookmarks)
       uniqueMovies = uniqueMovies.map(populateBookmark)
     }
 
     return uniqueMovies;
-  }, [popularMovies, trendingMovies, nowPlayingMovies, upcomingMovies, movieBookmarks]);
+  }, [popularMovies, trendingMovies, nowPlayingMovies, upcomingMovies, movieBookmarks, populateBookmark]);
 
 
   if (loading) return <p>Loading movies...</p>;
