@@ -34,7 +34,7 @@ const Login = () => {
 
   return (
     <div
-      className="bg-gray-900 w-[100vw] h-[100vh] flex flex-col justify-center items-center text-white"
+      className="flex flex-col justify-center items-center bg-gray-900 w-[100vw] h-[100vh] text-white"
     >
       {/* Icon Section */}
       <div className="mb-6">
@@ -44,11 +44,11 @@ const Login = () => {
       </div>
 
       {/* Form Container */}
-      <div data-aos="flip-right" className="w-80 bg-gray-800 shadow-lg rounded-xl p-6">
-        <h1 className="text-2xl font-semibold mb-6">Login</h1>
+      <div data-aos="flip-right" className="bg-gray-800 shadow-lg p-6 rounded-xl w-80">
+        <h1 className="mb-6 font-semibold text-2xl">Login</h1>
 
         {/* Form */}
-        <div className="w-full flex flex-col gap-2">
+        <div className="flex flex-col gap-2 w-full">
           <div className="relative">
             <input
               type="email"
@@ -56,7 +56,7 @@ const Login = () => {
               value={email}
               onChange={event => setEmail(event.target.value)}
               placeholder="Email address"
-              className="bg-transparent border-b-2 border-gray-600 w-full text-sm py-2 px-1 focus:outline-none focus:border-red-500"
+              className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
             />
           </div>
           <div className="relative">
@@ -66,20 +66,20 @@ const Login = () => {
               value={password}
               onChange={event => setPassword(event.target.value)}
               placeholder="Password"
-              className="bg-transparent border-b-2 border-gray-600  w-full text-sm py-2 px-1 focus:outline-none focus:border-red-500"
+              className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
             />
           </div>
           <button
             type="button"
             onClick={loginUser}
-            className="bg-red-500 hover:bg-red-600 text-white py-2 gap-4 rounded-lg text-sm font-medium transition-all"
+            className="gap-4 bg-red-500 hover:bg-red-600 py-2 rounded-lg font-medium text-sm text-white transition-all"
           >
             Login to your account
           </button>
         </div>
 
         {/* Additional Links */}
-        <p className="text-sm text-gray-400 mt-4 text-center">
+        <p className="mt-4 text-center text-gray-400 text-sm">
           Don't have an account?{' '}
           <a href="sign-up" className="text-red-500 hover:underline cursor-pointer">Sign Up</a>
         </p>
