@@ -2,33 +2,34 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 
-const BASE_URL = 'https://api.themoviedb.org/3';
+const BASE_TMDB_URL = 'https://api.themoviedb.org/3';
+const BASE_ENTERTAINMENT_APP_URL = 'http://localhost:4000/';
 
 
 export const fetchAllMovies = createAsyncThunk(
   'movies/fetchAllMovies',
   async (_, thunkAPI) => {
     try {
-      const tmdbToken = localStorage.getItem('tmdbToken'); 
-      //const tmdbToken ="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NTFlMmY5ODc3NTlhNjk2MzZiYzc1ZDYwYjhhZjg1OCIsIm5iZiI6MTczMjc3NDE2NC44OTI5MjMsInN1YiI6IjY3MjY0NjhmZTcyNTg0OGExOTNhYmY5NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.U0wXCRM3yfU6BMgn-nnFI9RW3m04vmlOFMoYaTSlZkw";
+      const tmdbToken = localStorage.getItem('tmdbToken');
+
       if (!tmdbToken) {
         return thunkAPI.rejectWithValue('TMDB token not found in local storage.');
       }
       console.log(tmdbToken);
 
       const requests = [
-        axios.get(`${BASE_URL}/movie/popular`, {
+        axios.get(`${BASE_TMDB_URL}/movie/popular`, {
           headers: { Authorization: `Bearer ${tmdbToken}` },
         }),
-        axios.get(`${BASE_URL}/trending/movie/week`, {
+        axios.get(`${BASE_TMDB_URL}/trending/movie/week`, {
           headers: { Authorization: `Bearer ${tmdbToken}` },
         }),
-        axios.get(`${BASE_URL}/movie/now_playing`, {
+        axios.get(`${BASE_TMDB_URL}/movie/now_playing`, {
           headers: { Authorization: `Bearer ${tmdbToken}` },
         }),
-        axios.get(`${BASE_URL}/movie/upcoming`, {
+        axios.get(`${BASE_TMDB_URL}/movie/upcoming`, {
           headers: { Authorization: `Bearer ${tmdbToken}` },
-        }),
+        })
       ];
 
       const results = await Promise.allSettled(requests);
@@ -47,6 +48,32 @@ export const fetchAllMovies = createAsyncThunk(
   }
 );
 
+export const fetchAllMovieBookmarks = createAsyncThunk(
+  'movies/fetchAllMovieBookmarks',
+  async (_, thunkAPI) => {
+    try {
+      const entertainmentAppToken = localStorage.getItem('entertainmentAppToken');
+
+      if (!entertainmentAppToken) {
+        return thunkAPI.rejectWithValue('entertainmentAppToken token not found in local storage.');
+      }
+      console.log(entertainmentAppToken);
+
+      const result = await axios.get(`${BASE_ENTERTAINMENT_APP_URL}movie/bookmarks`, {
+        headers: { Authorization: `Bearer ${entertainmentAppToken}` },
+      })
+      return result.data;
+
+    } catch (error) {
+      console.error('Error fetching bookmarks:', error);
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.status_message || "Failed to fetch movies' bookmarks."
+      );
+    }
+
+  }
+)
+
 // Search for movies based on a query
 
 /**
@@ -60,7 +87,7 @@ const movieSlice = createSlice({
     trendingMovies: [],
     nowPlayingMovies: [],
     upcomingMovies: [],
-  
+    movieBookmarks: [],
     loading: false,
     error: null,
   },
@@ -84,12 +111,14 @@ const movieSlice = createSlice({
         state.nowPlayingMovies = action.payload.nowPlaying;
         state.upcomingMovies = action.payload.upcoming;
       })
-      .addCase(fetchAllMovies.rejected, (state, action) => {
+      .addCase(fetchAllMovieBookmarks.fulfilled, (state, action) => {
+        // console.log('action payload data', action.payload.data)
+        state.movieBookmarks = action.payload;
+      })
+      .addCase(fetchAllMovieBookmarks.rejected || fetchAllMovies.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
-
-     
   },
 });
 

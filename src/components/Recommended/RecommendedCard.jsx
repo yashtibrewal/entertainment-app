@@ -1,32 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { RiFilmFill } from "react-icons/ri";
-import { CiBookmark } from "react-icons/ci";
 
 import '../../App.css'
-import { bookmarkMovie } from "./api";
+import { toggleMovieBookmark } from "./api";
 
-const RecommendedCard = ({ id, poster_path, title, release_date, adult, media_type }) => {
+const RecommendedCard = ({ id, bookmark, poster_path, title, release_date, adult, media_type }) => {
 
   const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
-
-  const [bookmarked, setBookmarked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(bookmark);
 
   const bookmarkContent = () => {
     console.log('bookmark called')
-    console.log(media_type);
-    // TODO: fix why media type is not being set in card.
+    console.log('meda_type', media_type);
     if (media_type === 'movie') {
-      bookmarkMovie(id, bookmarked)
-        .then((result) => {
-          if (result.isSuccess) {
-            setBookmarked(result.result.bookmark);
-          } else {
-            console.log('error', result);
-          }
-        });
+      toggleMovieBookmark(id, bookmark).then(({ result }) => {
+        console.log(result);
+        setIsBookmarked(result.bookmark);
+      })
     }
   }
+
+  useEffect(() => {
+    setIsBookmarked(bookmark);
+  }, [bookmark]);
 
   return (
     <div className="flex flex-col">
@@ -35,7 +32,7 @@ const RecommendedCard = ({ id, poster_path, title, release_date, adult, media_ty
           <img src={`${BASE_IMAGE_URL}${poster_path}`} alt={title} className="w-full h-42 object-cover" />
           <div className="top-2 right-2 absolute bg-transparent rounded-full text-black cursor-pointer">
             <div className="top-2 right-2 absolute bg-transparent rounded-full text-black cursor-pointer">
-              {bookmarked ? (
+              {isBookmarked ? (
                 <FaBookmark onClick={bookmarkContent} className="text-white" />
               ) : (
                 <FaRegBookmark onClick={bookmarkContent} className="text-white" />

@@ -1,6 +1,6 @@
 
 
-const bookmarkMovie = async (movie_id, bookmarked) => {
+const toggleMovieBookmark = async (movie_id, bookmarked) => {
 
   const headers = new Headers();
 
@@ -36,5 +36,5 @@ const bookmarkMovie = async (movie_id, bookmarked) => {
 }
 
 export {
-  bookmarkMovie
+  toggleMovieBookmark
 }

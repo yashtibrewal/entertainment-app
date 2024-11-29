@@ -5,7 +5,7 @@ import RecommendedCard from "./RecommendedCard";
 
 const Recommended = ({ card }) => {
 
-  console.log(card);
+  // console.log(card);
 
   return (
     <div className="flex flex-col flex-wrap ml-6 text-xl">
@@ -17,6 +17,7 @@ const Recommended = ({ card }) => {
           <div className="recommended-card" key={index}>
             <RecommendedCard
               id={card.id}
+              bookmark={card.bookmark}
               poster_path={card.poster_path}
               title={card.title}
               release_date={card.release_date}
