@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { RiFilmFill } from "react-icons/ri";
-import { bookmarkMovie } from "../Recommended/api";
+import { toggleMovieBookmark } from "../Recommended/api";
 
 const TrendingCard = ({ id, poster_path, title, release_date, adult, media_type }) => {
   const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
   const [bookmarked, setBookmarked] = useState(false);
 
-  const bookmarkContent = () => {
+  const toggleMovieBookmark = () => {
     if (media_type === 'movie') {
-      bookmarkMovie(id, bookmarked)
+      toggleBookmarkMovie(id, bookmarked)
         .then((result) => {
           if (result.isSuccess) {
             setBookmarked(result.result.bookmark);

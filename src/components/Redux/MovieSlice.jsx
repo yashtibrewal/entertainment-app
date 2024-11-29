@@ -113,7 +113,7 @@ const movieSlice = createSlice({
       })
       .addCase(fetchAllMovieBookmarks.fulfilled, (state, action) => {
         // console.log('action payload data', action.payload.data)
-        state.movieBookmarks = action.payload;
+        state.movieBookmarks = action.payload.data;
       })
       .addCase(fetchAllMovieBookmarks.rejected || fetchAllMovies.rejected, (state, action) => {
         state.loading = false;
