@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import TrendingCard from "./TrendingCard";
+import { useNavigate } from "react-router-dom";
 
 const Trending = ({ trendingMovies }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -8,6 +9,7 @@ const Trending = ({ trendingMovies }) => {
   const [isOverflowing, setIsOverflowing] = useState(false);
   const cardWidth = 350; // Width of a single card (w-96 in Tailwind)
   const carouselRef = useRef(null);
+  const navigate = useNavigate();
 
   // Check if the cards overflow the container
   useEffect(() => {
@@ -48,6 +50,13 @@ const Trending = ({ trendingMovies }) => {
     setDragDistance(0);
   };
 
+  const handleClick = (id, media_type) => {
+    console.log(id, media_type);
+    if (media_type === 'movie') {
+      navigate(`/movie/${id}`);
+    }
+  }
+
   return (
     <div
       ref={carouselRef}
@@ -59,19 +68,19 @@ const Trending = ({ trendingMovies }) => {
       onTouchMove={handleMouseMove}
       onTouchEnd={handleMouseUp}
     >
-    <h1 className="mb-3 font-semibold text-2xl text-white">Trending</h1>
+      <h1 className="mb-3 font-semibold text-2xl text-white">Trending</h1>
       <div
-        className={`flex gap-3 transition-transform duration-300 ease-out ${
-          isOverflowing ? "" : "justify-center"
-        }`}
+        className={`flex gap-3 transition-transform duration-300 ease-out ${isOverflowing ? "" : "justify-center"
+          }`}
+
         style={{
           transform: `translateX(-${currentIndex * cardWidth}px)`,
           width: `${trendingMovies.length * cardWidth}px`,
         }}
       >
-      
+
         {trendingMovies.map((card, index) => (
-          <div key={index} className="flex-shrink-0">
+          <div onClick={(e) => { handleClick(card.id, card.media_type) }} key={index} className="flex-shrink-0">
             <TrendingCard {...card} />
           </div>
         ))}

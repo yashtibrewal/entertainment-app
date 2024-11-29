@@ -7,7 +7,8 @@ const TrendingCard = ({ id, bookmark, poster_path, title, release_date, adult, m
   const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
   const [bookmarked, setBookmarked] = useState(false);
 
-  const handleBookMarkClick = () => {
+  const handleBookMarkClick = (event) => {
+    event.stopPropagation();
     if (media_type === 'movie') {
       toggleMovieBookmark(id, bookmarked)
         .then((result) => {
@@ -28,11 +29,11 @@ const TrendingCard = ({ id, bookmark, poster_path, title, release_date, adult, m
     <div className="bg-black shadow-lg rounded-lg w-96 text-white overflow-hidden trending-cart">
       <div className="relative">
         <img src={`${BASE_IMAGE_URL}${poster_path}`} alt={title} className="w-full h-48 object-cover" />
-        <div className="top-2 right-2 absolute bg-transparent p-2 rounded-full text-white cursor-pointer">
+        <div onClick={handleBookMarkClick} className="top-2 right-2 absolute bg-black bg-opacity-75 p-2.5 rounded-full cursor-pointer">
           {bookmarked ? (
-            <FaBookmark onClick={handleBookMarkClick} className="text-white" />
+            <FaBookmark className="text-white" />
           ) : (
-            <FaRegBookmark onClick={handleBookMarkClick} className="text-white" />
+            <FaRegBookmark className="text-white" />
           )}
         </div>
         <div className="bottom-2 left-2 absolute bg-transparent px-2 py-1 rounded text-black text-sm">

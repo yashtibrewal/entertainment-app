@@ -10,12 +10,11 @@ const RecommendedCard = ({ id, bookmark, poster_path, title, release_date, adult
   const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
   const [isBookmarked, setIsBookmarked] = useState(bookmark);
 
-  const bookmarkContent = () => {
-    console.log('bookmark called')
-    console.log('media_type', media_type);
+  const bookmarkContent = (event) => {
+    event.stopPropagation();
     if (media_type === 'movie') {
       toggleMovieBookmark(id, isBookmarked).then(({ result }) => {
-        console.log('result', result);
+        //  console.log('result', result);
         setIsBookmarked(result.bookmark);
       })
     }
@@ -32,12 +31,12 @@ const RecommendedCard = ({ id, bookmark, poster_path, title, release_date, adult
           <img src={`${BASE_IMAGE_URL}${poster_path}`} alt={title} className="w-full h-42 object-cover" />
           <div className="top-2 right-2 absolute bg-transparent rounded-full text-black cursor-pointer">
             <div
-              className="top-2 right-2 absolute rounded-full text-black cursor-pointer"
-              style={{ backgroundColor: 'rgba(0, 0, 0, 0.75)', padding: '10px' }}>
+              onClick={bookmarkContent}
+              className="top-2 right-2 absolute bg-black bg-opacity-75 p-2.5 rounded-full cursor-pointer">
               {isBookmarked ? (
-                <FaBookmark onClick={bookmarkContent} className="text-white" />
+                <FaBookmark className="text-white" />
               ) : (
-                <FaRegBookmark onClick={bookmarkContent} className="text-white" />
+                <FaRegBookmark className="text-white" />
               )}
             </div>
 

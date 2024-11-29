@@ -10,6 +10,7 @@ export const fetchAllMovies = createAsyncThunk(
   'movies/fetchAllMovies',
   async (_, thunkAPI) => {
     try {
+      console.info('fetchAllMovies called');
       const tmdbToken = localStorage.getItem('tmdbToken');
 
       if (!tmdbToken) {
@@ -52,6 +53,7 @@ export const fetchAllMovieBookmarks = createAsyncThunk(
   'movies/fetchAllMovieBookmarks',
   async (_, thunkAPI) => {
     try {
+      console.info('fetchAllMovieBookmarks called');
       const entertainmentAppToken = localStorage.getItem('entertainmentAppToken');
 
       if (!entertainmentAppToken) {

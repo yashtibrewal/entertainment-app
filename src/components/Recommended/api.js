@@ -1,7 +1,7 @@
 
 
 const toggleMovieBookmark = async (movie_id, bookmarked) => {
-
+  console.info('toggleMovieBookmark called');
   const headers = new Headers();
 
   const entertainmentAppToken = localStorage.getItem('entertainmentAppToken');
