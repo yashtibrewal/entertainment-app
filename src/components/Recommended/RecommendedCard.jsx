@@ -1,0 +1,69 @@
+import React, { useState } from "react";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+import { RiFilmFill } from "react-icons/ri";
+import { CiBookmark } from "react-icons/ci";
+
+import '../../App.css'
+import { bookmarkMovie } from "./api";
+
+const RecommendedCard = ({ id, poster_path, title, release_date, adult, media_type }) => {
+
+  const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
+
+  const [bookmarked, setBookmarked] = useState(false);
+
+  const bookmarkContent = () => {
+    console.log('bookmark called')
+    console.log(media_type);
+    // TODO: fix why media type is not being set in card.
+    if (media_type === 'movie') {
+      bookmarkMovie(id, bookmarked)
+        .then((result) => {
+          if (result.isSuccess) {
+            setBookmarked(result.result.bookmark);
+          } else {
+            console.log('error', result);
+          }
+        });
+    }
+  }
+
+  return (
+    <div className="flex flex-col">
+      <div className="bg-white shadow-lg rounded-lg w-64 reco-card">
+        <div className="relative">
+          <img src={`${BASE_IMAGE_URL}${poster_path}`} alt={title} className="w-full h-42 object-cover" />
+          <div className="top-2 right-2 absolute bg-transparent rounded-full text-black cursor-pointer">
+            <div className="top-2 right-2 absolute bg-transparent rounded-full text-black cursor-pointer">
+              {bookmarked ? (
+                <FaBookmark onClick={bookmarkContent} className="text-white" />
+              ) : (
+                <FaRegBookmark onClick={bookmarkContent} className="text-white" />
+              )}
+            </div>
+
+          </div>
+        </div>
+        {/* Content section below the image */}
+
+      </div>
+      <div className="content-sec px-2 py-1 text-white text-xs">
+        <ul className="flex content-sec gap-3">
+          <li className="flex flex-col items-center text-white text-xs">
+            <span className="mr-1">{release_date.slice(0, 4)}</span>
+          </li>
+          <li className="flex items-center">
+            <RiFilmFill className="mr-1 text-white" />
+            <span>{media_type ? media_type : "Movie"}</span>
+          </li>
+          <li className="flex items-center text-xs">
+            <span>{adult ? "PG" : "UG"}</span>
+          </li>
+        </ul>
+        <h3 className="mt-2 text-lg">{title}</h3>
+      </div>
+    </div>
+  );
+};
+
+export default RecommendedCard;

@@ -1,5 +1,5 @@
-import Trending from "../components/trending";
-import Recommended from '../components/recommended'
+import Trending from "../components/Trending/trending";
+import Recommended from '../components/Recommended/recommended'
 import '../App.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllMovies } from '../components/Redux/MovieSlice';
@@ -26,15 +26,15 @@ console.log("popular:",popular);//giving me as undefined?
 
       <div className="overflow-x-hidden">
       {/* Trending Section */}
-      <div className="max-w-[calc(100vw-120px)] md:ml-4 p-4">
+      <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)]">
         <Trending trendingMovies={trending} />
       </div>
 
       {/* Recommended Section  */}
-      <div className=" home-width max-w-[calc(100vw-120px)] md:ml-4 p-4">
-        <h1 className="text-white text-2xl font-semibold mb-4">Recommended for you</h1>
+      <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
+        <h1 className="mb-4 font-semibold text-2xl text-white">Recommended for you</h1>
         {/* Responsive grid layout for Recommended */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
           {popular.map((card, index) => (
             <div key={index} className="recommended-card">
               <Recommended card={[card]} />
