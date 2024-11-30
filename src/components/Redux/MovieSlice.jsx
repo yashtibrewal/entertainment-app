@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { BASE_LOCAL_URL } from '../../constants';
+import { BASE_LOCAL_URL, TMDB_BASE_URL } from '../../constants';
 
 
-const BASE_TMDB_URL = 'https://api.themoviedb.org/3';
+const BASE_TMDB_URL = TMDB_BASE_URL;
 const BASE_ENTERTAINMENT_APP_URL = BASE_LOCAL_URL;
 
 

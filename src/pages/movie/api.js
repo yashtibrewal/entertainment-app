@@ -1,7 +1,8 @@
 import { TMDB_BASE_URL } from "../../constants";
 
-const getMovieApi = async (movie_id, tmdbToken) => {
+const getMovieApi = async (movie_id) => {
 
+  const tmdbToken = localStorage.getItem("tmdbToken");
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${tmdbToken}`);
@@ -13,7 +14,7 @@ const getMovieApi = async (movie_id, tmdbToken) => {
 
   try {
     const response = await fetch(`${TMDB_BASE_URL}movie/${movie_id}?language=en-US`, requestOptions);
-  //  console.log(response);
+    //  console.log(response);
     const result = await response.json()
     return {
       isSuccess: true,
@@ -29,8 +30,9 @@ const getMovieApi = async (movie_id, tmdbToken) => {
   }
 }
 
-const getMovieCastApi = async (movie_id, tmdbToken) => {
+const getMovieCastApi = async (movie_id) => {
 
+  const tmdbToken = localStorage.getItem("tmdbToken");
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${tmdbToken}`);

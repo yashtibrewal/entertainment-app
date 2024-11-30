@@ -22,8 +22,8 @@ function Movie() {
     setLoading(true);
 
     Promise.all([
-      getMovieApi(id, state.tmdbToken),
-      getMovieCastApi(id, state.tmdbToken),
+      getMovieApi(id),
+      getMovieCastApi(id),
     ])
       .then(([movieResponse, castResults]) => {
         setMovieResponse(movieResponse.result);
@@ -40,7 +40,7 @@ function Movie() {
   return loading ? (
     <div>Loading</div>
   ) : (
-    <div className="flex bg-black gap-x-10 min-h-screen px-12 lg:px-24 xl:px-48 lg:py-6 2xl:py-12">
+    <div className="flex gap-x-10 bg-black px-12 lg:px-24 xl:px-48 lg:py-6 2xl:py-12 min-h-screen">
       {/* Poster Section */}
       <div className="w-1/3">
         <img
@@ -51,7 +51,7 @@ function Movie() {
       </div>
 
       {/* Details Section */}
-      <div className="w-2/3 space-y-10">
+      <div className="space-y-10 w-2/3">
         {/* Title and Rating */}
         <div className="space-y-2">
           <h1 className="text-4xl text-white">{movieResponse?.title}</h1>
@@ -70,8 +70,8 @@ function Movie() {
         </div>
 
         {/* Genres */}
-        <div className="w-full space-y-3">
-          <h3 className="text-xl text-white">Genres</h3>
+        <div className="space-y-3 w-full">
+          <h3 className="text-white text-xl">Genres</h3>
           <div className="flex flex-wrap gap-x-2">
             {movieResponse?.genres?.map((genre) => (
               <Genre key={genre.id}>{genre.name}</Genre>
@@ -81,7 +81,7 @@ function Movie() {
 
         {/* Overview */}
         <div className="space-y-3">
-          <h3 className="text-xl text-white">Overview</h3>
+          <h3 className="text-white text-xl">Overview</h3>
           <div className="text-white leading-tight tracking-tight">
             {movieResponse?.overview}
           </div>
@@ -89,7 +89,7 @@ function Movie() {
 
         {/* Casts */}
         <div className="space-y-3">
-          <h3 className="text-xl text-white">Casts</h3>
+          <h3 className="text-white text-xl">Casts</h3>
           <div className="flex flex-wrap gap-x-2 gap-y-2">
             {castResponse?.cast?.map((cast) => (
               <Caste key={cast.id}>{cast.name}</Caste>
@@ -101,15 +101,15 @@ function Movie() {
         <div className="flex space-x-5">
           <button
             onClick={() => window.open(movieResponse?.homepage, "_blank")}
-            className="bg-blue-700 hover:bg-blue-800 text-white rounded py-2 px-5 flex items-center"
+            className="flex items-center bg-blue-700 hover:bg-blue-800 px-5 py-2 rounded text-white"
           >
-            Website <LinkIcon className="-rotate-45 ml-2" />
+            Website <LinkIcon className="ml-2 -rotate-45" />
           </button>
           <button
             onClick={() => window.open(`https://www.imdb.com/title/${movieResponse.imdb_id}/`, "_blank")}
-            className="bg-blue-700 hover:bg-blue-800 text-white rounded py-2 px-5 flex items-center"
+            className="flex items-center bg-blue-700 hover:bg-blue-800 px-5 py-2 rounded text-white"
           >
-            IMDB <LinkIcon className="-rotate-45 ml-2" />
+            IMDB <LinkIcon className="ml-2 -rotate-45" />
           </button>
         </div>
       </div>
