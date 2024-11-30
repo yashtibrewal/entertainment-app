@@ -25,7 +25,7 @@ const RecommendedCard = ({ id, bookmark, poster_path, title, release_date, adult
   }, [bookmark]);
 
   return (
-    <div className="relative flex flex-col w-56">
+    <div className="relative flex flex-col w-48">
       <img
         src={`${BASE_IMAGE_URL}${poster_path}`}
         alt={title}
