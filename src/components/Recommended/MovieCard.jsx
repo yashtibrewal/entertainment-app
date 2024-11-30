@@ -4,10 +4,10 @@ import { RiFilmFill } from "react-icons/ri";
 
 import '../../App.css'
 import { toggleMovieBookmark } from "./api";
+import { BASE_IMAGE_URL } from "../../constants";
 
 const RecommendedCard = ({ id, bookmark, poster_path, title, release_date, adult, media_type }) => {
 
-  const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
   const [isBookmarked, setIsBookmarked] = useState(bookmark);
 
   const bookmarkContent = (event) => {

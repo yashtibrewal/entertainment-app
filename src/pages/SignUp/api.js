@@ -1,3 +1,4 @@
+import { BASE_LOCAL_URL } from "../../constants";
 
 
 const registerUser = async (name, email, password) => {
@@ -22,7 +23,7 @@ const registerUser = async (name, email, password) => {
 
   try {
     // Send request and handle the response
-    const response = await fetch("http://localhost:4000/user/register", requestOptions);
+    const response = await fetch(`${BASE_LOCAL_URL}user/register`, requestOptions);
     const result = await response.json()
 
     if (response.status === 201) {

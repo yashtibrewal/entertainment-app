@@ -1,3 +1,4 @@
+import { BASE_LOCAL_URL } from "../../constants";
 
 
 const loginUserApi = async (email, password) => {
@@ -21,7 +22,7 @@ const loginUserApi = async (email, password) => {
 
   try {
     // Send request and handle the response
-    const response = await fetch("http://localhost:4000/user/login", requestOptions);
+    const response = await fetch(`${BASE_LOCAL_URL}user/login`, requestOptions);
     const result = await response.json()
     if (response.status === 200) {
       result.isSuccess = true;

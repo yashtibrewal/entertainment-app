@@ -1,4 +1,4 @@
-const TMDB_BASE_URL = 'https://api.themoviedb.org/3/';
+import { TMDB_BASE_URL } from "../../constants";
 
 const getMovieApi = async (movie_id, tmdbToken) => {
 
@@ -27,21 +27,6 @@ const getMovieApi = async (movie_id, tmdbToken) => {
       message: error.message
     }
   }
-
-  // const url = 'https://api.themoviedb.org/3/movie/974576?language=en-US';
-  // const options = {
-  //   method: 'GET',
-  //   headers: {
-  //     accept: 'application/json',
-  //     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNDVkMjhhZDc4YjVlMjM2MWY0NmRkODAyOWZjMzczNyIsIm5iZiI6MTczMjcxMTA0MS4zNTA2NDE1LCJzdWIiOiI2NzNhZGEyNTczYTQ1ZTUxODRiZjllYmUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.lMh45dPbE3l8w04KHxVh4QCos5hMTe7yRQ9nbwamV9g'
-  //   }
-  // };
-  
-  // fetch(url, options)
-  //   .then(res => res.json())
-  //   .then(json => console.log(json))
-  //   .catch(err => console.error(err));
-
 }
 
 const getMovieCastApi = async (movie_id, tmdbToken) => {

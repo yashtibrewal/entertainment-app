@@ -1,3 +1,4 @@
+import { BASE_LOCAL_URL } from "../../constants";
 
 
 const toggleMovieBookmark = async (movie_id, bookmarked) => {
@@ -13,7 +14,7 @@ const toggleMovieBookmark = async (movie_id, bookmarked) => {
     bookmark: !bookmarked
   });
 
-  const url = `http://localhost:4000/movie/bookmark/${movie_id}`
+  const url = `${BASE_LOCAL_URL}movie/bookmark/${movie_id}`
 
 
   const requestOptions = {
@@ -31,7 +32,7 @@ const toggleMovieBookmark = async (movie_id, bookmarked) => {
       result
     }
   } catch (error) {
-   console.log(error);
+    console.log(error);
   }
 }
 
