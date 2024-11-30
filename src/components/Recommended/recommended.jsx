@@ -1,7 +1,7 @@
 import React from "react";
 
 import '../../App.css'
-import RecommendedCard from "./MovieCard";
+import ContentCard from "./ContentCard";
 import { useNavigate } from "react-router-dom";
 
 const Recommended = ({ card }) => {
@@ -27,7 +27,7 @@ const Recommended = ({ card }) => {
             className="recommended-card"
             onClick={(e) => { handleClick(card.id, card.media_type) }}
             key={index}>
-            <RecommendedCard
+            <ContentCard
               id={card.id}
               bookmark={card.bookmark}
               poster_path={card.poster_path}

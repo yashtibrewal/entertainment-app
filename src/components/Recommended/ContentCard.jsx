@@ -6,8 +6,8 @@ import '../../App.css'
 import { toggleMovieBookmark } from "./api";
 import { BASE_IMAGE_URL } from "../../constants";
 
-const RecommendedCard = ({ id, bookmark, poster_path, title, release_date, adult, media_type }) => {
-
+const ContentCard = ({ id, bookmark, poster_path, title, release_date, adult, media_type }) => {
+  console.log({ id, bookmark, poster_path, title, release_date, adult, media_type });
   const [isBookmarked, setIsBookmarked] = useState(bookmark);
 
   const bookmarkContent = (event) => {
@@ -61,4 +61,4 @@ const RecommendedCard = ({ id, bookmark, poster_path, title, release_date, adult
   );
 };
 
-export default RecommendedCard;
+export default ContentCard;
