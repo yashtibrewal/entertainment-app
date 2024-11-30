@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.content {
+  @apply flex flex-wrap gap-x-1 gap-y-1 sm:gap-y-2 sm:gap-x-2 md:gap-y-5 md:gap-x-5 xl:gap-y-10 xl:gap-x-10 2xl:gap-x-20
+}

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Recommended from "../components/Recommended/recommended";
 import { fetchAllMovieBookmarks, fetchAllMovies } from "../components/Redux/MovieSlice";
+import style from './../components/common-media/content.module.css';
 
 function Movies() {
   //  console.log("Movies Page")
@@ -62,7 +63,7 @@ function Movies() {
   return (
     <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
       {/* <h1 className="mb-4 font-semibold text-2xl text-white">Recommended for you</h1> */}
-      <div className="flex flex-wrap gap-x-1 gap-y-1 sm:gap-y-2 sm:gap-x-2 md:gap-y-5 md:gap-x-5 xl:gap-y-10 xl:gap-x-10 2xl:gap-x-20">
+      <div className={style.content}>
         {allMovies.map((card, index) => (
           <div key={index} className="recommended-card">
             <Recommended card={[{ ...card, media_type: 'movie' }]} />

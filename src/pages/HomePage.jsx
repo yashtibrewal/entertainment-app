@@ -4,9 +4,10 @@ import '../App.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllMovieBookmarks, fetchAllMovies } from '../components/Redux/MovieSlice';
 import { useCallback, useEffect, useState } from "react";
+import style from './../components/common-media/content.module.css';
 
 export default function HomePage() {
-//  console.log('home page')
+  //  console.log('home page')
 
   const dispatch = useDispatch();
   const { popularMovies, trendingMovies, loading, error } = useSelector((state) => state.movies);
@@ -22,7 +23,7 @@ export default function HomePage() {
   const populateBookmark = useCallback((movie) => {
     let bookmark = false;
     const searchedMovie = movieBookmarks.find((bookmarkObj) => bookmarkObj.movie_id === movie.id);
-  //  console.log(searchedMovie);
+    //  console.log(searchedMovie);
     if (searchedMovie) {
       bookmark = searchedMovie.bookmark;
     }
@@ -60,7 +61,7 @@ export default function HomePage() {
         <h1 className="mb-4 font-semibold text-2xl text-white">Recommended for you</h1>
 
         {/* Responsive grid layout for Recommended */}
-        <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+        <div className={style.content}>
           {popMovies.map((card, index) => (
             <div key={index} className="recommended-card">
               <Recommended card={[card]} />
