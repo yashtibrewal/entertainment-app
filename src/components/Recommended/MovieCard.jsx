@@ -25,40 +25,37 @@ const RecommendedCard = ({ id, bookmark, poster_path, title, release_date, adult
   }, [bookmark]);
 
   return (
-    <div className="flex flex-col">
-      <div className="bg-white shadow-lg rounded-lg w-64 reco-card">
-        <div className="relative">
-          <img src={`${BASE_IMAGE_URL}${poster_path}`} alt={title} className="w-full h-42 object-cover" />
-          <div className="top-2 right-2 absolute bg-transparent rounded-full text-black cursor-pointer">
-            <div
-              onClick={bookmarkContent}
-              className="top-2 right-2 absolute bg-black bg-opacity-75 p-2.5 rounded-full cursor-pointer">
-              {isBookmarked ? (
-                <FaBookmark className="text-white" />
-              ) : (
-                <FaRegBookmark className="text-white" />
-              )}
-            </div>
+    <div className="relative flex flex-col w-56">
+      <img
+        src={`${BASE_IMAGE_URL}${poster_path}`}
+        alt={title}
+        className="w-full h-42 object-cover"
+      />
+      <span
+        onClick={bookmarkContent}
+        className="top-2 right-2 absolute flex flex-row-reverse bg-black bg-opacity-75 p-2.5 rounded-full cursor-pointer">
+        {isBookmarked ? (
+          <FaBookmark className="text-white" />
+        ) : (
+          <FaRegBookmark className="text-white" />
+        )}
+      </span>
 
-          </div>
-        </div>
-        {/* Content section below the image */}
-
-      </div>
+      {/* Content section below the image */}
       <div className="content-sec px-2 py-1 text-white text-xs">
-        <ul className="flex content-sec gap-3">
+        <ul className="flex content-sec gap-x-3 mt-2">
           <li className="flex flex-col items-center text-white text-xs">
             <span className="mr-1">{release_date.slice(0, 4)}</span>
           </li>
           <li className="flex items-center">
             <RiFilmFill className="mr-1 text-white" />
-            <span>{media_type ? media_type : "Movie"}</span>
+            <span>{media_type.toUpperCase()}</span>
           </li>
           <li className="flex items-center text-xs">
             <span>{adult ? "PG" : "UG"}</span>
           </li>
         </ul>
-        <h3 className="mt-2 text-lg">{title}</h3>
+        <h3 className="mt-2 line-clamp-1 text-lg tracking-tight">{title}</h3>
       </div>
     </div>
   );

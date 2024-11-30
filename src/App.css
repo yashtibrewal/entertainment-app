@@ -113,7 +113,6 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .recommended-card {
   background-color: #1a1a1a;
-  padding: 16px;
   border-radius: 8px;
   overflow: hidden; 
   display: flex;
