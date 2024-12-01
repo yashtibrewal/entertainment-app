@@ -52,6 +52,7 @@ const Trending = ({ trendingMovies }) => {
   };
 
   const handleClick = (id, media_type) => {
+    console.log(id, media_type);
     if (media_type === 'movie') {
       navigate(`/movie/${id}`);
     }
@@ -84,6 +85,7 @@ const Trending = ({ trendingMovies }) => {
           <div onClick={(e) => { handleClick(card.id, card.media_type) }} key={index} className="flex-shrink-0">
             <TrendingCard {...card} />
 
+         
           </div>
         ))}
       </div>

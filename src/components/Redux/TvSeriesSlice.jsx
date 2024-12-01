@@ -9,6 +9,7 @@ export const fetchAllTVSeries = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const tmdbToken = localStorage.getItem('tmdbToken');
+      console.info('fetchAllTVSeries:tmdbToken', tmdbToken);
       if (!tmdbToken) {
         return thunkAPI.rejectWithValue('TMDB token not found in local storage.');
       }

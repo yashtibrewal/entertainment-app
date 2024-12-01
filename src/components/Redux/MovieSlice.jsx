@@ -17,7 +17,7 @@ export const fetchAllMovies = createAsyncThunk(
       if (!tmdbToken) {
         return thunkAPI.rejectWithValue('TMDB token not found in local storage.');
       }
-      //  console.log(tmdbToken);
+     
 
       const requests = [
         axios.get(`${BASE_TMDB_URL}/movie/popular`, {
@@ -60,7 +60,7 @@ export const fetchAllMovieBookmarks = createAsyncThunk(
       if (!entertainmentAppToken) {
         return thunkAPI.rejectWithValue('entertainmentAppToken token not found in local storage.');
       }
-      //  console.log(entertainmentAppToken);
+      
 
       const result = await axios.get(`${BASE_ENTERTAINMENT_APP_URL}movie/bookmarks`, {
         headers: { Authorization: `Bearer ${entertainmentAppToken}` },
@@ -115,7 +115,6 @@ const movieSlice = createSlice({
         state.upcomingMovies = action.payload.upcoming;
       })
       .addCase(fetchAllMovieBookmarks.fulfilled, (state, action) => {
-        //  console.log('action payload data', action.payload)
         state.movieBookmarks = action.payload;
       })
       .addCase(fetchAllMovieBookmarks.rejected || fetchAllMovies.rejected, (state, action) => {

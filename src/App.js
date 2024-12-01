@@ -4,7 +4,6 @@ import { Route, Routes } from "react-router-dom";
 import Bookmarks from "./pages/Bookmarks";
 import HomePage from "./pages/HomePage";
 import Movies from "./pages/Movies";
-import TVSeries from "./pages/TVSeries";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import { AuthProvider } from "./store/auth";
@@ -13,6 +12,7 @@ import Layout from "./components/Layout";
 import TV from "./pages/tv";
 import Movie from "./pages/movie";
 import ProtectedRoute from "./components/ProtectedRoute";
+import TVSeries from "./pages/TvSeries/TVSeries";
 
 function App() {
   return (

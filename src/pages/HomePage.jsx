@@ -1,10 +1,16 @@
-import Trending from "../components/Trending/trending";
-import Recommended from '../components/Recommended/recommended'
-import '../App.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllMovieBookmarks, fetchAllMovies } from '../components/Redux/MovieSlice';
 import { useCallback, useEffect, useState } from "react";
+
+import { fetchAllMovieBookmarks, fetchAllMovies } from '../components/Redux/MovieSlice';
+import { fetchAllMovies } from '../components/Redux/MovieSlice';
+
 import style from './../components/common-media/content.module.css';
+import '../App.css'
+
+import Trending from './TrendingMovies/trending';
+import Recommended from '../components/recommended'
+
+
 
 export default function HomePage() {
   //  console.log('home page')
@@ -15,6 +21,9 @@ export default function HomePage() {
   const [popMovies, setPopMovies] = useState([]);
   const [trendingMoviesLocal, setTrendingMoviesLocal] = useState([]);
 
+//  console.log("popularMovies :",popularMovies);
+
+  
   useEffect(() => {
     dispatch(fetchAllMovies());
     dispatch(fetchAllMovieBookmarks());

@@ -32,7 +32,6 @@
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
@@ -41,32 +40,34 @@
 /* mediaQuery for Navbar */
 
 @media (max-width: 640px) {
-
+ 
 
   .icon-container {
-    display: flex;
-    flex-direction: row;
-  }
+     display: flex;
+     flex-direction: row;
+   }
+ 
+   .nav-container  {
+     display: flex;
+     flex-direction: row;
+      margin: 0;
+      border: none;
+     padding-left: 16px;
+     padding-right: 16px;
+     border: 10px;
+     
+   }
+ }
 
-  .nav-container {
-    display: flex;
-    flex-direction: row;
-    margin: 0;
-    border: none;
-    padding-left: 16px;
-    padding-right: 16px;
-    border: 10px;
-
-  }
-}
-
-/* changing effect of input field as remove "X" */
-input[type="search"]::-webkit-search-cancel-button {
+ /* changing effect of input field as remove "X" */
+ input[type="search"]::-webkit-search-cancel-button {
   display: none;
 }
 
 /* Fixing layout for App component */
 /* App.css */
+
+
 
 @media (max-width: 768px) {
   .main-container {
@@ -75,8 +76,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
   .flexing {
     flex: 1;
-    max-height: calc(100vh - 56px);
-    /* Adjusts for any navbar or search space */
+    max-height: calc(100vh - 56px); /* Adjusts for any navbar or search space */
   }
 
   .padding {
@@ -84,8 +84,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .md\:mt-8 {
-    margin-top: 32px;
-    /* Adjust the margin to create space between search and content */
+    margin-top: 32px; /* Adjust the margin to create space between search and content */
   }
 }
 
@@ -107,173 +106,71 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 
-.overflow-x-hidden {
-  overflow-x: hidden;
-  /* Ensures no horizontal scroll on narrow screens */
-}
 
 .recommended-card {
   background-color: #1a1a1a;
-  border-radius: 8px;
-  overflow: hidden;
+  /* padding: 16px;
+  border-radius: 8px; */
+  overflow: hidden; 
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-@media (max-width: 1441px) {
-  .reco-card {
+@media (max-width: 2561px) {
+  .reco-card{
+      width: 580px;
+      height: 280px;
+  }  
+  }
+
+
+ @media (max-width: 1441px) {
+.reco-card{
     width: 290px;
-
-  }
+    height: 200px;
+}  
 }
-
-@media (max-width: 1025px) {
-  .reco-card {
-    width: 240px;
-
-  }
-}
-
 @media (max-width: 769px) {
-
-  .reco-card {
-    width: 180px;
-
+  
+  .reco-card{
+      width: 210px;
+      height: 170px;
+    }  
+    content-sec{
+      padding-left: 10px;
+    }
   }
 
-  content-sec {
-    font-size: small;
-  }
-}
-
-@media (max-width: 426px) {
-  .recommended-card {
+  @media (max-width: 426px) {
+  .recommended-card{
     width: 380px;
   }
-
-  .reco-card {
-    width: 360px;
-    height: 220px;
-  }
-
-}
-
-@media (max-width: 376px) {
-  .recommended-card {
-    width: 330px;
-  }
-
-  .reco-card {
-    width: 310px;
-    height: 220px;
-  }
-
-}
-
-@media (max-width: 321px) {
-  .recommended-card {
-    width: full;
-    margin-left: -20px;
-  }
-
-  .reco-card {
-    width: 250px;
-    height: 220px;
-  }
-
-}
-
-
-@media (max-width: 640px) {
-  .recocard {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin-left: 17px;
-    gap: 80px;
-
-  }
-
-  .cardd {
-    width: 250px;
-    gap: 10px;
-  }
-
-  .recommended-card {
-    width: 350px;
-    display: flex;
-    column-gap: 15px;
-    gap: 30px;
-
-
-  }
-}
-
-@media (max-width: 670px) {
-  .recocard {
-    gap: 60px;
-  }
-}
-
-@media (max-width: 620px) {
-  .recosection {
-    display: grid;
-    grid-auto-columns: 1fr;
-
-  }
-
-  .recocard {
-    display: flex;
-    flex-direction: column;
-    width: 550px;
-
-  }
-
-  .cardd {
-    width: 400px;
-    margin-left: -10px;
-  }
-
-}
-
-@media (max-width: 460px) {
-  .cardd {
+  .reco-card{
     width: 380px;
-    margin-left: -20px;
+    height: 220px;
   }
-}
+  
+    }
 
-@media (max-width: 435px) {
-  .cardd {
-    width: 350px;
-    margin-left: -20px;
-  }
-}
+    @media (max-width: 376px) {
+      .recommended-card{
+        width: 330px;
+      }
+      .reco-card{
+        width: 330px;
+        height: 220px;
+      }
+      
+        }
 
-@media (max-width: 390px) {
-  .cardd {
-    width: 320px;
-
-  }
-
-  .recosection {
-    margin-left: 25px;
-
-  }
-}
-
-@media (max-width: 768px) {
-  .recosection {
-    margin-left: 25px;
-
-  }
-
-  .recommended-card {
-    display: flex;
-    width: 350px;
-    padding-left: 35px;
-
-  }
-
-}
-
+        @media (max-width: 321px) {
+          .recommended-card{
+            width: 280px;
+          }
+          .reco-card{
+            width: 280px;
+            height: 220px;
+          }
+          
+            }

@@ -1,25 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
-import TrendingCard from "./TrendingCard";
-import { useNavigate } from "react-router-dom";
+import TrendingSeriesCart from "./TrendingSeriesCard";
 
 
-const Trending = ({ trendingMovies }) => {
+const TrendingSeries = ({ trending ,popular }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dragStartX, setDragStartX] = useState(null);
   const [dragDistance, setDragDistance] = useState(0);
   const [isOverflowing, setIsOverflowing] = useState(false);
   const cardWidth = 350; // Width of a single card (w-96 in Tailwind)
   const carouselRef = useRef(null);
-  const navigate = useNavigate();
 
   // Check if the cards overflow the container
   useEffect(() => {
     if (carouselRef.current) {
       const containerWidth = carouselRef.current.offsetWidth;
-      const contentWidth = trendingMovies.length * cardWidth;
+      const contentWidth = trending.length * cardWidth;
       setIsOverflowing(contentWidth > containerWidth);
     }
-  }, [trendingMovies]);
+  }, [trending]);
 
   const handleMouseDown = (e) => {
     if (!isOverflowing) return;
@@ -44,23 +42,17 @@ const Trending = ({ trendingMovies }) => {
 
     // Clamp the index to ensure it's within bounds
     if (newIndex < 0) newIndex = 0;
-    if (newIndex > trendingMovies.length - 1) newIndex = trendingMovies.length - 1;
+    if (newIndex > trending.length - 1) newIndex = trending.length - 1;
 
     setCurrentIndex(newIndex);
     setDragStartX(null);
     setDragDistance(0);
   };
 
-  const handleClick = (id, media_type) => {
-    if (media_type === 'movie') {
-      navigate(`/movie/${id}`);
-    }
-  }
-
   return (
     <div
       ref={carouselRef}
-      className="relative gap-2 w-screen h-64 overflow-hidden" // Full device width
+      className="overflow-hidden relative w-screen h-64 gap-2 " // Full device width
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -68,27 +60,28 @@ const Trending = ({ trendingMovies }) => {
       onTouchMove={handleMouseMove}
       onTouchEnd={handleMouseUp}
     >
-      <h1 className="mb-3 font-semibold text-2xl text-white">Trending</h1>
+    <h1 className="text-white  text-2xl font-semibold mb-3">Trending</h1>
       <div
-        className={`flex gap-3 transition-transform duration-300 ease-out ${isOverflowing ? "" : "justify-center"
-          }`}
-
+        className={`flex gap-3 transition-transform duration-300 ease-out ${
+          isOverflowing ? "" : "justify-center"
+        }`}
         style={{
           transform: `translateX(-${currentIndex * cardWidth}px)`,
-          width: `${trendingMovies.length * cardWidth}px`,
+          width: `${trending.length * cardWidth}px`,
         }}
       >
-
-        {trendingMovies.map((card, index) => (
-
-          <div onClick={(e) => { handleClick(card.id, card.media_type) }} key={index} className="flex-shrink-0">
-            <TrendingCard {...card} />
-
+      
+        {trending.map((card, index) => (
+          <div key={index} className="flex-shrink-0">
+            <TrendingSeriesCart {...card} />
           </div>
         ))}
+
+      
+       
       </div>
     </div>
   );
 };
 
-export default Trending;
+export default TrendingSeries;
