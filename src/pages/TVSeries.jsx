@@ -2,7 +2,6 @@ import Trending from "../components/Trending/trending";
 import Recommended from '../components/Recommended/recommended'
 import '../App.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllMovies } from '../components/Redux/MovieSlice';
 import { useEffect } from "react";
 import { fetchAllTVSeries } from "../components/Redux/TvSeriesSlice";
 
@@ -11,7 +10,7 @@ import { fetchAllTVSeries } from "../components/Redux/TvSeriesSlice";
 export default function TVSeries() {
 
   const dispatch = useDispatch();
-  const { popular, trending, airingToday, onTheAir, loading, error } = useSelector((state) => state.movies);
+  const { popular, trending, airingToday, onTheAir, loading, error } = useSelector((state) => state.tvSeries);
 ////  console.log("trending :",trending);
 console.log("popular:",popular);//giving me as undefined?
 
