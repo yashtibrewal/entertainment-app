@@ -1,30 +1,27 @@
 import React from "react";
 import '../../../App.css';
 import Card from "./Card";
+import ContentCard from "../../../components/Recommended/ContentCard";
+import { MEDIA_TYPE } from "../../../constants";
 
 
-const Series = ({card}) => {
- 
+const Series = ({ card }) => {
+
 
   return (
-    <div className="  text-xl flex-wrap flex flex-col  ml-6">
-      {/* Section Heading */}
-     
-
-      <div className="recommended">
-  { card.map((card, index) => (
-    <div className="recommended-card " key={index}>
-      <Card
-       poster_path={card.poster_path}
-      title={card.name}
-      release_date={card.first_air_date}
-      adult={card.adult}
-     
-      />
-    </div>
-  ))}
-</div>
-
+    <div className="flex flex-col flex-wrap ml-6 text-xl">
+      {card.map((card, index) => (
+        <div key={index}>
+          <ContentCard
+            id={card.id}
+            poster_path={card.poster_path}
+            title={card.name}
+            release_date={card.first_air_date}
+            adult={card.adult}
+            media_type={MEDIA_TYPE.TV_SERIES}
+          />
+        </div>
+      ))}
     </div>
   );
 };

@@ -4,14 +4,14 @@ import { useEffect } from "react";
 import TrendingSeries from '../TvSeries/TrendingSeries'
 import { fetchAllTVSeries } from '../../components/Redux/TvSeriesSlice';
 import Series from './RestSeries/Series';
-
+import styles from '../../components/common-media/content.module.css';
 
 
 export default function HomePage() {
 
   const dispatch = useDispatch();
   const { popular, trending, airingToday, onTheAir, loading, error } = useSelector((state) => state.tvSeries);
-  console.log("trending:", trending);
+  // console.log("trending:", trending);
   useEffect(() => {
     dispatch(fetchAllTVSeries());
   }, [dispatch]);
@@ -33,9 +33,9 @@ export default function HomePage() {
       <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
         <h1 className="mb-4 font-semibold text-2xl text-white">On-The-Air</h1>
         {/* Responsive grid layout for Recommended */}
-        <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+        <div className={styles.content}>
           {airingToday.map((card, index) => (
-            <div key={index} className="recommended-card">
+            <div key={index}>
               <Series card={[card]} />
             </div>
           ))}
@@ -48,9 +48,9 @@ export default function HomePage() {
       <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
         <h1 className="mb-4 font-semibold text-2xl text-white">Airing Today</h1>
         {/* Responsive grid layout for Recommended */}
-        <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+        <div className={styles.content}>
           {airingToday.map((card, index) => (
-            <div key={index} className="recommended-card">
+            <div key={index}>
               <Series card={[card]} />
             </div>
           ))}
@@ -63,9 +63,9 @@ export default function HomePage() {
       <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
         <h1 className="mb-4 font-semibold text-2xl text-white">Popular</h1>
         {/* Responsive grid layout for Recommended */}
-        <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+        <div className={styles.content}>
           {popular.map((card, index) => (
-            <div key={index} className="recommended-card">
+            <div key={index}>
               <Series card={[card]} />
             </div>
           ))}

@@ -82,7 +82,7 @@ function Bookmarks() {
       <p>Bookmarks Page</p>
       <div className={style.content}>
         {bookmarkedMovies.map((movie, index) => (
-          <div key={index} className="recommended-card">
+          <div key={index}>
             <Recommended card={[movie]} />
           </div>
         ))}

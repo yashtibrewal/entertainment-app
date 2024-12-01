@@ -65,7 +65,7 @@ function Movies() {
       {/* <h1 className="mb-4 font-semibold text-2xl text-white">Recommended for you</h1> */}
       <div className={style.content}>
         {allMovies.map((card, index) => (
-          <div key={index} className="recommended-card">
+          <div key={index}>
             <Recommended card={[{ ...card, media_type: 'movie' }]} />
           </div>
         ))}

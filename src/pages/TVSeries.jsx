@@ -33,9 +33,9 @@ console.log("popular:",popular);//giving me as undefined?
       <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
         <h1 className="mb-4 font-semibold text-2xl text-white">Recommended for you</h1>
         {/* Responsive grid layout for Recommended */}
-        <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+        <div className={styles.content}>
           {popular.map((card, index) => (
-            <div key={index} className="recommended-card">
+            <div key={index}>
               <Recommended card={[card]} />
             </div>
           ))} 

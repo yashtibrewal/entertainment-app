@@ -70,7 +70,7 @@ export default function HomePage() {
         {/* Responsive grid layout for Recommended */}
         <div className={style.content}>
           {popMovies.map((card, index) => (
-            <div key={index} className="recommended-card">
+            <div key={index}>
               <Recommended card={[card]} />
             </div>
           ))}

@@ -10,7 +10,6 @@ const Recommended = ({ card }) => {
       {
         card.map((card, index) => (
           <div
-            className="recommended-card"
             key={index}>
             <ContentCard
               id={card.id}
