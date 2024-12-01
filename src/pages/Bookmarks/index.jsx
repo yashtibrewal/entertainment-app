@@ -12,6 +12,7 @@ function Bookmarks() {
 
   const [bookmarkedMovies, setBookmarkedMovies] = useState([]);
   // TODO: handle for bookmarked tv series.
+  // TODO: handle unbookmark and bookmark
   const [bookmarkedTvSeries, setBookmarkedTvSeries] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -71,11 +72,6 @@ function Bookmarks() {
       })
       .finally(() => setLoading(false));
   }, [])
-
-  const handleClick = (id, media_type) => {
-    if (media_type === MEDIA_TYPE.MOVIES)
-      navigate(`/movie/${id}`)
-  }
 
   if (loading) {
     return <>Loading</>

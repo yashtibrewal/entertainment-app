@@ -5,10 +5,12 @@ import { RiFilmFill } from "react-icons/ri";
 import '../../App.css'
 import { toggleMovieBookmark } from "./api";
 import { BASE_IMAGE_URL } from "../../constants";
+import { useNavigate } from "react-router-dom";
 
 const ContentCard = ({ id, bookmark, poster_path, title, release_date, adult, media_type }) => {
   console.log({ id, bookmark, poster_path, title, release_date, adult, media_type });
   const [isBookmarked, setIsBookmarked] = useState(bookmark);
+  const navigate = useNavigate();
 
   const bookmarkContent = (event) => {
     event.stopPropagation();
@@ -24,8 +26,15 @@ const ContentCard = ({ id, bookmark, poster_path, title, release_date, adult, me
     setIsBookmarked(bookmark);
   }, [bookmark]);
 
+  const handleClick = () => {
+    if (media_type === 'movie')
+      navigate(`/movie/${id}`);
+  }
+
   return (
-    <div className="relative flex flex-col w-48">
+    <div
+      onClick={(e) => { handleClick() }}
+      className="relative flex flex-col w-48">
       <img
         src={`${BASE_IMAGE_URL}${poster_path}`}
         alt={title}
