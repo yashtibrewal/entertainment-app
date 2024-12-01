@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { TMDB_BASE_URL } from '../../constants';
+import { BASE_LOCAL_URL, TMDB_BASE_URL } from '../../constants';
 
 const BASE_URL = TMDB_BASE_URL;
 
@@ -45,6 +45,33 @@ export const fetchAllTVSeries = createAsyncThunk(
   }
 );
 
+export const fetchAllTVSeriesBookmarks = createAsyncThunk(
+  'tvSeries/fetchAllTVSeriesBookmarks',
+  async (_, thunkAPI) => {
+    try {
+      console.info('fetchAllTVSeriesBookmarks called');
+      const entertainmentAppToken = localStorage.getItem('entertainmentAppToken');
+
+      if (!entertainmentAppToken) {
+        return thunkAPI.rejectWithValue('entertainmentAppToken token not found in local storage.');
+      }
+
+      const result = await axios.get(`${BASE_LOCAL_URL}movie/bookmarks`, {
+        headers: { Authorization: `Bearer ${entertainmentAppToken}` },
+      })
+      return result.data;
+
+    } catch (error) {
+      console.error('Error fetching bookmarks:', error);
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.status_message || "Failed to fetch movies' bookmarks."
+      );
+    }
+
+  }
+)
+
+
 // Redux Slice for TV Series
 const tvSeriesSlice = createSlice({
   name: 'tvSeries',
@@ -55,6 +82,7 @@ const tvSeriesSlice = createSlice({
     onTheAir: [],
     loading: false,
     error: null,
+    tvSeriesBookmarks: [],
   },
   extraReducers: (builder) => {
     builder
@@ -69,7 +97,11 @@ const tvSeriesSlice = createSlice({
         state.airingToday = action.payload.airingToday;
         state.onTheAir = action.payload.onTheAir;
       })
-      .addCase(fetchAllTVSeries.rejected, (state, action) => {
+      .addCase(fetchAllTVSeriesBookmarks.fulfilled, (state, action) => {
+        state.tvSeriesBookmarks = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchAllTVSeries.rejected || fetchAllTVSeriesBookmarks.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

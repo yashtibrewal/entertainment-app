@@ -52,7 +52,7 @@ const TrendingSeries = ({ trending ,popular }) => {
   return (
     <div
       ref={carouselRef}
-      className="overflow-hidden relative w-screen h-64 gap-2 " // Full device width
+      className="relative gap-2 w-screen h-64 overflow-hidden" // Full device width
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -60,7 +60,7 @@ const TrendingSeries = ({ trending ,popular }) => {
       onTouchMove={handleMouseMove}
       onTouchEnd={handleMouseUp}
     >
-    <h1 className="text-white  text-2xl font-semibold mb-3">Trending</h1>
+    <h1 className="mb-3 font-semibold text-2xl text-white">Trending</h1>
       <div
         className={`flex gap-3 transition-transform duration-300 ease-out ${
           isOverflowing ? "" : "justify-center"

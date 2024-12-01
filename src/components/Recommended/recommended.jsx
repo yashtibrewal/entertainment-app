@@ -3,12 +3,12 @@ import React from "react";
 import '../../App.css'
 import ContentCard from "./ContentCard";
 
-const Recommended = ({ card }) => {
+const Recommended = ({ card: content }) => {
 
   return (
     <>
       {
-        card.map((card, index) => (
+        content.map((card, index) => (
           <div
             key={index}>
             <ContentCard

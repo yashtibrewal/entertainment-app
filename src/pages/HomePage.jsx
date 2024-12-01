@@ -30,7 +30,6 @@ export default function HomePage() {
   const populateBookmark = useCallback((movie) => {
     let bookmark = false;
     const searchedMovie = movieBookmarks.find((bookmarkObj) => bookmarkObj.movie_id === movie.id);
-    //  console.log(searchedMovie);
     if (searchedMovie) {
       bookmark = searchedMovie.bookmark;
     }
