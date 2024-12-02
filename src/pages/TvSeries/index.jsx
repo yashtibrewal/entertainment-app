@@ -1,19 +1,19 @@
+import List from '../../components/Content/List'
 import '../../App.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect, useState } from "react";
-import TrendingSeries from '../TvSeries/TrendingSeries'
-import { fetchAllTVSeries, fetchAllTVSeriesBookmarks } from '../../components/Redux/TvSeriesSlice';
-import Series from './RestSeries/Series';
-import styles from '../../components/common-media/content.module.css';
+import { fetchAllTVSeries, fetchAllTVSeriesBookmarks } from "../../components/Redux/TvSeriesSlice";
 import { MEDIA_TYPE } from '../../constants';
+import styles from '../../components/common-media/content.module.css';
 
 
-export default function HomePage() {
+export default function TVSeriesPage() {
 
   const dispatch = useDispatch();
   const { popular, trending, airingToday, onTheAir, tvSeriesBookmarks, loading, error } = useSelector((state) => state.tvSeries);
   const [popularTVSeries, setPopTVSeries] = useState([]);
   const [trendingTVSeries, setTrendingTVSeries] = useState([]);
+  const [airingTodaySeries, setAiringTodaySeries] = useState([]);
   
   useEffect(() => {
     dispatch(fetchAllTVSeries());
@@ -25,7 +25,8 @@ export default function HomePage() {
    */
   const populateBookmark = useCallback((tvSeries) => {
     let bookmark = false;
-    const searchedTvSeries = tvSeriesBookmarks.find((bookmarkObj) => bookmarkObj.series_id === tvSeries.id);
+    const searchedTvSeries = tvSeriesBookmarks
+      .find((bookmarkObj) => bookmarkObj.series_id === tvSeries.id);
     if (searchedTvSeries) {
       bookmark = searchedTvSeries.bookmark;
     }
@@ -33,7 +34,8 @@ export default function HomePage() {
     return updatedTVSeries;
   }, [tvSeriesBookmarks])
 
-  const setMediaAsTVSeries = series => { return { ...series, media_type: MEDIA_TYPE.TV_SERIES }; }
+  const setMediaAsTVSeries = series => { 
+    return { ...series, media_type: MEDIA_TYPE.TV_SERIES }; }
 
   useEffect(() => {
     const popularTVSeriesWithMedia = popular.map(setMediaAsTVSeries);
@@ -47,6 +49,12 @@ export default function HomePage() {
     setTrendingTVSeries(trendingTVSeriesWithBookmark);
   }, [trending, populateBookmark]);
 
+  useEffect(() => {
+    const airingTodaySeriesWithMediaType = airingToday.map(setMediaAsTVSeries);
+    const airtingTodaySeriesWithBookmark = airingTodaySeriesWithMediaType.map(populateBookmark);
+    setAiringTodaySeries(airtingTodaySeriesWithBookmark);
+    console.log(airingToday);
+  }, [airingToday, populateBookmark]);
 
   if (loading) return <p>Loading TV series...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -57,35 +65,17 @@ export default function HomePage() {
 
     <div className="overflow-x-hidden">
       {/* Airing today section */}
-
       <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
         <h1 className="mb-4 font-semibold text-2xl text-white">On-The-Air</h1>
         {/* Responsive grid layout for Recommended */}
         <div className={styles.content}>
-          {airingToday.map((card, index) => (
+          {airingTodaySeries.map((card, index) => (
             <div key={index}>
-              <Series card={[card]} />
+              <List card={[card]} />
             </div>
           ))}
-
         </div>
       </div>
-
-      {/* Popular Section  */}
-
-      <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
-        <h1 className="mb-4 font-semibold text-2xl text-white">Popular</h1>
-        {/* Responsive grid layout for Recommended */}
-        <div className={styles.content}>
-          {popularTVSeries.map((card, index) => (
-            <div key={index}>
-              <Series card={[card]} />
-            </div>
-          ))}
-
-        </div>
-      </div>
-
     </div>
 
   );

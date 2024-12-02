@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
+
+import { MEDIA_TYPE, UI_MESSAGES } from "../../constants";
 import { getBookmarkedMovies, getBookmarkedTVSeries } from "./api";
 import style from './../../components/common-media/content.module.css';
-import Recommended from "../../components/Recommended/recommended";
-import ContentCard from "../../components/Recommended/ContentCard";
-import { useNavigate } from "react-router-dom";
+import List from "../../components/Content/List";
 import { getMovieApi } from "../movie/api";
 import { getTvSeriesApi } from "../tv/api";
-import { MEDIA_TYPE } from "../../constants";
 
 function Bookmarks() {
 
@@ -15,13 +14,13 @@ function Bookmarks() {
   // TODO: handle unbookmark and bookmark
   const [bookmarkedTvSeries, setBookmarkedTvSeries] = useState([]);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const getContent = async () => {
       try {
         setLoading(true);
 
+        // Getting bookmared Movies and TV Series parellely
         const movies_promise = getBookmarkedMovies();
         const tv_serires_promise = getBookmarkedTVSeries();
         const [movieBookmarksResponse, tvSeriesBookmarksResponse] = await Promise.all([movies_promise, tv_serires_promise])
@@ -30,12 +29,15 @@ function Bookmarks() {
         const bookmarkedMoviesPromises = [];
         const bookmarkedTVSeriesPromises = [];
 
+        // Fetching all movies which are bookmarked
         movieBookmarksResponse.result.forEach(movieBookmark => {
           movieIds.push(movieBookmark.movie_id);
         });
         movieIds.forEach(id => {
           bookmarkedMoviesPromises.push(getMovieApi(id));
         });
+
+        // Fetching all tv series which are bookmarked.
         tvSeriesBookmarksResponse.result.forEach(tvSeriesDataResponse => {
           tvSeriesIds.push(tvSeriesDataResponse.tv_series_id);
         });
@@ -49,6 +51,7 @@ function Bookmarks() {
           Promise.all(bookmarkedTVSeriesPromises),
         ]);
 
+        // Setting media_types
         const moviesWithMediaType = bookmarkedMovies.map(movie => ({
           ...movie.result,
           media_type: MEDIA_TYPE.MOVIES,
@@ -83,15 +86,23 @@ function Bookmarks() {
       {bookmarkedMovies.length > 0 ? (
         bookmarkedMovies.map((movie, index) => (
           <div key={index}>
-            <Recommended card={[movie]} />
+            <List card={[movie]} />
           </div>
         ))
       ) : (
-        <>No media has been bookmarked.</>
+        <>No Movies has been found.</>
+      )}
+      {bookmarkedTvSeries.length > 0 ? (
+        bookmarkedTvSeries.map((movie, index) => (
+          <div key={index}>
+            <List card={[movie]} />
+          </div>
+        ))
+      ) : (
+        <>No TV Series Found.</>
       )}
       </div>
     </div>
-
   );
 }
 

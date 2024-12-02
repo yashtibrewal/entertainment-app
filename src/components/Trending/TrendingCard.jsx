@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { RiFilmFill } from "react-icons/ri";
+
 import { toggleMovieBookmark } from "../Recommended/api";
+import { BASE_IMAGE_URL } from "../../constants";
 
 const TrendingCard = ({ id, bookmark, poster_path, title, release_date, adult, media_type }) => {
-  const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
   const [bookmarked, setBookmarked] = useState(false);
 
   const handleBookMarkClick = (event) => {

@@ -7,7 +7,7 @@ import style from './../components/common-media/content.module.css';
 import '../App.css'
 
 import Trending from './TrendingMovies/trending';
-import Recommended from '../components/Recommended/recommended'
+import List from '../components/Content/List'
 
 
 export default function HomePage() {
@@ -70,7 +70,7 @@ export default function HomePage() {
         <div className={style.content}>
           {popMovies.map((card, index) => (
             <div key={index}>
-              <Recommended card={[card]} />
+              <List card={[card]} />
             </div>
           ))}
         </div>

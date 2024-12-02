@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Recommended from "../components/Recommended/recommended";
+import List from "../components/Content/List";
 import { fetchAllMovieBookmarks, fetchAllMovies } from "../components/Redux/MovieSlice";
 import style from './../components/common-media/content.module.css';
 
@@ -66,7 +66,7 @@ function Movies() {
       <div className={style.content}>
         {allMovies.map((card, index) => (
           <div key={index}>
-            <Recommended card={[{ ...card, media_type: 'movie' }]} />
+            <List card={[{ ...card, media_type: 'movie' }]} />
           </div>
         ))}
 

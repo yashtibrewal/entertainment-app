@@ -1,9 +1,9 @@
 import React from "react";
 
 import '../../App.css'
-import ContentCard from "./ContentCard";
+import Card from "./Card";
 
-const Recommended = ({ card: content }) => {
+const List = ({ card: content }) => {
 
   return (
     <>
@@ -11,12 +11,14 @@ const Recommended = ({ card: content }) => {
         content.map((card, index) => (
           <div
             key={index}>
-            <ContentCard
+            <Card
               id={card.id}
               bookmark={card.bookmark}
               poster_path={card.poster_path}
+              name={card.name}
               title={card.title}
               release_date={card.release_date}
+              first_air_date={card.first_air_date}
               adult={card.adult}
               media_type={card.media_type}
             />
@@ -27,4 +29,4 @@ const Recommended = ({ card: content }) => {
   );
 };
 
-export default Recommended;
+export default List;
