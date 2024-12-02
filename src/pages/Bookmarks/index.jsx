@@ -79,13 +79,16 @@ function Bookmarks() {
 
   return (
     <div className="ml-4 Bookmarks">
-      <p>Bookmarks Page</p>
-      <div className={style.content}>
-        {bookmarkedMovies.map((movie, index) => (
+      <div className={style.content + ' mt-10'}>
+      {bookmarkedMovies.length > 0 ? (
+        bookmarkedMovies.map((movie, index) => (
           <div key={index}>
             <Recommended card={[movie]} />
           </div>
-        ))}
+        ))
+      ) : (
+        <>No media has been bookmarked.</>
+      )}
       </div>
     </div>
 
