@@ -2,8 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { TMDB_BASE_URL } from '../../constants';
 
-const BASE_URL = TMDB_BASE_URL;
-
 //searching movies
 export const searchMovies = createAsyncThunk(
   'search/searchMovies',
@@ -14,11 +12,11 @@ export const searchMovies = createAsyncThunk(
         return thunkAPI.rejectWithValue('TMDB token not found in local storage.');
       }
 
-      const response = await axios.get(`${BASE_URL}/search/movie`, {
+      const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
         headers: { Authorization: `Bearer ${tmdbToken}` },
         params: { query },
       });
-
+      console.log(response);
       return response.data.results;
     } catch (error) {
       console.error('Error searching movies:', error);
@@ -38,7 +36,7 @@ export const searchTVSeries = createAsyncThunk(
         return thunkAPI.rejectWithValue('TMDB token not found in local storage.');
       }
 
-      const response = await axios.get(`${BASE_URL}/search/tv`, {
+      const response = await axios.get(`${TMDB_BASE_URL}/search/tv`, {
         headers: { Authorization: `Bearer ${tmdbToken}` },
         params: { query },
       });

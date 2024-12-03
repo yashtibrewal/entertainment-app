@@ -11,11 +11,10 @@ import List from '../components/Content/List'
 
 
 export default function HomePage() {
-  //  console.log('home page')
 
   const dispatch = useDispatch();
-  const { popularMovies, trendingMovies, loading, error } = useSelector((state) => state.movies);
-  const movieBookmarks = useSelector((state) => state.movies.movieBookmarks);
+  const { popularMovies, trendingMovies, movieBookmarks, loading,
+          error } = useSelector((state) => state.movies);
   const [popMovies, setPopMovies] = useState([]);
   const [trendingMoviesLocal, setTrendingMoviesLocal] = useState([]);
 

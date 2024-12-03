@@ -5,8 +5,8 @@ import { getBookmarkedMovies, getBookmarkedTVSeries } from "./api";
 import style from './../../components/common-media/content.module.css';
 import List from "../../components/Content/List";
 import { getMovieApi } from "../movie/api";
-import { getTvSeriesApi } from "../tv/api";
-
+import { getTvSeriesApi } from "../../components/tv/api.js";
+import styles from '../../components/common-media/content.module.css';
 function Bookmarks() {
 
   const [bookmarkedMovies, setBookmarkedMovies] = useState([]);
@@ -82,7 +82,8 @@ function Bookmarks() {
 
   return (
     <div className="ml-4 Bookmarks">
-      <div className={style.content + ' mt-10'}>
+      <h1 className={styles.headings + ' mt-10'}>Movies</h1>
+      <div className={style.content}>
       {bookmarkedMovies.length > 0 ? (
         bookmarkedMovies.map((movie, index) => (
           <div key={index}>
@@ -92,6 +93,11 @@ function Bookmarks() {
       ) : (
         <>No Movies has been found.</>
       )}
+
+      </div>
+      <h1 className={styles.headings + ' mt-10'}>TV Series</h1>
+      <div className={style.content}>
+
       {bookmarkedTvSeries.length > 0 ? (
         bookmarkedTvSeries.map((movie, index) => (
           <div key={index}>
