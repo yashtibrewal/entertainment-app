@@ -5,3 +5,7 @@
 .content {
   @apply flex flex-wrap gap-x-1 gap-y-1 sm:gap-y-2 sm:gap-x-2 md:gap-y-5 md:gap-x-3 xl:gap-y-10 xl:gap-x-4 2xl:gap-x-5  mt-10 ml-4
 }
+
+.headings {
+  @apply mb-3 font-semibold text-2xl text-white;
+}

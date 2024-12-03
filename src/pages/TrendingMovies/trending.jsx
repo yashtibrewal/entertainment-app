@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import TrendingCard from "./TrendingCard";
 import { useNavigate } from "react-router-dom";
+import styles from '../../components/common-media/content.module.css';
 
 
 const Trending = ({ trendingMovies }) => {
@@ -69,7 +70,7 @@ const Trending = ({ trendingMovies }) => {
       onTouchMove={handleMouseMove}
       onTouchEnd={handleMouseUp}
     >
-      <h1 className="mb-3 font-semibold text-2xl text-white">Trending</h1>
+      <h1 className={styles.headings}>Trending</h1>
       <div
         className={`flex gap-3 transition-transform duration-300 ease-out ${isOverflowing ? "" : "justify-center"
           }`}
