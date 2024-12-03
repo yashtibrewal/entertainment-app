@@ -3,20 +3,18 @@ import "../App.css"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { searchMovies, searchTVSeries } from "../store/Redux/searchSlice";
-import { searching } from '../store/Redux/searchSlice';
+import { searchMovies, searchTVSeries } from "../store/Redux/SearchSlice";
 
 export default function Search () {
   const[input,setInput]=useState('');
   const dispatch = useDispatch();
   const location = useLocation();
 
-  // const { movies, tvSeries, loading, error } = useSelector(state => state.search);
+  const { movies, tvSeries, loading, error } = useSelector(state => state.search );
 
   useEffect(() => {
     const handler = setTimeout(() => {
       if (input.trim()) { // if empty
-        dispatch(searching());
         dispatch(searchMovies(input));
         dispatch(searchTVSeries(input));
       } else {
