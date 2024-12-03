@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import List from "../components/Content/List";
-import { fetchAllMovieBookmarks, fetchAllMovies } from "../components/Redux/MovieSlice";
+import { fetchAllMovieBookmarks, fetchAllMovies } from "../store/Redux/MovieSlice"
 import style from './../components/common-media/content.module.css';
 
 function Movies() {
-  //  console.log("Movies Page")
   const dispatch = useDispatch();
   const { popularMovies, trendingMovies, nowPlayingMovies, upcomingMovies, loading, error } = useSelector((state) => state.movies);
   const movieBookmarks = useSelector((state) => state.movies.movieBookmarks);

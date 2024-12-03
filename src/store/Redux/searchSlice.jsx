@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { TMDB_BASE_URL } from '../../constants';
+import { tokens } from '../../store/localstorage';
 
 //searching movies
 export const searchMovies = createAsyncThunk(
   'search/searchMovies',
   async (query, thunkAPI) => {
     try {
-      const tmdbToken = localStorage.getItem('tmdbToken');
+      const tmdbToken = tokens.tmdbToken;
       if (!tmdbToken) {
         return thunkAPI.rejectWithValue('TMDB token not found in local storage.');
       }
@@ -16,7 +17,7 @@ export const searchMovies = createAsyncThunk(
         headers: { Authorization: `Bearer ${tmdbToken}` },
         params: { query },
       });
-      console.log(response);
+
       return response.data.results;
     } catch (error) {
       console.error('Error searching movies:', error);
@@ -31,7 +32,7 @@ export const searchTVSeries = createAsyncThunk(
   'search/searchTVSeries',
   async (query, thunkAPI) => {
     try {
-      const tmdbToken = localStorage.getItem('tmdbToken');
+      const tmdbToken = tokens.tmdbToken
       if (!tmdbToken) {
         return thunkAPI.rejectWithValue('TMDB token not found in local storage.');
       }
@@ -60,10 +61,14 @@ const searchSlice = createSlice({
     error: null,
   },
   reducers: {
-    clearSearchResults: (state) => {
-      state.movies = [];
-      state.tvSeries = [];
-    },
+    // clearSearchResults: (state, action) => {
+    //   state.movies = [];
+    //   state.tvSeries = [];
+    // },
+    searching: (state, action) => {
+      state.loading = true;
+    }
+    
   },
   extraReducers: (builder) => {
     builder
@@ -98,5 +103,5 @@ const searchSlice = createSlice({
   },
 });
 
-export const { clearSearchResults } = searchSlice.actions;
+export const { searching, clearSearchResults } = searchSlice.actions;
 export default searchSlice.reducer;

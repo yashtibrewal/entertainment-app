@@ -2,7 +2,7 @@ import List from '../../components/Content/List'
 import '../../App.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect, useState } from "react";
-import { fetchAllTVSeries, fetchAllTVSeriesBookmarks } from "../../components/Redux/TvSeriesSlice";
+import { fetchAllTVSeries, fetchAllTVSeriesBookmarks } from "../../store/Redux/TvSeriesSlice";
 import { MEDIA_TYPE } from '../../constants';
 import styles from '../../components/common-media/content.module.css';
 

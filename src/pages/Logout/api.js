@@ -1,10 +1,11 @@
 import { BASE_LOCAL_URL } from "../../constants";
+import { tokens } from "../../store/localstorage";
 
-const logoutUserApi = async (token) => {
+const logoutUserApi = async () => {
 
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("Authorization", `Bearer ${token}`);
+  myHeaders.append("Authorization", `Bearer ${tokens.entertainmentAppToken}`);
 
   const requestOptions = {
     method: "PATCH",

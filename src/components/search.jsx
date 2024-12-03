@@ -2,31 +2,56 @@ import { FaSearch } from "react-icons/fa";
 import "../App.css"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchMovies, searchTVSeries, clearSearchResults } from "./Redux/searchSlice";
-import { fetchAllMovieBookmarks, fetchAllMovies } from "./Redux/MovieSlice";
+import { useLocation } from "react-router-dom";
+import { searchMovies, searchTVSeries } from "../store/Redux/searchSlice";
+import { searching } from '../store/Redux/searchSlice';
 
 export default function Search () {
   const[input,setInput]=useState('');
   const dispatch = useDispatch();
-  // const { movies, tvSeries, loading, error } = useSelector((state) => state.search);
+  const location = useLocation();
+
+  // const { movies, tvSeries, loading, error } = useSelector(state => state.search);
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      if (input.trim()) {
+      if (input.trim()) { // if empty
+        dispatch(searching());
         dispatch(searchMovies(input));
         dispatch(searchTVSeries(input));
       } else {
-        dispatch(clearSearchResults());
+        // dispatch(clearSearchResults());
         // Depending on which page we are on, dispatch functions respectively.
-        dispatch(fetchAllMovies());
-        dispatch(fetchAllMovieBookmarks());
+        // clearSearchResults();
+        const path = location.pathname;
+        
+        // TODO:
+        switch (path) {
+
+          case '/':
+            break;
+          
+          case '/bookmark':
+            break;
+         
+          case '/movies':
+            break;
+      
+          case '/tv-series':
+            break;
+
+          default:
+            console.error('Route not handled');
+            break;
+        }
+
       }
     }, 1000);
 
     return () => {
       clearTimeout(handler); 
     };
-  }, [input, dispatch]);
+  }, [input, dispatch, location.pathname]);
 
 
 

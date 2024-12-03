@@ -1,10 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect, useState } from "react";
 
-import { fetchAllMovieBookmarks, fetchAllMovies } from '../components/Redux/MovieSlice';
+import { fetchAllMovieBookmarks, fetchAllMovies } from '../store/Redux/MovieSlice';
 
 import style from './../components/common-media/content.module.css';
-import '../App.css'
 
 import Trending from './TrendingMovies/trending';
 import List from '../components/Content/List'
@@ -13,12 +12,10 @@ import List from '../components/Content/List'
 export default function HomePage() {
 
   const dispatch = useDispatch();
-  const { popularMovies, trendingMovies, movieBookmarks, loading,
-          error } = useSelector((state) => state.movies);
+  const { popularMovies, trendingMovies, movieBookmarks, loading: moviesLoading,
+          error: moviesError } = useSelector((state) => state.movies);
   const [popMovies, setPopMovies] = useState([]);
   const [trendingMoviesLocal, setTrendingMoviesLocal] = useState([]);
-
-  //  console.log("popularMovies :",popularMovies);
 
 
   useEffect(() => {
@@ -50,8 +47,8 @@ export default function HomePage() {
     setTrendingMoviesLocal(trendingMoviesWithBookmark);
   }, [trendingMovies, populateBookmark]);
 
-  if (loading) return <p>Loading movies...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (moviesLoading) return <p>Loading movies...</p>;
+  if (moviesError) return <p>Error: {moviesError}</p>;
 
   return (
 

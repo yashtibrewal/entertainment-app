@@ -1,11 +1,11 @@
 import { TMDB_BASE_URL } from "../../constants";
+import { tokens } from "../../store/localstorage";
 
 const getMovieApi = async (movie_id) => {
 
-  const tmdbToken = localStorage.getItem("tmdbToken");
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("Authorization", `Bearer ${tmdbToken}`);
+  myHeaders.append("Authorization", `Bearer ${tokens.tmdbToken}`);
 
   const requestOptions = {
     method: "GET",
@@ -32,10 +32,9 @@ const getMovieApi = async (movie_id) => {
 
 const getMovieCastApi = async (movie_id) => {
 
-  const tmdbToken = localStorage.getItem("tmdbToken");
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("Authorization", `Bearer ${tmdbToken}`);
+  myHeaders.append("Authorization", `Bearer ${tokens.tmdbToken}`);
 
   const requestOptions = {
     method: "GET",
