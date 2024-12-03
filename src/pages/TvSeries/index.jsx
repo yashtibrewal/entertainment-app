@@ -10,7 +10,7 @@ import styles from '../../components/common-media/content.module.css';
 export default function TVSeriesPage() {
 
   const dispatch = useDispatch();
-  const { popular, trending, airingToday, onTheAir, tvSeriesBookmarks, loading, error } = useSelector((state) => state.tvSeries);
+  const { searchedTVSeries, popular, trending, airingToday, onTheAir, tvSeriesBookmarks, loading, error } = useSelector((state) => state.tvSeries);
   const [popularTVSeries, setPopTVSeries] = useState([]);
   const [trendingTVSeries, setTrendingTVSeries] = useState([]);
   const [airingTodaySeries, setAiringTodaySeries] = useState([]);
@@ -25,10 +25,10 @@ export default function TVSeriesPage() {
    */
   const populateBookmark = useCallback((tvSeries) => {
     let bookmark = false;
-    const searchedTvSeries = tvSeriesBookmarks
+    const searchedTvSeriesLocal = tvSeriesBookmarks
       .find((bookmarkObj) => bookmarkObj.series_id === tvSeries.id);
-    if (searchedTvSeries) {
-      bookmark = searchedTvSeries.bookmark;
+    if (searchedTvSeriesLocal) {
+      bookmark = searchedTvSeriesLocal.bookmark;
     }
     const updatedTVSeries = { ...tvSeries, bookmark };
     return updatedTVSeries;
@@ -59,6 +59,20 @@ export default function TVSeriesPage() {
   if (loading) return <p>Loading TV series...</p>;
   if (error) return <p>Error: {error}</p>;
 
+  if(searchedTVSeries.length > 0) {
+    return (
+      <div className="overflow-x-hidden">
+        {/* Airing today section */}
+        <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
+          <h1 className="mb-4 font-semibold text-2xl text-white">Searched Results</h1>
+          {/* Responsive grid layout for Recommended */}
+          <div className={styles.content}>
+            <List cards={searchedTVSeries} />
+          </div>
+        </div>
+      </div>
+    )
+  }
 
 
   return (
@@ -69,11 +83,7 @@ export default function TVSeriesPage() {
         <h1 className="mb-4 font-semibold text-2xl text-white">On-The-Air</h1>
         {/* Responsive grid layout for Recommended */}
         <div className={styles.content}>
-          {airingTodaySeries.map((card, index) => (
-            <div key={index}>
-              <List card={[card]} />
-            </div>
-          ))}
+          <List cards={airingTodaySeries} />
         </div>
       </div>
     </div>

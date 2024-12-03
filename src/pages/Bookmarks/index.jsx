@@ -87,7 +87,7 @@ function Bookmarks() {
       {bookmarkedMovies.length > 0 ? (
         bookmarkedMovies.map((movie, index) => (
           <div key={index}>
-            <List card={[movie]} />
+            <List cards={[movie]} />
           </div>
         ))
       ) : (
@@ -101,7 +101,7 @@ function Bookmarks() {
       {bookmarkedTvSeries.length > 0 ? (
         bookmarkedTvSeries.map((movie, index) => (
           <div key={index}>
-            <List card={[movie]} />
+            <List cards={[movie]} />
           </div>
         ))
       ) : (

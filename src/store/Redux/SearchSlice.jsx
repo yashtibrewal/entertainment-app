@@ -64,9 +64,6 @@ const searchSlice = createSlice({
     clearSearchResults: (state, action) => {
       state.movies = [];
       state.tvSeries = [];
-    },
-    searching: (state, action) => {
-      state.loading = true;
     }
     
   },

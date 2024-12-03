@@ -78,11 +78,6 @@ export const fetchAllMovieBookmarks = createAsyncThunk(
   }
 )
 
-// Search for movies based on a query
-
-/**
- * Slice 
- */
 
 const movieSlice = createSlice({
   name: 'movies',
@@ -92,10 +87,15 @@ const movieSlice = createSlice({
     nowPlayingMovies: [],
     upcomingMovies: [],
     movieBookmarks: [],
+    searchedMovies: [],
     loading: false,
     error: null,
   },
   reducers: {
+    setSearchedMovies(state, action) {
+      console.log('action.payload', action.payload);
+      state.searchedMovies = [...action.payload]
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -121,9 +121,5 @@ const movieSlice = createSlice({
   },
 });
 
-/**
- * Exports
- */
-
-// export const { clearSearchResults } = movieSlice.actions;
+export const { setSearchedMovies } = movieSlice.actions;
 export default movieSlice.reducer;

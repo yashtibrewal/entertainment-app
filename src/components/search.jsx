@@ -3,7 +3,9 @@ import "../App.css"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { searchMovies, searchTVSeries } from "../store/Redux/SearchSlice";
+import { clearSearchResults, searchMovies, searchTVSeries } from "../store/Redux/SearchSlice";
+import { setSearchedMovies } from "../store/Redux/MovieSlice";
+import { setSearchedTVSeries } from "../store/Redux/TvSeriesSlice";
 
 export default function Search () {
   const[input,setInput]=useState('');
@@ -12,30 +14,37 @@ export default function Search () {
 
   const { movies, tvSeries, loading, error } = useSelector(state => state.search );
 
+  useEffect(()=> {
+    dispatch(setSearchedMovies(movies));
+  }, [movies]);
+
+  useEffect(()=> {
+    dispatch(setSearchedTVSeries(tvSeries));
+  }, [tvSeries]);
+
   useEffect(() => {
     const handler = setTimeout(() => {
-      if (input.trim()) { // if empty
+      if (input.trim()) {
         dispatch(searchMovies(input));
         dispatch(searchTVSeries(input));
       } else {
-        // dispatch(clearSearchResults());
-        // Depending on which page we are on, dispatch functions respectively.
-        // clearSearchResults();
         const path = location.pathname;
-        
-        // TODO:
         switch (path) {
 
           case '/':
+            dispatch(clearSearchResults())
             break;
           
+          // TODO: implement search for bookmarks.
           case '/bookmark':
             break;
          
           case '/movies':
+            dispatch(clearSearchResults())
             break;
       
           case '/tv-series':
+            dispatch(clearSearchResults())
             break;
 
           default:

@@ -8,6 +8,8 @@ import { BASE_IMAGE_URL, MEDIA_TYPE } from "../../constants";
 import { useNavigate } from "react-router-dom";
 
 const Card = ({ id, name, bookmark, poster_path, title, release_date, first_air_date, adult, media_type }) => {
+  console.log('Inside card', { id, name, bookmark, poster_path, title, release_date, first_air_date, adult, media_type });
+  
   const [isBookmarked, setIsBookmarked] = useState(bookmark || false);
   const navigate = useNavigate();
 
@@ -63,16 +65,16 @@ const Card = ({ id, name, bookmark, poster_path, title, release_date, first_air_
         <li className="flex flex-col items-center text-white text-xs">
         <span className="mr-1">
             { media_type === MEDIA_TYPE.MOVIES ? (
-              release_date.slice(0,4)
+              release_date?.slice(0,4)
             ) : (
-              first_air_date.slice(0,4)
+              first_air_date?.slice(0,4)
             ) }
         </span>
         </li>
         
         <li className="flex items-center">
           <RiFilmFill className="mr-1 text-white" />
-          <span>{media_type.toUpperCase()}</span>
+          <span>{media_type?.toUpperCase()}</span>
         </li>
         <li className="flex items-center text-xs">
           <span>{adult ? "PG" : "UG"}</span>

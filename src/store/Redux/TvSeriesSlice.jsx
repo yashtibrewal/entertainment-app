@@ -81,9 +81,16 @@ const tvSeriesSlice = createSlice({
     trending: [],
     airingToday: [],
     onTheAir: [],
+    searchedTVSeries: [],
     loading: false,
     error: null,
     tvSeriesBookmarks: [],
+  },
+  reducers: {
+    setSearchedTVSeries(state, action) {
+      console.log('action.payload', action.payload);
+      state.searchedTVSeries = [...action.payload];
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -109,4 +116,5 @@ const tvSeriesSlice = createSlice({
   },
 });
 
+export const { setSearchedTVSeries } = tvSeriesSlice.actions;
 export default tvSeriesSlice.reducer;

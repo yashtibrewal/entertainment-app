@@ -6,9 +6,8 @@ import style from './../components/common-media/content.module.css';
 
 function Movies() {
   const dispatch = useDispatch();
-  const { popularMovies, trendingMovies, nowPlayingMovies, upcomingMovies, loading, error } = useSelector((state) => state.movies);
+  const { searchedMovies, popularMovies, trendingMovies, nowPlayingMovies, upcomingMovies, loading, error } = useSelector((state) => state.movies);
   const movieBookmarks = useSelector((state) => state.movies.movieBookmarks);
-
 
   useEffect(() => {
     dispatch(fetchAllMovies());
@@ -59,13 +58,29 @@ function Movies() {
 
   if (loading) return <p>Loading movies...</p>;
   if (error) return <p>Error: {error}</p>;
+
+  console.log(searchedMovies.length);
+  if(searchedMovies.length){
+    return (
+      <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
+      <div className={style.content}>
+        {searchedMovies.map((card, index) => (
+          <div key={index}>
+            <List cards={[{ ...card, media_type: 'movie' }]} />
+          </div>
+        ))}
+      </div>
+    </div>
+    )
+  }
+
   return (
     <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
       {/* <h1 className="mb-4 font-semibold text-2xl text-white">Recommended for you</h1> */}
       <div className={style.content}>
         {allMovies.map((card, index) => (
           <div key={index}>
-            <List card={[{ ...card, media_type: 'movie' }]} />
+            <List cards={[{ ...card, media_type: 'movie' }]} />
           </div>
         ))}
 
