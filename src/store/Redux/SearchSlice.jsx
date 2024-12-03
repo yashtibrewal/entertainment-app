@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { TMDB_BASE_URL } from '../../constants';
-import { tokens } from '../../store/localstorage';
 import { tokens } from '../localstorage';
 
 //searching movies
@@ -62,10 +61,10 @@ const searchSlice = createSlice({
     error: null,
   },
   reducers: {
-    // clearSearchResults: (state, action) => {
-    //   state.movies = [];
-    //   state.tvSeries = [];
-    // },
+    clearSearchResults: (state, action) => {
+      state.movies = [];
+      state.tvSeries = [];
+    },
     searching: (state, action) => {
       state.loading = true;
     }
