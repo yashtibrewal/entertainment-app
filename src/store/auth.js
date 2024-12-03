@@ -1,11 +1,8 @@
 import { createContext, useContext, useReducer } from "react";
 import { jwtDecode } from "jwt-decode";
+import { LOGIN, LOGOUT } from "../constants";
 
 const AuthContext = createContext();
-// Action types
-const LOGIN = "LOGIN";
-const LOGOUT = "LOGOUT";
-
 // Helper function to extract user from jwt token
 function getUserFromToken(entertainmentAppToken) {
   if (!entertainmentAppToken) return null;

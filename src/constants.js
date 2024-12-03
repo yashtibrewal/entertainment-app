@@ -11,4 +11,7 @@ export const MEDIA_TYPE = {
 export const UI_MESSAGES = {
   NO_MOVIES:"No Movies found.",
   NO_TV_SERIES: "No TV Series found."
-}
+};
+// Action types
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";

@@ -50,7 +50,7 @@ const TrendingCard = ({ id, bookmark, poster_path, title, release_date, adult, m
               <span>{adult ? "PG" : "UG"}</span>
             </li>
           </ul>
-          <h3 className="mt-1 font-semibold text-lg text-white">{title} Insidious</h3>
+          <h3 className="mt-1 font-semibold text-lg text-white">{title}</h3>
         </div>
       </div>
     </div>

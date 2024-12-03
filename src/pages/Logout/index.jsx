@@ -13,10 +13,10 @@ function Logout() {
     const logoutUser = async () => {
       const result = await logoutUserApi();
       if (result.isSuccess) {
-        logout(state.token);
+        logout();
         navigate("/login");
       } else {
-      //  console.log(result);
+       console.error(result);
       }
     };
 
