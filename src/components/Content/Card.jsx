@@ -8,7 +8,7 @@ import { BASE_IMAGE_URL, MEDIA_TYPE } from "../../constants";
 import { useNavigate } from "react-router-dom";
 
 const Card = ({ id, name, bookmark, poster_path, title, release_date, first_air_date, adult, media_type }) => {
-  console.log('Inside card', { id, name, bookmark, poster_path, title, release_date, first_air_date, adult, media_type });
+  // console.log('Inside card', { id, name, bookmark, poster_path, title, release_date, first_air_date, adult, media_type });
   
   const [isBookmarked, setIsBookmarked] = useState(bookmark || false);
   const navigate = useNavigate();

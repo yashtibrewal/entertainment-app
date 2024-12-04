@@ -60,6 +60,7 @@ export const fetchAllTVSeriesBookmarks = createAsyncThunk(
       const result = await axios.get(`${BASE_LOCAL_URL}movie/bookmarks`, {
         headers: { Authorization: `Bearer ${entertainmentAppToken}` },
       })
+      console.log(result);
       return result.data;
 
     } catch (error) {
