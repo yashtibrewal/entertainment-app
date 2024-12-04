@@ -53,7 +53,7 @@ const Trending = ({ trendingMovies }) => {
   };
 
   const handleClick = (id, media_type) => {
-    console.log(id, media_type);
+    // console.log(id, media_type);
     if (media_type === 'movie') {
       navigate(`/movie/${id}`);
     }

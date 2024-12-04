@@ -32,7 +32,7 @@ const toggleMovieBookmark = async (movie_id, bookmarked) => {
       result
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -67,7 +67,7 @@ const toggleTVSeriesBookmark = async (movie_id, bookmarked) => {
       result
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 

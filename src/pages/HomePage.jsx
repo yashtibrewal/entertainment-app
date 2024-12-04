@@ -31,14 +31,14 @@ export default function HomePage() {
     // Add the present movies to a cache,
     // Show the searched movies.
 
-    console.log(searchedMovies.length);
+    // console.log(searchedMovies.length);
     if(searchedMovies.length > 0) {
       setPopularMoviesCache([...popMovies]);
       setTrendingMoviesCache([...trendingMoviesLocal]);
       setPopMovies([]);
       setTrendingMoviesLocal([]);
       
-      console.log('searchedMovies', searchedMovies);
+      // console.log('searchedMovies', searchedMovies);
     }else {
       dispatch(clearSearchResults);
       setPopMovies(popularMoviesCache);

@@ -11,11 +11,12 @@ export default function TVSeriesPage() {
 
   const dispatch = useDispatch();
   const { searchedTVSeries, popular, trending, airingToday, onTheAir, tvSeriesBookmarks, loading, error } = useSelector((state) => state.tvSeries);
-  const [popularTVSeries, setPopTVSeries] = useState([]);
+  const [popularTVSeries, setPopularTVSeries] = useState([]);
   const [trendingTVSeries, setTrendingTVSeries] = useState([]);
   const [airingTodaySeries, setAiringTodaySeries] = useState([]);
   const [onTheAirSeries, setOnTheAirSeries] = useState([]);
-  
+
+
   useEffect(() => {
     dispatch(fetchAllTVSeries());
     dispatch(fetchAllTVSeriesBookmarks());
@@ -38,57 +39,44 @@ export default function TVSeriesPage() {
   const setMediaAsTVSeries = series => { 
     return { ...series, media_type: MEDIA_TYPE.TV_SERIES }; }
 
-  useEffect(() => {
-    const popularTVSeriesWithMedia = popular.map(setMediaAsTVSeries);
-    const popularTVSeriesWithBookmark = popularTVSeriesWithMedia.map(populateBookmark);
-    setPopTVSeries(popularTVSeriesWithBookmark);
-  }, [popular, populateBookmark]);
+  const setMediaAndBookmarkFields = useCallback((tvSeries, setterFunction) => {
+    const tvSeriesWithMedia = tvSeries.map(setMediaAsTVSeries);
+    const tvSerieisWithBookmark = tvSeriesWithMedia.map(populateBookmark);
+    setterFunction(tvSerieisWithBookmark);
+  },[populateBookmark]);
 
   useEffect(() => {
-    const trendingTVSeriesWithMediaType = trending.map(setMediaAsTVSeries);
-    const trendingTVSeriesWithBookmark = trendingTVSeriesWithMediaType.map(populateBookmark);
-    setTrendingTVSeries(trendingTVSeriesWithBookmark);
-  }, [trending, populateBookmark]);
+    setMediaAndBookmarkFields(popular, setPopularTVSeries);
+  },[popular, setMediaAndBookmarkFields]);
 
   useEffect(() => {
-    const airingTodaySeriesWithMediaType = airingToday.map(setMediaAsTVSeries);
-    const airtingTodaySeriesWithBookmark = airingTodaySeriesWithMediaType.map(populateBookmark);
-    setAiringTodaySeries(airtingTodaySeriesWithBookmark);
-  }, [airingToday, populateBookmark]);
+    setMediaAndBookmarkFields(trending, setTrendingTVSeries);
+  },[trending, setMediaAndBookmarkFields]);
 
   useEffect(() => {
-    const onTheAirSeriesWithMediaType = onTheAir.map(setMediaAsTVSeries);
-    const onTheAirSeriesSeriesWithBookmark = onTheAirSeriesWithMediaType.map(populateBookmark);
-    setOnTheAirSeries(onTheAirSeriesSeriesWithBookmark);
-  }, [onTheAir, populateBookmark]);
+    setMediaAndBookmarkFields(airingToday, setAiringTodaySeries);
+  },[airingToday, setMediaAndBookmarkFields]);
 
+  useEffect(() => {
+    setMediaAndBookmarkFields(onTheAir, setOnTheAirSeries);
+  },[onTheAir, setMediaAndBookmarkFields]);
+  
   if (loading) return <p>Loading TV series...</p>;
   if (error) return <p>Error: {error}</p>;
 
   if(searchedTVSeries.length > 0) {
     return (
-      <div className="overflow-x-hidden">
-        <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
-          <h1 className={styles.headings}>Searched Results</h1>
-          <div className={styles.content}>
-            <List cards={searchedTVSeries} />
-          </div>
+      <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
+        <h1 className={styles.headings}>Searched Results</h1>
+        <div className={styles.content}>
+          <List cards={searchedTVSeries} />
         </div>
       </div>
     )
   }
 
-
   return (
     <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] gap-y-5 home-width">
-      <h1 className={styles.headings}>Airing Today</h1>
-      <div className={styles.content}>
-        <List cards={airingToday} />
-      </div>
-      <h1 className={styles.headings}>On The Air</h1>
-      <div className={styles.content}>
-        <List cards={onTheAirSeries} />
-      </div>
       <h1 className={styles.headings}>Trending</h1>
       <div className={styles.content}>
         <List cards={trendingTVSeries} />
@@ -96,6 +84,14 @@ export default function TVSeriesPage() {
       <h1 className={styles.headings}>Popular</h1>
       <div className={styles.content}>
         <List cards={popularTVSeries} />
+      </div>
+      <h1 className={styles.headings}>Airing Today</h1>
+      <div className={styles.content}>
+        <List cards={airingTodaySeries} />
+      </div>
+      <h1 className={styles.headings}>On The Air</h1>
+      <div className={styles.content}>
+        <List cards={onTheAirSeries} />
       </div>
     </div>
   );

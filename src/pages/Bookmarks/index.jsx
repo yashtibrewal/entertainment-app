@@ -64,7 +64,7 @@ function Bookmarks() {
         return [moviesWithMediaType, tvSeriesWithMediaType];
 
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
 

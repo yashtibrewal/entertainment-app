@@ -93,7 +93,6 @@ const movieSlice = createSlice({
   },
   reducers: {
     setSearchedMovies(state, action) {
-      console.log('action.payload', action.payload);
       state.searchedMovies = [...action.payload]
     }
   },

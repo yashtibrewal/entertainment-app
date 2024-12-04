@@ -16,7 +16,7 @@ const TrendingCard = ({ id, bookmark, poster_path, title, release_date, adult, m
           if (result.isSuccess) {
             setBookmarked(result.result.bookmark);
           } else {
-           console.log('error', result);
+           console.error('error', result);
           }
         });
     }
