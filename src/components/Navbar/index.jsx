@@ -7,7 +7,8 @@ import { Avatar } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
 import { FaBookmark } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useAuth } from "../store/auth";
+import { useAuth } from "../../store/auth";
+import styles from './Navbar.module.css';
 
 const Navbar = () => {
 
@@ -33,22 +34,22 @@ const Navbar = () => {
       <div className="flex sm:flex sm:flex-row flex-col md:flex-col md:items-center gap-6 md:gap-6 icon-container">
         {/* Home Icon Link */}
         <Link to="/" className="group">
-          <SiWindows11 className="group-hover:text-userHover group-focus:text-userHoverColor text-2xl text-userTextColor" />
+          <SiWindows11 className={styles.navbarLinkItem} />
         </Link>
 
         {/* Movies Icon Link */}
         <Link to="/movies" className="group">
-          <RiFilmFill className="group-hover:text-userHover group-focus:text-userHoverColor text-2xl text-userTextColor" />
+          <RiFilmFill className={styles.navbarLinkItem} />
         </Link>
 
         {/* Serial or TV Icon Link */}
         <Link to="/tv-series" className="group">
-          <PiTelevision className="group-hover:text-userHover group-focus:text-userHoverColor text-2xl text-userTextColor" />
+          <PiTelevision className={styles.navbarLinkItem} />
         </Link>
 
         {/* Bookmark Icon Link */}
         <Link to="/bookmark" className="group">
-          <FaBookmark className="group-hover:text-userHover group-focus:text-userHoverColor text-2xl text-userTextColor" />
+          <FaBookmark className={styles.navbarLinkItem} />
         </Link>
       </div>
 
