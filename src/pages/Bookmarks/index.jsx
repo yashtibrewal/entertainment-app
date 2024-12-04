@@ -52,19 +52,23 @@ function Bookmarks() {
         ]);
 
         // Setting media_types
-        const moviesWithMediaType = bookmarkedMovies.map(movie => ({
+        const moviesWithMediaTypeAndBookmark = bookmarkedMovies.map(movie => ({
           ...movie.result,
           media_type: MEDIA_TYPE.MOVIES,
+          bookmark: true,
         }));
-        const tvSeriesWithMediaType = bookmarkedTVSeries.map(tvSeries => ({
+        const tvSeriesWithMediaTypeAndBookmark = bookmarkedTVSeries.map(tvSeries => ({
           ...tvSeries.result,
           media_type: MEDIA_TYPE.TV_SERIES,
+          bookmark: true,
         }));
 
-        return [moviesWithMediaType, tvSeriesWithMediaType];
+        return [moviesWithMediaTypeAndBookmark, tvSeriesWithMediaTypeAndBookmark];
 
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -80,36 +84,30 @@ function Bookmarks() {
     return <>Loading</>
   }
 
-  return (
-    <div className="ml-4 Bookmarks">
-      <h1 className={styles.headings + ' mt-10'}>Movies</h1>
-      <div className={style.content}>
-      {bookmarkedMovies.length > 0 ? (
-        bookmarkedMovies.map((movie, index) => (
-          <div key={index}>
-            <List cards={[movie]} />
-          </div>
-        ))
-      ) : (
-        <>No Movies has been found.</>
-      )}
 
-      </div>
-      <h1 className={styles.headings + ' mt-10'}>TV Series</h1>
-      <div className={style.content}>
+  const noBookmarkMessage = () => {
 
-      {bookmarkedTvSeries.length > 0 ? (
-        bookmarkedTvSeries.map((movie, index) => (
-          <div key={index}>
-            <List cards={[movie]} />
+    if(!bookmarkedMovies.length && !bookmarkedTvSeries.length)
+    {   
+      return <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] gap-y-5 home-width">
+            <h1 className={styles.headings + ' mt-10'}>No Movies or T.V. Series Bookmarked.</h1>
           </div>
-        ))
-      ) : (
-        <>No TV Series Found.</>
-      )}
-      </div>
-    </div>
-  );
+    }else {
+      return (
+        <div className="ml-4 Bookmarks">
+          <h1 className={styles.headings + ' mt-10'}>Bookmarked Movies and T.V. Series</h1>
+          <div className={style.content}>
+            <List cards={[...bookmarkedMovies, ...bookmarkedTvSeries]}></List>
+          </div>
+        </div>
+      );
+    }
+
+  }
+
+
+  return noBookmarkMessage();
+
 }
 
 export default Bookmarks;
