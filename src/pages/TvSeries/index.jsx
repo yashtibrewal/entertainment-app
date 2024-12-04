@@ -14,6 +14,7 @@ export default function TVSeriesPage() {
   const [popularTVSeries, setPopTVSeries] = useState([]);
   const [trendingTVSeries, setTrendingTVSeries] = useState([]);
   const [airingTodaySeries, setAiringTodaySeries] = useState([]);
+  const [onTheAirSeries, setOnTheAirSeries] = useState([]);
   
   useEffect(() => {
     dispatch(fetchAllTVSeries());
@@ -25,14 +26,14 @@ export default function TVSeriesPage() {
    */
   const populateBookmark = useCallback((tvSeries) => {
     let bookmark = false;
+    const updatedTVSeries = { ...tvSeries, bookmark };
     const searchedTvSeriesLocal = tvSeriesBookmarks
       .find((bookmarkObj) => bookmarkObj.series_id === tvSeries.id);
     if (searchedTvSeriesLocal) {
-      bookmark = searchedTvSeriesLocal.bookmark;
+      updatedTVSeries.bookmark = searchedTvSeriesLocal.bookmark;
     }
-    const updatedTVSeries = { ...tvSeries, bookmark };
     return updatedTVSeries;
-  }, [tvSeriesBookmarks])
+  }, [tvSeriesBookmarks]);
 
   const setMediaAsTVSeries = series => { 
     return { ...series, media_type: MEDIA_TYPE.TV_SERIES }; }
@@ -41,7 +42,7 @@ export default function TVSeriesPage() {
     const popularTVSeriesWithMedia = popular.map(setMediaAsTVSeries);
     const popularTVSeriesWithBookmark = popularTVSeriesWithMedia.map(populateBookmark);
     setPopTVSeries(popularTVSeriesWithBookmark);
-  }, [popular, populateBookmark])
+  }, [popular, populateBookmark]);
 
   useEffect(() => {
     const trendingTVSeriesWithMediaType = trending.map(setMediaAsTVSeries);
@@ -53,8 +54,13 @@ export default function TVSeriesPage() {
     const airingTodaySeriesWithMediaType = airingToday.map(setMediaAsTVSeries);
     const airtingTodaySeriesWithBookmark = airingTodaySeriesWithMediaType.map(populateBookmark);
     setAiringTodaySeries(airtingTodaySeriesWithBookmark);
-    console.log(airingToday);
   }, [airingToday, populateBookmark]);
+
+  useEffect(() => {
+    const onTheAirSeriesWithMediaType = onTheAir.map(setMediaAsTVSeries);
+    const onTheAirSeriesSeriesWithBookmark = onTheAirSeriesWithMediaType.map(populateBookmark);
+    setOnTheAirSeries(onTheAirSeriesSeriesWithBookmark);
+  }, [onTheAir, populateBookmark]);
 
   if (loading) return <p>Loading TV series...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -62,10 +68,8 @@ export default function TVSeriesPage() {
   if(searchedTVSeries.length > 0) {
     return (
       <div className="overflow-x-hidden">
-        {/* Airing today section */}
         <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
-          <h1 className="mb-4 font-semibold text-2xl text-white">Searched Results</h1>
-          {/* Responsive grid layout for Recommended */}
+          <h1 className={styles.headings}>Searched Results</h1>
           <div className={styles.content}>
             <List cards={searchedTVSeries} />
           </div>
@@ -76,17 +80,23 @@ export default function TVSeriesPage() {
 
 
   return (
-
-    <div className="overflow-x-hidden">
-      {/* Airing today section */}
-      <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
-        <h1 className="mb-4 font-semibold text-2xl text-white">On-The-Air</h1>
-        {/* Responsive grid layout for Recommended */}
-        <div className={styles.content}>
-          <List cards={airingTodaySeries} />
-        </div>
+    <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] gap-y-5 home-width">
+      <h1 className={styles.headings}>Airing Today</h1>
+      <div className={styles.content}>
+        <List cards={airingToday} />
+      </div>
+      <h1 className={styles.headings}>On The Air</h1>
+      <div className={styles.content}>
+        <List cards={onTheAirSeries} />
+      </div>
+      <h1 className={styles.headings}>Trending</h1>
+      <div className={styles.content}>
+        <List cards={trendingTVSeries} />
+      </div>
+      <h1 className={styles.headings}>Popular</h1>
+      <div className={styles.content}>
+        <List cards={popularTVSeries} />
       </div>
     </div>
-
   );
 }

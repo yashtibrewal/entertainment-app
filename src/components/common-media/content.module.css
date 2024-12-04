@@ -7,5 +7,5 @@
 }
 
 .headings {
-  @apply mb-3 font-semibold text-2xl text-white;
+  @apply mb-3 mt-5 font-semibold text-2xl text-white;
 }
