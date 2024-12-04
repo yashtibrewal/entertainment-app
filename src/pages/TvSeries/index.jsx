@@ -15,7 +15,7 @@ export default function TVSeriesPage() {
   const [trendingTVSeries, setTrendingTVSeries] = useState([]);
   const [airingTodaySeries, setAiringTodaySeries] = useState([]);
   const [onTheAirSeries, setOnTheAirSeries] = useState([]);
-
+  const [uniqueSet, setUniqueSet] = useState(new Set());
 
   useEffect(() => {
     dispatch(fetchAllTVSeries());
@@ -46,21 +46,33 @@ export default function TVSeriesPage() {
   },[populateBookmark]);
 
   useEffect(() => {
-    setMediaAndBookmarkFields(popular, setPopularTVSeries);
-  },[popular, setMediaAndBookmarkFields]);
-
-  useEffect(() => {
+    const tempSet = new Set();
+    trending.forEach(trend => tempSet.add(trend.id));
+    setUniqueSet(trending);
     setMediaAndBookmarkFields(trending, setTrendingTVSeries);
   },[trending, setMediaAndBookmarkFields]);
 
   useEffect(() => {
-    setMediaAndBookmarkFields(airingToday, setAiringTodaySeries);
-  },[airingToday, setMediaAndBookmarkFields]);
+    const tempSet = new Set(uniqueSet);
+    const uniquePopular = popular.filter((pop) => !tempSet.has(pop.id) && tempSet.add(pop.id));
+    setUniqueSet(tempSet);
+    setMediaAndBookmarkFields(uniquePopular, setPopularTVSeries);
+  },[popular, setMediaAndBookmarkFields, setTrendingTVSeries]);
 
   useEffect(() => {
-    setMediaAndBookmarkFields(onTheAir, setOnTheAirSeries);
-  },[onTheAir, setMediaAndBookmarkFields]);
-  
+    const tempSet = new Set(uniqueSet);
+    const uniqueAiringToday = airingToday.filter((pop) => !tempSet.has(pop.id) && tempSet.add(pop.id));
+    setUniqueSet(tempSet);
+    setMediaAndBookmarkFields(uniqueAiringToday, setAiringTodaySeries);
+  },[airingToday, setMediaAndBookmarkFields, setPopularTVSeries]);
+
+  useEffect(() => {
+    const tempSet = new Set(uniqueSet);
+    const uniqueOnTheAir = onTheAir.filter((pop) => !tempSet.has(pop.id) && tempSet.add(pop.id));
+    setUniqueSet(tempSet);
+    setMediaAndBookmarkFields(uniqueOnTheAir, setOnTheAirSeries);
+  },[onTheAir, setMediaAndBookmarkFields, setAiringTodaySeries]);
+
   if (loading) return <p>Loading TV series...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -77,21 +89,9 @@ export default function TVSeriesPage() {
 
   return (
     <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] gap-y-5 home-width">
-      <h1 className={styles.headings}>Trending</h1>
+      <h1 className={styles.headings}>T.V. Series</h1>
       <div className={styles.content}>
-        <List cards={trendingTVSeries} />
-      </div>
-      <h1 className={styles.headings}>Popular</h1>
-      <div className={styles.content}>
-        <List cards={popularTVSeries} />
-      </div>
-      <h1 className={styles.headings}>Airing Today</h1>
-      <div className={styles.content}>
-        <List cards={airingTodaySeries} />
-      </div>
-      <h1 className={styles.headings}>On The Air</h1>
-      <div className={styles.content}>
-        <List cards={onTheAirSeries} />
+        <List cards={[...trendingTVSeries,...popularTVSeries,...airingTodaySeries,...onTheAirSeries]} />
       </div>
     </div>
   );
