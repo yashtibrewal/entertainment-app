@@ -2,10 +2,11 @@
 function getItemFromLocalStorage(itemName) {
     const item = localStorage.getItem(itemName);
     if(!item) {
-        throw new Error('Item not found');
+        return null;
     }
     return item;
 }
+
 
 
 export const tokens = {
