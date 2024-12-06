@@ -18,7 +18,7 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useAuth();
+  const { login, state } = useAuth();
   const navigate = useNavigate();
   const { addToast } = useToast(); 
 
@@ -45,9 +45,9 @@ const Login = () => {
     }
   };
 
-  // if (loading) return <> addToast("Loading...")</>;
+  if (state.loading) return <> addToast("Loading...")</>;
 
-  if(loading) return <>Logging in.</>
+  // if(loading) return <>Logging in.</>
 
   return (
     <div className="flex flex-col justify-center items-center bg-gray-900 w-[100vw] h-[100vh] text-white">

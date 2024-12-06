@@ -109,8 +109,8 @@ export default function HomePage() {
       if (searchedTV) {
         bookmark = searchedTV.bookmark;
       }
-      const updatedMovie = { ...content, bookmark };
-      return updatedMovie;
+      const updatedTV = { ...content, bookmark };
+      return updatedTV;
     }
         
     },
@@ -164,7 +164,7 @@ export default function HomePage() {
   if (searchedMovies.length) return renderSearchedMovies();
 
   return (
-    <div className="overflow-x-hidden">
+    <div className="">
       {/* Trending Section */}
       <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)]">
         <Trending trendingMovies={trendingMoviesLocal} />
