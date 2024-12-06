@@ -25,6 +25,7 @@ const Login = () => {
 
   const loginUser = async () => {
     setLoading(true);
+
     try {
       const result = await loginUserApi(email, password);
       if (result.isSuccess) {
