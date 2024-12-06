@@ -27,6 +27,7 @@ const Login = () => {
     if (result.isSuccess) {
       login(result);
       navigate("/");
+      setLoading(false);
     } else {
      console.error(result);
     }
