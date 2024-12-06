@@ -10,7 +10,10 @@ const ProtectedRoute = () => {
   useEffect(() => {
     if (!tokens.entertainmentAppToken ||
         !tokens.tmdbToken)
-      navigate("/login");
+      navigate("/login")
+      else {
+        navigate("/");
+      }
   })
 
   return state.isLoggedIn ? <Outlet></Outlet> : navigate("/login");
