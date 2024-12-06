@@ -174,7 +174,7 @@ export default function HomePage() {
     );
   }
   return (
-    <div className="overflow-x-hidden">
+    <div className="">
       {/* Trending Section */}
       <div className="md:ml-4 p-4 ">
         <Trending trendingMovies={trendingMoviesLocal} />
