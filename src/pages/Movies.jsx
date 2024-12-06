@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import List from "../components/Content/List";
 import { fetchAllMovieBookmarks, fetchAllMovies } from "../store/Redux/MovieSlice"
-import style from './../components/common-media/content.module.css';
+import styles from './../components/common-media/content.module.css';
 
 function Movies() {
   const dispatch = useDispatch();
@@ -59,11 +59,11 @@ function Movies() {
   if (loading) return <p>Loading movies...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  console.log(searchedMovies.length);
   if(searchedMovies.length){
     return (
       <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
-      <div className={style.content}>
+      <h1 className={styles.headings}>Movies</h1>
+      <div className={styles.content}>
         {searchedMovies.map((card, index) => (
           <div key={index}>
             <List cards={[{ ...card, media_type: 'movie' }]} />
@@ -76,8 +76,8 @@ function Movies() {
 
   return (
     <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
-      {/* <h1 className="mb-4 font-semibold text-2xl text-white">Recommended for you</h1> */}
-      <div className={style.content}>
+      <h1 className={styles.headings}>Movies</h1>
+      <div className={styles.content}>
         {allMovies.map((card, index) => (
           <div key={index}>
             <List cards={[{ ...card, media_type: 'movie' }]} />

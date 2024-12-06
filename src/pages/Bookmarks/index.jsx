@@ -81,7 +81,10 @@ function Bookmarks() {
   }, [])
 
   if (loading) {
-    return <>Loading</>
+    return <div className="m-10">
+      <h1>Loading</h1>
+      <p>{UI_MESSAGES.RENDER_LOADING}</p>
+    </div>
   }
 
 
