@@ -27,12 +27,10 @@ const Login = () => {
     if (result.isSuccess) {
       login(result);
       navigate("/");
-      setLoading(false);
     } else {
      console.error(result);
     }
     setLoading(false);
-
   }
 
   if(loading) return <>Logging in.</>
