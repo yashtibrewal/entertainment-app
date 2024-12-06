@@ -24,10 +24,10 @@ const Login = () => {
   const loginUser = async () => {
     setLoading(true);
     const result = await loginUserApi(email, password);
-    setLoading(false);
     if (result.isSuccess) {
       login(result);
       navigate("/");
+      setLoading(false);
     } else {
      console.error(result);
     }
