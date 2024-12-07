@@ -66,10 +66,10 @@
 
 /* Fixing layout for App component */
 /* App.css */
-.main-container{
-overflow-x: hidden;
-}
 
+.main-container {
+  overflow-x: hidden;
+}
 
 @media (max-width: 768px) {
   .main-container {
