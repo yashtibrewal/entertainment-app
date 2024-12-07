@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MovieCreationIcon from '@mui/icons-material/MovieCreation';
 import registerUser from './api';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useToast } from '../../components/ToastContext'; 
 
 const SignUp = () => {
@@ -10,15 +10,13 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const navigate = useNavigate();
+  const { addToast } = useToast(); 
 
   const [error, setError] = useState("");
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [cnfPasswordError, setCnfPasswordError] = useState('');
-
-  const { addToast } = useToast(); 
-
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -171,6 +169,7 @@ const SignUp = () => {
             Create an account
           </button>
         </div>
+
         {/* Additional Links */}
         <p className="mt-4 text-center text-gray-400 text-sm">
           Already have an account?{' '}
