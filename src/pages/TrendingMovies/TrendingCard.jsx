@@ -5,7 +5,7 @@ import { BASE_IMAGE_URL } from "../../constants";
 
 // This card is the wider card used compared to other cards. These cards are placed first.
 const TrendingCard = ({ poster_path, name, title,first_air_date  ,release_date, adult,media_type}) => {
-console.log(media_type);
+// console.log(media_type);
   return (
     <div className="bg-black shadow-lg rounded-lg w-96 text-white overflow-hidden trending-cart">
       <div className="relative">

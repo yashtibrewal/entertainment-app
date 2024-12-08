@@ -6,7 +6,6 @@ import { MEDIA_TYPE } from "../../constants";
 
 export function Bookmark({bookmark, media_type, id}) {
 
-
     useEffect(() => {
         setIsBookmarked(bookmark);
       }, [bookmark]);
@@ -14,6 +13,7 @@ export function Bookmark({bookmark, media_type, id}) {
     const [isBookmarked, setIsBookmarked] = useState(bookmark || false);
 
     const bookmarkContent = (event) => {
+        console.log('clicked bookmark');
         event.stopPropagation();
         if (media_type === MEDIA_TYPE.MOVIES) {
           toggleMovieBookmark(id, isBookmarked).then(({ result }) => {
@@ -27,12 +27,12 @@ export function Bookmark({bookmark, media_type, id}) {
       }
 
     return <span
-                onClick={bookmarkContent}
-                className="top-2 right-2 absolute flex flex-row-reverse bg-black bg-opacity-75 p-2.5 rounded-full cursor-pointer">
+              onClick={bookmarkContent}
+              className="top-2 right-2 absolute flex flex-row-reverse bg-black bg-opacity-75 p-2.5 rounded-full cursor-pointer">
                 {isBookmarked ? (
-                    <FaBookmark className="text-white" />
-                    ) : (
-                    <FaRegBookmark className="text-white" />
-                    )}
+                  <FaBookmark className="text-white" />
+                  ) : (
+                  <FaRegBookmark className="text-white" />
+                  )}
         </span>
 }
