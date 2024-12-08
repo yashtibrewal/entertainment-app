@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const List = ({ cards }) => {
   const filteredCards = cards.filter((card) => card.poster_path); // filtering poster due to some poster's are missing
-  console.log(filteredCards);
+  // console.log(filteredCards);
   return (
     <>
       {filteredCards.map((card) => (
