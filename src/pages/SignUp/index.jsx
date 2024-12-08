@@ -14,7 +14,13 @@ const SignUp = () => {
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [cnfPasswordError, setCnfPasswordError] = useState('');
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      document.getElementById('signUp').click();
+    }
+  };
   
   const signup = async (event) => {
     event.preventDefault();
@@ -23,6 +29,7 @@ const SignUp = () => {
     setError('');
     setNameError('');
     setEmailError('');
+    setCnfPasswordError('');
     setPasswordError('');
 
   
@@ -35,11 +42,15 @@ const SignUp = () => {
       setEmailError("Please enter a valid email.");
       return;
     }
-    if (password !== repeatPassword) {
-      setPasswordError("Passwords do not match.");
+    if (!password.trim()) {
+      setPasswordError("Password is required.");
       return;
     }
-  
+    if (password !== repeatPassword) {
+      setCnfPasswordError("Passwords do not match.");
+      return;
+    }
+    
     // Call the registerUser API if validation passes
     const result = await registerUser(name, email, password);
     if (result.isSuccess) {
@@ -47,10 +58,15 @@ const SignUp = () => {
     } else {
       setError(result.message); 
     }
+
   };
   
-  
-
+  const handleFocus = () => {
+    setNameError('');
+    setEmailError('');
+    setPasswordError('');
+    setCnfPasswordError('');
+  }
 
   return (
     <div
@@ -64,7 +80,7 @@ const SignUp = () => {
       </div>
 
       {/* Form Container */}
-      <form action="">
+      <form action="" onKeyDown={handleKeyDown}>
         <div className="bg-gray-800 shadow-lg p-6 rounded-xl w-80">
           <h1 className="mb-6 font-semibold text-2xl">SignUp</h1>
 
@@ -78,6 +94,7 @@ const SignUp = () => {
                 required
                 onChange={(event) => setName(event.target.value)}
                 placeholder="Name"
+                onFocus={handleFocus}
                 className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
               />
               {nameError && <p className="text-red-500 text-xs mt-1">{nameError}</p>}
@@ -89,6 +106,7 @@ const SignUp = () => {
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 placeholder="Email"
+                onFocus={handleFocus}
                 className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
               />
               {emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
@@ -99,30 +117,38 @@ const SignUp = () => {
                 type="password"
                 name="password"
                 value={password}
+                required
                 onChange={(event) => setPassword(event.target.value)}
                 placeholder="Password"
+                onFocus={handleFocus}
                 className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
               />
+              {passwordError && <p className="text-red-500 text-xs mt-1">{passwordError}</p>}
+
             </div>
             <div className="relative">
               <input
                 type="password"
                 name="repeatPassword"
                 value={repeatPassword}
+                required
                 onChange={(event) => setRepeatPassword(event.target.value)}
                 placeholder="Repeat password"
+                onFocus={handleFocus}
                 className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
               />
-              {passwordError && <p className="text-red-500 text-xs mt-1">{passwordError}</p>}
+              {cnfPasswordError && <p className="text-red-500 text-xs mt-1">{cnfPasswordError}</p>}
             </div>
             <button
               type="submit"
               onClick={(event) => signup(event)}
+              id='signUp'
               className="gap-4 bg-red-500 hover:bg-red-600 mt-2 py-2 rounded-lg font-medium text-sm text-white transition-all"
             >
               Create an account
             </button>
           </div>
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
           {/* Additional Links */}
           <p className="mt-4 text-center text-gray-400 text-sm">
             Already have an account?{' '}

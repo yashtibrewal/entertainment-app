@@ -21,7 +21,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const loginUser = async () => {
+  const loginUser = async (e) => {
     setLoading(true);
     const result = await loginUserApi(email, password);
     if (result.isSuccess) {
@@ -32,6 +32,10 @@ const Login = () => {
      console.error(result);
     }
     setLoading(false);
+
+    if (e.key === 'Enter') {
+      document.getElementById('loginUser').click(); // Trigger the button click
+    }
 
   }
 
@@ -77,6 +81,7 @@ const Login = () => {
           <button
             type="button"
             onClick={loginUser}
+            id='loginUser'
             className="gap-4 bg-red-500 hover:bg-red-600 py-2 rounded-lg font-medium text-sm text-white transition-all"
           >
             Login to your account
