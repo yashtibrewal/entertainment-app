@@ -12,6 +12,7 @@ import Layout from "./components/Layout";
 import Movie from "./pages/movie";
 import ProtectedRoute from "./components/ProtectedRoute";
 import TVSeries from "./pages/TvSeries";
+import { SingleTVSerieis } from "./pages/TvSeries/SingleTVSeries";
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
             <Route path="/tv-series" element={<TVSeries />} />
           </Route>
           <Route path="/movie/:id" element={<Movie />} />
-          <Route path="/tv/:id" element={<TVSeries />} />
+          <Route path="/tv/:id" element={<SingleTVSerieis />} />
         </Route>
         <Route path="/logout" element={<Logout />} />
       </Routes>
