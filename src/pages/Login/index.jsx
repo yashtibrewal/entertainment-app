@@ -41,9 +41,12 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
-  };
 
-  // if (loading) return <> addToast("Loading...")</>;
+    setLoading(false);
+  }
+
+  if(loading) return <>Logging in.</>
+
 
   return (
     <div className="flex flex-col justify-center items-center bg-gray-900 w-[100vw] h-[100vh] text-white">
