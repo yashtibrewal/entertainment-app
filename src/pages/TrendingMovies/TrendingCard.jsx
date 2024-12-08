@@ -9,7 +9,9 @@ import {v4 as uuidv4} from 'uuid';
 const TrendingCard = ({ id, poster_path, bookmark, name, title,first_air_date  ,release_date, adult,media_type}) => {
   // console.log(media_type);
   return (
-    <div className="bg-black shadow-lg rounded-lg w-96 text-white overflow-hidden trending-cart">
+
+    <div className="bg-black shadow-lg rounded-lg w-96 text-white overflow-hidden trending-cart ">
+
       <div className="relative">
         <img src={`${BASE_IMAGE_URL}${poster_path}`} alt={title} className="w-full h-48 object-cover" />
         <Bookmark
@@ -32,8 +34,11 @@ const TrendingCard = ({ id, poster_path, bookmark, name, title,first_air_date  ,
           <h3 className="mt-1 font-semibold text-lg text-white">{title?title:name}</h3>
         </div>
       </div>
+     
     </div>
+    
   );
+   
 };
 
 export default TrendingCard;
