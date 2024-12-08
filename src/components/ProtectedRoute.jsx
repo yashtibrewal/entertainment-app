@@ -14,7 +14,7 @@ const ProtectedRoute = () => {
       else {
         navigate("/");
       }
-  },[tokens.entertainmentAppToken, tokens.tmdbToken])
+  })
 
   return state.isLoggedIn ? <Outlet></Outlet> : navigate("/login");
 };
