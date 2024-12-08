@@ -131,11 +131,12 @@ export default function HomePage() {
   const renderSearchedMovies = () => (
     <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
       <div className={style.content}>
-        {searchedMovies.map((card, index) => (
+        {/* {searchedMovies.map((card, index) => (
           <div key={index}>
             <List cards={[card]} />
           </div>
-        ))}
+        ))} */}
+         <List cards={searchedMovies}></List>
       </div>
     </div>
   );
