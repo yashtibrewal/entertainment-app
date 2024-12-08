@@ -12,6 +12,7 @@ import Trending from "./TrendingMovies/trending";
 import List from "../components/Content/List";
 import { clearSearchResults } from "../store/Redux/SearchSlice";
 import { fetchAllTVSeries, fetchAllTVSeriesBookmarks } from "../store/Redux/TvSeriesSlice";
+import { MEDIA_TYPE } from "../constants";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -49,17 +50,17 @@ export default function HomePage() {
   // merging trendingMovies & trendingTVSeries
   useEffect(() => {
     const merged = [
-      ...trendingMovies.map((movie) => ({ ...movie, media_type: 'movie' })),
-      ...trendingTVSeries.map((tv) => ({ ...tv, media_type: 'tv' })),
+      ...trendingMovies.map((movie) => ({ ...movie, media_type: MEDIA_TYPE.MOVIES })),
+      ...trendingTVSeries.map((tv) => ({ ...tv, media_type: MEDIA_TYPE.TV_SERIES })),
     ];
     setMergedTrending(merged);
   }, [trendingMovies, trendingTVSeries]);
-  console.log("mergedTrending :",mergedTrending);
+  // console.log("mergedTrending :",mergedTrending);
   // merging popularMovies & popularTVSeries
   useEffect(() => {
     const merged = [
-      ...popularMovies.map((movie) => ({ ...movie, media_type: 'movie' })),
-      ...popularTVSeries.map((tv) => ({ ...tv, media_type: 'tv' })),
+      ...popularMovies.map((movie) => ({ ...movie, media_type: MEDIA_TYPE.MOVIES })),
+      ...popularTVSeries.map((tv) => ({ ...tv, media_type: MEDIA_TYPE.TV_SERIES })),
     ];
     setMergedPopular(merged);
   }, [popularMovies, popularTVSeries]);
@@ -83,6 +84,9 @@ export default function HomePage() {
     }
   }, [searchedMovies.length]);
 
+  /**
+   * Used to add bookmark field.
+   */
   const populateBookmark = useCallback(
     (movie) => {
       let bookmark = false;
@@ -98,18 +102,22 @@ export default function HomePage() {
     [movieBookmarks]
   );
 
+  /**
+   * Used to add media_type field.
+   */
   const setMediaAsMovie = (item) => {
     return { 
       ...item, 
-      media_type: item.title ? "Movie" : "Tv-series" // using tiltle to identify movies
+      media_type: item.title ? MEDIA_TYPE.MOVIES : MEDIA_TYPE.TV_SERIES // using tiltle to identify movies
     };
   };
 
   useEffect(() => {
-    const popularMoviesWithMedia = mergedPopular
-    .sort((a, b) => b.popularity - a.popularity).map(setMediaAsMovie); // sorting via popularity
+    const sortedMergedPopular = mergedPopular
+      .sort((a, b) => b.popularity - a.popularity)
+      .map(setMediaAsMovie); // sorting via popularity
     const popularMoviesWithBookmark =
-      popularMoviesWithMedia.map(populateBookmark);
+      sortedMergedPopular.map(populateBookmark);
     setPopMovies(popularMoviesWithBookmark);
   }, [mergedPopular, populateBookmark]);
   
@@ -131,11 +139,6 @@ export default function HomePage() {
   const renderSearchedMovies = () => (
     <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
       <div className={style.content}>
-        {/* {searchedMovies.map((card, index) => (
-          <div key={index}>
-            <List cards={[card]} />
-          </div>
-        ))} */}
          <List cards={searchedMovies}></List>
       </div>
     </div>
