@@ -15,7 +15,7 @@ console.log(media_type);
           <FaBookmark  />
         </div>
         <div className="bottom-2 left-2 absolute bg-transparent px-2 py-1 rounded text-black text-sm">
-          <ul className="flex gap-4 px-2">
+          <ul className="flex gap-4 px-2 pl-0">
             <li className="flex items-center font-semibold text-white">
               <span className="mr-1">{release_date?release_date.slice(0,4):first_air_date.slice(0,4)}</span>
             </li>
