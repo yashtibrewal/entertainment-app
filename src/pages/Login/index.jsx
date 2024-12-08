@@ -45,7 +45,8 @@ const Login = () => {
     if (event.key === 'Enter') {
       document.getElementById('loginUser').click();
     }
-  };
+    setLoading(false);
+  }
 
   if (state.loading) return <GeneralLoading></GeneralLoading>
 
