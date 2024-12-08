@@ -6,16 +6,8 @@ import styles from "../../components/common-media/content.module.css";
 import {v4 as uuidv4} from 'uuid';
 
 // This card is the wider card used compared to other cards. These cards are placed first.
-<<<<<<< Updated upstream
 const TrendingCard = ({ id, poster_path, bookmark, name, title,first_air_date  ,release_date, adult,media_type}) => {
   // console.log(media_type);
-=======
-
-const TrendingCard = ({ id, poster_path, bookmark, name, title,first_air_date  ,release_date, adult,media_type}) => {
-  // console.log(media_type);
-
-
->>>>>>> Stashed changes
   return (
     <div className="bg-black shadow-lg rounded-lg w-96 text-white overflow-hidden trending-cart">
       <div className="relative">
