@@ -9,6 +9,7 @@ export function Bookmark({id, media_type, bookmark, bookmarkClickEmit}) {
     const [isBookmarked, setIsBookmarked] = useState(bookmark || false);
 
     const bookmarkContent = (event) => {
+        console.log('clicked bookmark');
         event.stopPropagation();
             if (media_type === MEDIA_TYPE.MOVIES) {
                 toggleMovieBookmark(id, isBookmarked).then(({ result }) => {
