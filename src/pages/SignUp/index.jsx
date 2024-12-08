@@ -10,18 +10,47 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
+  
   const signup = async (event) => {
     event.preventDefault();
-    const result = await registerUser(name, email, password);
+  
+    //clear previous error message
+    setError('');
+    setNameError('');
+    setEmailError('');
+    setPasswordError('');
 
+  
+    // Frontend validation
+    if (!name.trim()) {
+      setNameError("Name is required.");
+      return;
+    }
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setEmailError("Please enter a valid email.");
+      return;
+    }
+    if (password !== repeatPassword) {
+      setPasswordError("Passwords do not match.");
+      return;
+    }
+  
+    // Call the registerUser API if validation passes
+    const result = await registerUser(name, email, password);
     if (result.isSuccess) {
       navigate("/login");
     } else {
-      // TODO: Toast the message
-    //  console.log(result.message);
+      setError(result.message); 
     }
-  }
+  };
+  
+  
+
 
   return (
     <div
@@ -35,65 +64,72 @@ const SignUp = () => {
       </div>
 
       {/* Form Container */}
-      <div className="bg-gray-800 shadow-lg p-6 rounded-xl w-80">
-        <h1 className="mb-6 font-semibold text-2xl">SignUp</h1>
+      <form action="">
+        <div className="bg-gray-800 shadow-lg p-6 rounded-xl w-80">
+          <h1 className="mb-6 font-semibold text-2xl">SignUp</h1>
 
-        {/* Form */}
-        <div className="flex flex-col gap-2 w-full">
-          <div className="relative">
-            <input
-              type="name"
-              name="name"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              placeholder="Name"
-              className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
-            />
+          {/* Form */}
+          <div className="flex flex-col gap-2 w-full">
+            <div className="relative">
+              <input
+                type="text"
+                name="name"
+                value={name}
+                required
+                onChange={(event) => setName(event.target.value)}
+                placeholder="Name"
+                className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
+              />
+              {nameError && <p className="text-red-500 text-xs mt-1">{nameError}</p>}
+              </div>
+            <div className="relative">
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder="Email"
+                className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
+              />
+              {emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
+
+            </div>
+            <div className="relative">
+              <input
+                type="password"
+                name="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder="Password"
+                className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
+              />
+            </div>
+            <div className="relative">
+              <input
+                type="password"
+                name="repeatPassword"
+                value={repeatPassword}
+                onChange={(event) => setRepeatPassword(event.target.value)}
+                placeholder="Repeat password"
+                className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
+              />
+              {passwordError && <p className="text-red-500 text-xs mt-1">{passwordError}</p>}
+            </div>
+            <button
+              type="submit"
+              onClick={(event) => signup(event)}
+              className="gap-4 bg-red-500 hover:bg-red-600 mt-2 py-2 rounded-lg font-medium text-sm text-white transition-all"
+            >
+              Create an account
+            </button>
           </div>
-          <div className="relative">
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="Email"
-              className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
-            />
-          </div>
-          <div className="relative">
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              placeholder="Password"
-              className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
-            />
-          </div>
-          <div className="relative">
-            <input
-              type="password"
-              name="repeatPassword"
-              value={repeatPassword}
-              onChange={(event) => setRepeatPassword(event.target.value)}
-              placeholder="Repeat password"
-              className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
-            />
-          </div>
-          <button
-            type="submit"
-            onClick={(event) => signup(event)}
-            className="gap-4 bg-red-500 hover:bg-red-600 mt-2 py-2 rounded-lg font-medium text-sm text-white transition-all"
-          >
-            Create an account
-          </button>
+          {/* Additional Links */}
+          <p className="mt-4 text-center text-gray-400 text-sm">
+            Already have an account?{' '}
+            <a href="/login" className="text-red-500 hover:underline cursor-pointer">Login</a>
+          </p>
         </div>
-        {/* Additional Links */}
-        <p className="mt-4 text-center text-gray-400 text-sm">
-          Already have an account?{' '}
-          <a href="/login" className="text-red-500 hover:underline cursor-pointer">Login</a>
-        </p>
-      </div>
+      </form>
     </div>
   )
 };
