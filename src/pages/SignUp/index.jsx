@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MovieCreationIcon from '@mui/icons-material/MovieCreation';
 import registerUser from './api';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useToast } from '../../components/ToastContext'; 
 
 const SignUp = () => {
@@ -10,6 +10,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const navigate = useNavigate();
+ 
 
   const [error, setError] = useState("");
   const [nameError, setNameError] = useState('');
@@ -28,43 +29,7 @@ const SignUp = () => {
   
   const signup = async (event) => {
     event.preventDefault();
-
-  
-    //clear previous error message
-    setError('');
-    setNameError('');
-    setEmailError('');
-    setCnfPasswordError('');
-    setPasswordError('');
-
-  
-    // Frontend validation
-    if (!name.trim()) {
-      setNameError("Name is required.");
-      return;
-    }
-    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      setEmailError("Please enter a valid email.");
-      return;
-    }
-    if (!password.trim()) {
-      setPasswordError("Password is required.");
-      return;
-    }
-    if (password !== repeatPassword) {
-      setCnfPasswordError("Passwords do not match.");
-      return;
-    }
     
-    // Call the registerUser API if validation passes
-    const result = await registerUser(name, email, password);
-    if (result.isSuccess) {
-      navigate("/login");
-    } else {
-      setError(result.message); 
-      console.error(error);
-    }
-
     // Check if passwords match
     if (password !== repeatPassword) {
       addToast('Passwords do not match', 'error'); 
@@ -84,13 +49,6 @@ const SignUp = () => {
       console.error(error);
       addToast('An unexpected error occurred. Please try again.', 'error'); 
     }
-  };
-  
-  const handleFocus = () => {
-    setNameError('');
-    setEmailError('');
-    setPasswordError('');
-    setCnfPasswordError('');
   };
 
   return (
@@ -171,16 +129,17 @@ const SignUp = () => {
             Create an account
           </button>
         </div>
+
         {/* Additional Links */}
         <p className="mt-4 text-center text-gray-400 text-sm">
           Already have an account?{' '}
-          <Link href="/login" className="text-red-500 hover:underline cursor-pointer">
+          <a href="/login" className="text-red-500 hover:underline cursor-pointer">
             Login
-          </Link>
+          </a>
         </p>
       </form>
     </div>
-  ); 
-}
+  );
+};
 
 export default SignUp;

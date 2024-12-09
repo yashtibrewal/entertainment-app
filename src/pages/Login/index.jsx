@@ -20,9 +20,11 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const { addToast } = useToast(); 
 
-  const loginUser = async (e) => {
+  const loginUser = async () => {
+    setLoading(true);
     try {
       const result = await loginUserApi(email, password);
       if (result.isSuccess) {
@@ -36,7 +38,10 @@ const Login = () => {
     } catch (error) {
       console.error(error);
       addToast("An unexpected error occurred. Please try again.", "error"); 
-    } 
+    } finally {
+      setLoading(false);
+    }
+    setLoading(false);
   }
   
     const handleKeyDown = (event) => {
