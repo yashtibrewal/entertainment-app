@@ -18,13 +18,13 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useAuth();
+  const { login, state } = useAuth();
   const navigate = useNavigate();
   const { addToast } = useToast(); 
 
   const loginUser = async (e) => {
     try {
-      const result = await loginUserApi(email, password);
+      const result = await loginUserApi(email, password, state);
       if (result.isSuccess) {
         login(result);
         navigate("/");
