@@ -1,34 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+import React from "react";
 import { RiFilmFill } from "react-icons/ri";
 
 import '../../App.css'
-import { toggleMovieBookmark, toggleTVSeriesBookmark } from "./api";
 import { BASE_IMAGE_URL, MEDIA_TYPE } from "../../constants";
 import { useNavigate } from "react-router-dom";
+import { Bookmark } from "../common-media/Bookmark";
 
 const Card = ({ id, name, bookmark, poster_path, title, release_date, first_air_date, adult, media_type }) => {
   // console.log('Inside card', { id, name, bookmark, poster_path, title, release_date, first_air_date, adult, media_type });
-  
-  const [isBookmarked, setIsBookmarked] = useState(bookmark || false);
   const navigate = useNavigate();
-
-  const bookmarkContent = (event) => {
-    event.stopPropagation();
-    if (media_type === MEDIA_TYPE.MOVIES) {
-      toggleMovieBookmark(id, isBookmarked).then(({ result }) => {
-        setIsBookmarked(result.bookmark);
-      });
-    } else if (media_type === MEDIA_TYPE.TV_SERIES) {
-      toggleTVSeriesBookmark(id, isBookmarked).then(({ result }) => {
-        setIsBookmarked(result.bookmark);
-      });
-    }
-  }
-
-  useEffect(() => {
-    setIsBookmarked(bookmark);
-  }, [bookmark]);
 
   const handleNavigation = (event) => {
     event.stopPropagation();
@@ -49,15 +29,8 @@ const Card = ({ id, name, bookmark, poster_path, title, release_date, first_air_
         alt={title}
         className="w-full h-42 object-cover"
       />
-      <span
-        onClick={bookmarkContent}
-        className="top-2 right-2 absolute flex flex-row-reverse bg-black bg-opacity-75 p-2.5 rounded-full cursor-pointer">
-        {isBookmarked ? (
-          <FaBookmark className="text-white" />
-        ) : (
-          <FaRegBookmark className="text-white" />
-        )}
-      </span>
+
+      <Bookmark id={id} media_type={media_type} key={id} bookmark={bookmark}></Bookmark>
 
       {/* Content section below the image */}
       <div className="content-sec px-2 py-1 text-white text-xs">
