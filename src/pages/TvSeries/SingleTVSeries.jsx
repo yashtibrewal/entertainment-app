@@ -1,20 +1,25 @@
+/**
+ * This jsx file represents a SINGLE TV Series.
+ */
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LinkIcon from "@mui/icons-material/Link";
 
-import { getConfigurationSizesApi, getMovieApi, getMovieCastApi } from "./api";
+import { getTVApi, getTVCastApi } from "./api";
 import { useAuth } from "../../store/auth";
 import Caste from "../../components/common-media/Caste";
 import ReviewStars from "../../components/common-media/ReviewStars";
 import TitleValue from "../../components/common-media/TitleValue";
 import Genre from "../../components/common-media/Genre";
+import { getConfigurationSizesApi } from "../movie/api";
 
-function Movie() {
+export function SingleTVSerieis() {
   const { id } = useParams();
   const { state } = useAuth();
   const [rating, setRating] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [movieResponse, setMovieResponse] = useState({});
+  const [tvResponse, setTVResponse] = useState({});
   const [castResponse, setCastResponse] = useState({});
   const [configurationResponse, setConfigurationResponse] = useState({});
 
@@ -22,11 +27,11 @@ function Movie() {
     setLoading(true);
 
     Promise.all([
-      getMovieApi(id),
-      getMovieCastApi(id),
+      getTVApi(id),
+      getTVCastApi(id),
     ])
       .then(([movieResponse, castResults]) => {
-        setMovieResponse(movieResponse.result);
+        setTVResponse(movieResponse.result);
         setRating(movieResponse.result.vote_average);
         setCastResponse(castResults.result);
 
@@ -46,7 +51,7 @@ function Movie() {
         <img
           alt="poster"
           className="rounded"
-          src={`${configurationResponse?.images?.base_url}/${configurationResponse?.images?.poster_sizes?.[6]}/${movieResponse?.poster_path}`}
+          src={`${configurationResponse?.images?.base_url}/${configurationResponse?.images?.poster_sizes?.[6]}/${tvResponse?.poster_path}`}
         />
       </div>
 
@@ -54,8 +59,8 @@ function Movie() {
       <div className="space-y-10 w-2/3">
         {/* Title and Rating */}
         <div className="space-y-2">
-          <h1 className="text-4xl text-white">{movieResponse?.title}</h1>
-          <h1 className="text-lg text-zinc-500">{movieResponse?.tagline}</h1>
+          <h1 className="text-4xl text-white">{tvResponse?.name}</h1>
+          <h1 className="text-lg text-zinc-500">{tvResponse?.tagline}</h1>
         </div>
         <h2 className="text-2xl text-white">
           <ReviewStars rating={rating} />
@@ -63,17 +68,17 @@ function Movie() {
 
         {/* Key Details */}
         <div className="flex justify-between">
-          <TitleValue title="Length" value={movieResponse?.runtime} />
-          <TitleValue title="Language" value={movieResponse?.original_language} />
-          <TitleValue title="Year" value={movieResponse?.release_date?.substr(0, 4)} />
-          <TitleValue title="Status" value={movieResponse?.status} />
+          <TitleValue title="Language" value={tvResponse?.original_language} />
+          <TitleValue title="First Air" value={tvResponse?.first_air_date} />
+          <TitleValue title="Last Air" value={tvResponse?.last_air_date} />
+          <TitleValue title="Status" value={tvResponse?.status} />
         </div>
 
         {/* Genres */}
         <div className="space-y-3 w-full">
           <h3 className="text-white text-xl">Genres</h3>
           <div className="flex flex-wrap gap-x-2">
-            {movieResponse?.genres?.map((genre) => (
+            {tvResponse?.genres?.map((genre) => (
               <Genre key={genre.id}>{genre.name}</Genre>
             ))}
           </div>
@@ -83,7 +88,7 @@ function Movie() {
         <div className="space-y-3">
           <h3 className="text-white text-xl">Overview</h3>
           <div className="text-white leading-tight tracking-tight">
-            {movieResponse?.overview}
+            {tvResponse?.overview}
           </div>
         </div>
 
@@ -100,13 +105,13 @@ function Movie() {
         {/* Website Button */}
         <div className="flex space-x-5">
           <button
-            onClick={() => window.open(movieResponse?.homepage, "_blank")}
+            onClick={() => window.open(tvResponse?.homepage, "_blank")}
             className="flex items-center bg-blue-700 hover:bg-blue-800 px-5 py-2 rounded text-white"
           >
             Website <LinkIcon className="ml-2 -rotate-45" />
           </button>
           <button
-            onClick={() => window.open(`https://www.imdb.com/title/${movieResponse.imdb_id}/`, "_blank")}
+            onClick={() => window.open(`https://www.imdb.com/title/${tvResponse.imdb_id}/`, "_blank")}
             className="flex items-center bg-blue-700 hover:bg-blue-800 px-5 py-2 rounded text-white"
           >
             IMDB <LinkIcon className="ml-2 -rotate-45" />
@@ -116,5 +121,3 @@ function Movie() {
     </div>
   );
 }
-
-export default Movie;

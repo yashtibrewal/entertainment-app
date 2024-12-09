@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import TrendingCard from "./TrendingCard";
 import { useNavigate } from "react-router-dom";
 import styles from '../../components/common-media/content.module.css';
+import { MEDIA_TYPE } from "../../constants";
 
 
 const Trending = ({ trendingMovies }) => {
@@ -54,7 +55,7 @@ const Trending = ({ trendingMovies }) => {
 
   const handleClick = (id, media_type) => {
     // console.log(id, media_type);
-    if (media_type === 'movie') {
+    if (media_type === MEDIA_TYPE.MOVIES) {
       navigate(`/movie/${id}`);
     }
   }

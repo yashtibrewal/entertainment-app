@@ -57,7 +57,7 @@ export const fetchAllTVSeriesBookmarks = createAsyncThunk(
         return thunkAPI.rejectWithValue('entertainmentAppToken token not found in local storage.');
       }
 
-      const result = await axios.get(`${BASE_LOCAL_URL}movie/bookmarks`, {
+      const result = await axios.get(`${BASE_LOCAL_URL}tv/bookmarks`, {
         headers: { Authorization: `Bearer ${entertainmentAppToken}` },
       })
       // console.log(result);
