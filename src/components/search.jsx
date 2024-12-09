@@ -17,6 +17,13 @@ export default function Search({ onSearchChange }) {
     setInput("");
   }, [location.pathname]);
 
+ 
+
+// re-rendering component when route changes
+  useEffect(() => {
+    setInput("");   /// resetting input field
+  }, [location.pathname]);
+
   return (
     <div className="flex gap-2 justify-center  mt-4 ml-4 sm:justify-start sm:ml-8">
       <div>
