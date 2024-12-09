@@ -55,7 +55,7 @@ export default function HomePage() {
     ];
     setMergedTrending(merged);
   }, [trendingMovies, trendingTVSeries]);
-  // console.log("mergedTrending :",mergedTrending);
+
   // merging popularMovies & popularTVSeries
   useEffect(() => {
     const merged = [
