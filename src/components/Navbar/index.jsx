@@ -9,6 +9,7 @@ import { FaBookmark } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../store/auth";
 import styles from './Navbar.module.css';
+import './btn.css';
 
 const Navbar = () => {
 
@@ -80,13 +81,14 @@ const Navbar = () => {
             width:"350px",
             height:"250px",
             transform: "translate(-50%, -50%)",
-            background: "#3b0873",
-         
+            background: "linear-gradient(to right, rgb(12, 20, 20), rgb(41 67 67))",
+           
             padding: "20px",
             borderRadius: "8px",
             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
             zIndex: 1000, // Ensure it's on top
           }}
+      
         >
       <center>
       <Avatar sx={{ bgcolor: deepOrange[500] }} className="w-[40px] h-[40px] "
@@ -97,8 +99,8 @@ const Navbar = () => {
       </center>
          <center> <p className="mt-3">{user.name}</p></center>
         <div className="items-center mt-12">
-        <button className="bg-red-900 px-2 py-2 w-24 m-2 text-center justify-center items-center rounded-lg float-start" onClick={togglePopup}>Close</button>
-        <Link to={'/logout'} className="bg-red-950 px-2 py-2 w-24 m-2 text-center justify-center items-center rounded-lg float-end">Log Out</Link>
+        <button className="px-2 py-2 w-24 m-2 text-center justify-center items-center rounded-lg float-start btn btn-5" onClick={togglePopup}>Close</button>
+        <Link to={'/logout'} className=" px-2 py-2 w-24 m-2 text-center justify-center items-center rounded-lg float-end btn btn-5">Log Out</Link>
         </div>
         </div>
       )}
