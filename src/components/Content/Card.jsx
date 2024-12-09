@@ -37,6 +37,9 @@ const Card = ({
   //AdultType
   const adultType = adult ? "PG" : "UG";
 
+  const date = release_date || first_air_date;
+const formattedDate = date ? date.slice(0, 4) : "Unknown"; //fixed here becuase it gives undefine when trying to use via search
+
   return (
     <div
       onClick={handleNavigation}
