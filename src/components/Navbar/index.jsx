@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MovieCreationIcon from "@mui/icons-material/MovieCreation";
-import { SiWindows11 } from "react-icons/si";
+import { Si1001Tracklists, } from "react-icons/si";
 import { RiFilmFill } from "react-icons/ri";
 import { PiTelevision } from "react-icons/pi";
 import { Avatar } from "@mui/material";
@@ -41,7 +41,7 @@ const Navbar = () => {
       <div className="flex sm:flex sm:flex-row flex-col md:flex-col md:items-center gap-6 md:gap-6 icon-container">
         {/* Home Icon Link */}
         <Link to="/" className="group">
-          <SiWindows11 className={styles.navbarLinkItem} />
+          <Si1001Tracklists className={styles.navbarLinkItem} />
         </Link>
 
         {/* Movies Icon Link */}

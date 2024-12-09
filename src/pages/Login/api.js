@@ -1,7 +1,8 @@
 import { BASE_LOCAL_URL } from "../../constants";
 
 
-const loginUserApi = async (email, password) => {
+const loginUserApi = async (email, password, store) => {
+  store.loading = true;
   // Set headers with dynamic token
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -29,8 +30,10 @@ const loginUserApi = async (email, password) => {
     } else {
       result.isSuccess = false;
     }
+    store.loading = false
     return result;
   } catch (error) {
+    store.loading = false
     console.error('Error: ', error);
     return { isSuccess: false, message: error.message };
   }

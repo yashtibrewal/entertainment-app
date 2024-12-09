@@ -24,6 +24,7 @@ const initialState = {
   tmdbToken: tmdbToken || null,
   user: getUserFromToken(entertainmentAppToken),
   isLoggedIn: !!entertainmentAppToken,
+  loading: false
 };
 
 
@@ -39,6 +40,7 @@ const authReducer = (state, action) => {
         tmdbToken: action.payload.tmdbToken,
         isLoggedIn: true,
         user: user,
+        loading: false
       };
 
     case LOGOUT:
@@ -48,6 +50,7 @@ const authReducer = (state, action) => {
         tmdbToken: null,
         isLoggedIn: false,
         user: null,
+        loading: false
       };
 
     default:
@@ -64,9 +67,10 @@ export const AuthProvider = ({ children }) => {
         type: LOGIN,
         payload: {
           entertainmentAppToken: result.entertainmentAppToken,
-          tmdbToken: result.tmdbToken
+          tmdbToken: result.tmdbToken,
+          loading: true
         }
-      });
+      }); 
     } catch (error) {
      console.error(error);
     }

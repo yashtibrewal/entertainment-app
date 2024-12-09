@@ -24,7 +24,7 @@ const Login = () => {
 
   const loginUser = async (e) => {
     try {
-      const result = await loginUserApi(email, password);
+      const result = await loginUserApi(email, password, state);
       if (result.isSuccess) {
         login(result);
         navigate("/");
