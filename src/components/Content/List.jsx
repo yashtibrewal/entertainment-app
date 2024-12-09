@@ -3,23 +3,16 @@ import React from "react";
 import '../../App.css'
 import Card from "./Card";
 
+import { v4 as uuidv4 } from 'uuid';
+
 const List = ({ cards }) => {
 
   return (
     <>
       {
         cards.map((card) => (
-          <Card
-            key={card.id}
-            id={card.id}
-            bookmark={card.bookmark}
-            poster_path={card.poster_path}
-            name={card.name}
-            title={card.title}
-            release_date={card.release_date}
-            first_air_date={card.first_air_date}
-            adult={card.adult}
-            media_type={card.media_type}
+          // TODO: add this in best practice
+          <Card key={uuidv4()} {...card}
           />
         ))
       }
