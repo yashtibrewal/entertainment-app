@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { fetchAllTVSeries, fetchAllTVSeriesBookmarks } from "../../store/Redux/TvSeriesSlice";
 import { MEDIA_TYPE } from '../../constants';
 import styles from '../../components/common-media/content.module.css';
+import { SeriesSection } from './SerieisSection';
 
 
 export default function TVSeriesPage() {
@@ -90,9 +91,28 @@ export default function TVSeriesPage() {
   return (
     <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] gap-y-5 home-width">
       <h1 className={styles.headings}>T.V. Series</h1>
-      <div className={styles.content}>
-        <List cards={[...trendingTVSeries,...popularTVSeries,...airingTodaySeries,...onTheAirSeries]} />
-      </div>
+      <hr />
+      <SeriesSection
+        title="Trending TV Series"
+        series={trendingTVSeries}
+        emptyMessage="No Trending Series"
+      />
+      <SeriesSection
+        title="Popular TV Series"
+        series={popularTVSeries}
+        emptyMessage="No Popular Series"
+      />
+      <SeriesSection
+        title="Airing Today"
+        series={airingTodaySeries}
+        emptyMessage="No Series Airing Today"
+      />
+      <SeriesSection
+        title="On the Air Series"
+        series={onTheAirSeries}
+        emptyMessage="No On the Air Series"
+      />
     </div>
   );
+  
 }
