@@ -2,7 +2,7 @@ import { FaSearch } from "react-icons/fa";
 import "../App.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   clearSearchResults,
   searchMovies,
