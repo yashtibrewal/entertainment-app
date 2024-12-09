@@ -55,7 +55,7 @@ export default function HomePage() {
     ];
     setMergedTrending(merged);
   }, [trendingMovies, trendingTVSeries]);
-  // console.log("mergedTrending :",mergedTrending);
+
   // merging popularMovies & popularTVSeries
   useEffect(() => {
     const merged = [
@@ -78,7 +78,7 @@ export default function HomePage() {
 
  
     } else {
-      dispatch(clearSearchResults);
+      dispatch(clearSearchResults());
       setPopMovies(popularMoviesCache);
       setTrendingMoviesLocal(trendingMoviesCache);
     }
@@ -88,24 +88,39 @@ export default function HomePage() {
    * Used to add bookmark field.
    */
   const populateBookmark = useCallback(
-    (movie) => {
+    (content) => {
+      if(content.media_type === MEDIA_TYPE.MOVIES) {
+      
       let bookmark = false;
       const searchedMovie = movieBookmarks.find(
-        (bookmarkObj) => bookmarkObj.movie_id === movie.id
+        (bookmarkObj) => bookmarkObj.movie_id === content.id
       );
       if (searchedMovie) {
         bookmark = searchedMovie.bookmark;
       }
-      const updatedMovie = { ...movie, bookmark };
+      const updatedMovie = { ...content, bookmark };
       return updatedMovie;
+    }else{
+
+      let bookmark = false;
+      const searchedTV = tvSeriesBookmarks.find(
+        (bookmarkObj) => bookmarkObj.tv_series_id === content.id
+      );
+      if (searchedTV) {
+        bookmark = searchedTV.bookmark;
+      }
+      const updatedMovie = { ...content, bookmark };
+      return updatedMovie;
+    }
+        
     },
-    [movieBookmarks]
+    [movieBookmarks, tvSeriesBookmarks]
   );
 
   /**
    * Used to add media_type field.
    */
-  const setMediaAsMovie = (item) => {
+  const setMediaType = (item) => {
     return { 
       ...item, 
       media_type: item.title ? MEDIA_TYPE.MOVIES : MEDIA_TYPE.TV_SERIES // using tiltle to identify movies
@@ -115,7 +130,7 @@ export default function HomePage() {
   useEffect(() => {
     const sortedMergedPopular = mergedPopular
       .sort((a, b) => b.popularity - a.popularity)
-      .map(setMediaAsMovie); // sorting via popularity
+      .map(setMediaType); // sorting via popularity
     const popularMoviesWithBookmark =
       sortedMergedPopular.map(populateBookmark);
     setPopMovies(popularMoviesWithBookmark);
@@ -123,7 +138,8 @@ export default function HomePage() {
   
   useEffect(() => {
     const trendingMoviesWithMediaType =  mergedTrending
-    .sort((a, b) => b.popularity - a.popularity).map(setMediaAsMovie);  // sorting via popularity
+      .sort((a, b) => b.popularity - a.popularity)
+      .map(setMediaType);  // sorting via popularity
     const trendingMoviesWithBookmark =
       trendingMoviesWithMediaType.map(populateBookmark);
     setTrendingMoviesLocal(trendingMoviesWithBookmark);

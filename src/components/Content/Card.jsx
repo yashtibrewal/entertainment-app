@@ -5,6 +5,7 @@ import '../../App.css'
 import { BASE_IMAGE_URL, MEDIA_TYPE } from "../../constants";
 import { useNavigate } from "react-router-dom";
 import { Bookmark } from "../common-media/Bookmark";
+import styles from "../common-media/content.module.css";
 
 const Card = ({ id, name, bookmark, poster_path, title, release_date, first_air_date, adult, media_type }) => {
   // console.log('Inside card', { id, name, bookmark, poster_path, title, release_date, first_air_date, adult, media_type });
@@ -30,7 +31,9 @@ const Card = ({ id, name, bookmark, poster_path, title, release_date, first_air_
         className="w-full h-42 object-cover"
       />
 
-      <Bookmark id={id} media_type={media_type} key={id} bookmark={bookmark}></Bookmark>
+      <Bookmark
+        className={styles.bookmark}
+        id={id} media_type={media_type} key={id} bookmark={bookmark}></Bookmark>
 
       {/* Content section below the image */}
       <div className="content-sec px-2 py-1 text-white text-xs">
