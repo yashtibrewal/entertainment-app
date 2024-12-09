@@ -5,6 +5,7 @@ import MovieCreationIcon from '@mui/icons-material/MovieCreation';
 import loginUserApi from './api';
 import { useAuth } from '../../store/auth';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '../../components/ToastContext'; 
 
 const Login = () => {
   // Initialize AOS
@@ -20,35 +21,44 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { addToast } = useToast(); 
 
   const loginUser = async (e) => {
     setLoading(true);
-    const result = await loginUserApi(email, password);
-    if (result.isSuccess) {
-      login(result);
-      navigate("/");
+    try {
+      const result = await loginUserApi(email, password);
+      if (result.isSuccess) {
+        login(result);
+        navigate("/");
+        addToast("Logged in successfully!", "success"); 
+      } else {
+        console.error(result);
+        addToast("Login failed. Please check your credentials.", "error"); 
+      }
+    } catch (error) {
+      console.error(error);
+      addToast("An unexpected error occurred. Please try again.", "error"); 
+    } finally {
       setLoading(false);
-    } else {
-     console.error(result);
     }
     setLoading(false);
-
-    if (e.key === 'Enter') {
-      document.getElementById('loginUser').click(); // Trigger the button click
-    }
-
   }
+  
+    const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      document.getElementById('loginUser').click();
+    }
+  };
 
-  if(loading) return <>Logging in.</>
+  // if (loading) return <> addToast("Loading...")</>;
 
   return (
-    <div
-      className="flex flex-col justify-center items-center bg-gray-900 w-[100vw] h-[100vh] text-white"
-    >
+    <div className="flex flex-col justify-center items-center bg-gray-900 w-[100vw] h-[100vh] text-white">
       {/* Icon Section */}
       <div className="mb-6">
         <MovieCreationIcon
-          data-aos="fade-right" style={{ color: '#ff5252', height: '70px', width: '70px' }}
+          data-aos="fade-right"
+          style={{ color: '#ff5252', height: '70px', width: '70px' }}
         />
       </div>
 
@@ -57,13 +67,14 @@ const Login = () => {
         <h1 className="mb-6 font-semibold text-2xl">Login</h1>
 
         {/* Form */}
+        <form onKeyDown={handleKeyDown>
         <div className="flex flex-col gap-2 w-full">
           <div className="relative">
             <input
               type="email"
               name="email"
               value={email}
-              onChange={event => setEmail(event.target.value)}
+              onChange={(event) => setEmail(event.target.value)}
               placeholder="Email address"
               className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
             />
@@ -73,7 +84,7 @@ const Login = () => {
               type="password"
               name="password"
               value={password}
-              onChange={event => setPassword(event.target.value)}
+              onChange={(event) => setPassword(event.target.value)}
               placeholder="Password"
               className="border-gray-600 bg-transparent px-1 py-2 focus:border-red-500 border-b-2 w-full text-sm focus:outline-none"
             />
@@ -87,7 +98,7 @@ const Login = () => {
             Login to your account
           </button>
         </div>
-
+        </form>
         {/* Additional Links */}
         <p className="mt-4 text-center text-gray-400 text-sm">
           Don't have an account?{' '}
