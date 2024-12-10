@@ -81,13 +81,9 @@ const Trending = ({ trendingMovies }) => {
           width: `${trendingMovies.length * cardWidth}px`,
         }}
       >
-
         {trendingMovies.map((card, index) => (
-
           <div onClick={(e) => { handleClick(card.id, card.media_type) }} key={index} className="flex-shrink-0">
             <TrendingCard {...card} />
-
-         
           </div>
         ))}
       </div>

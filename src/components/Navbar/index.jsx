@@ -8,7 +8,7 @@ import { deepOrange } from "@mui/material/colors";
 import { FaBookmark } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../store/auth";
-import styles from "./Navbar.module.css";
+import { btn } from "./btn.css"; 
 
 const Navbar = () => {
   const { state } = useAuth();
