@@ -29,6 +29,21 @@ const Navbar = () => {
 
   const isActiveRoute = (path) => location.pathname === path;
 
+  const getIconClass = (path) => {
+    return `w-5 h-5 ${
+      isActiveRoute(path)
+        ? "text-white"
+        : "text-gray-400 group-hover:text-userHover"
+    }`;
+  }
+   
+  const PAGES = {
+    HOME: "/",
+    MOVIES: "/movies",
+    TV_SERIEIS: "/tv-series",
+    BOOKMARK: "/bookmark"
+  }
+
   return (
     
     <div className="flex sm:flex sm:flex-row flex-col md:flex-col justify-between items-center bg-[#182828] sm:ml-0 md:ml-5 sm:px-7 py-10 rounded-xl w-full sm:w-screen md:w-16 h-14 md:h-[calc(100vh-5rem)] nav-container">
@@ -40,46 +55,30 @@ const Navbar = () => {
       {/* icon container */}
       <div className="flex sm:flex sm:flex-row flex-col md:flex-col md:items-center gap-6 md:gap-6 icon-container">
         {/* Home Icon Link */}
-        <Link to="/" className="group">
+        <Link to={PAGES.HOME}className="group">
           <Si1001Tracklists
-            className={`w-5 h-5 ${
-              isActiveRoute("/")
-                ? "text-white"
-                : "text-gray-400 group-hover:text-userHover"
-            }`}
+            className={getIconClass(PAGES.HOME)}
           />
         </Link>
 
         {/* Movies Icon Link */}
-        <Link to="/movies" className="group">
+        <Link to={PAGES.MOVIES} className="group">
           <RiFilmFill
-            className={`h-6 w-6 ${
-              isActiveRoute("/movies")
-                ? "text-white"
-                : "text-gray-400 group-hover:text-userHover"
-            }`}
+            className={getIconClass(PAGES.MOVIES)}
           />
         </Link>
 
         {/* TV Series Icon Link */}
-        <Link to="/tv-series" className="group">
+        <Link to={PAGES.TV_SERIEIS} className="group">
           <PiTelevision
-            className={`h-6 w-6 ${
-              isActiveRoute("/tv-series")
-                ? "text-white"
-                : "text-gray-400 group-hover:text-userHover"
-            }`}
+            className={getIconClass(PAGES.TV_SERIEIS)}
           />
         </Link>
 
         {/* Bookmark Icon Link */}
-        <Link to="/bookmark" className="group">
+        <Link to={PAGES.BOOKMARK} className="group">
           <FaBookmark
-            className={`h-6 w-6 ${
-              isActiveRoute("/bookmark")
-                ? "text-white"
-                : "text-gray-400 group-hover:text-userHover"
-            }`}
+            className={getIconClass(PAGES.BOOKMARK)}
           />
         </Link>
       </div>
