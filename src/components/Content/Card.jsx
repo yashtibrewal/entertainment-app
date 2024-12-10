@@ -24,7 +24,7 @@ const Card = ({ id, name, bookmark, poster_path, title, release_date, first_air_
   return (
     <div
       onClick={handleNavigation}
-      className="relative flex flex-col " style={{width:"13rem"}}>
+      className="relative flex flex-col w-48 hover:cursor-pointer"> 
       <img
         src={`${BASE_IMAGE_URL}${poster_path}`}
         alt={title}
