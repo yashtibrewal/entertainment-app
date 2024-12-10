@@ -6,16 +6,15 @@ import { PiTelevision } from "react-icons/pi";
 import { Avatar } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
 import { FaBookmark } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../store/auth";
-import styles from './Navbar.module.css';
-import './btn.css';
+import styles from "./Navbar.module.css";
 
 const Navbar = () => {
-
-  const { state } = useAuth()
-  const user = state.user
-  const [initial, setInitial] = useState('');
+  const { state } = useAuth();
+  const user = state.user;
+  const [initial, setInitial] = useState("");
+  const location = useLocation();
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -23,40 +22,64 @@ const Navbar = () => {
     setIsPopupOpen(!isPopupOpen);
   };
   useEffect(() => {
-    // console.log('user', user);
     if (user && user.name && user.name.length) {
       setInitial(user.name.substr(0, 1).toUpperCase());
     }
-  }, [user])
+  }, [user]);
+
+  const isActiveRoute = (path) => location.pathname === path;
+
+  const getIconClass = (path) => {
+    return `w-5 h-5 ${
+      isActiveRoute(path)
+        ? "text-white"
+        : "text-gray-400 group-hover:text-userHover"
+    }`;
+  }
+   
+  const PAGES = {
+    HOME: "/",
+    MOVIES: "/movies",
+    TV_SERIEIS: "/tv-series",
+    BOOKMARK: "/bookmark"
+  }
 
   return (
     
     <div className="flex sm:flex sm:flex-row flex-col md:flex-col justify-between items-center bg-[#182828] sm:ml-0 md:ml-5 sm:px-7 py-10 rounded-xl w-full sm:w-screen md:w-16 h-14 md:h-[calc(100vh-5rem)] nav-container">
       {/* logo container */}
       <div className="logo-container">
-        <MovieCreationIcon className="w-[40px] h-[40px] text-userHover" />
+        <MovieCreationIcon className="text-userHover"/>
       </div>
 
       {/* icon container */}
       <div className="flex sm:flex sm:flex-row flex-col md:flex-col md:items-center gap-6 md:gap-6 icon-container">
         {/* Home Icon Link */}
-        <Link to="/" className="group">
-          <Si1001Tracklists className={styles.navbarLinkItem} />
+        <Link to={PAGES.HOME}className="group">
+          <Si1001Tracklists
+            className={getIconClass(PAGES.HOME)}
+          />
         </Link>
 
         {/* Movies Icon Link */}
-        <Link to="/movies" className="group">
-          <RiFilmFill className={styles.navbarLinkItem} />
+        <Link to={PAGES.MOVIES} className="group">
+          <RiFilmFill
+            className={getIconClass(PAGES.MOVIES)}
+          />
         </Link>
 
-        {/* Serial or TV Icon Link */}
-        <Link to="/tv-series" className="group">
-          <PiTelevision className={styles.navbarLinkItem} />
+        {/* TV Series Icon Link */}
+        <Link to={PAGES.TV_SERIEIS} className="group">
+          <PiTelevision
+            className={getIconClass(PAGES.TV_SERIEIS)}
+          />
         </Link>
 
         {/* Bookmark Icon Link */}
-        <Link to="/bookmark" className="group">
-          <FaBookmark className={styles.navbarLinkItem} />
+        <Link to={PAGES.BOOKMARK} className="group">
+          <FaBookmark
+            className={getIconClass(PAGES.BOOKMARK)}
+          />
         </Link>
       </div>
 
