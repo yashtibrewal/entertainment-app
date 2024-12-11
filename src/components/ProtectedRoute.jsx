@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { useAuth } from '../store/auth';
+import { UnAuthorized } from '../pages/UnAuthorizedPage';
 
 const ProtectedRoute = () => {
   const { state } = useAuth();
@@ -9,12 +10,7 @@ const ProtectedRoute = () => {
   }
 /// if user is logged out show unauthorised
   if (!state.isLoggedIn) {
-    return (
-      <div className="unauthorized">
-        <h1>Unauthorized</h1>
-        <p>You do not have access to this page. Please log in.</p>
-      </div>
-    );
+    return UnAuthorized();
   }
 
   return <Outlet />; 
