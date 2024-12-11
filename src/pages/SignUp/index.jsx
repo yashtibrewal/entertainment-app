@@ -180,7 +180,7 @@ const SignUp = () => {
         </p>
       </form>
     </div>
-  ); 
-}
+  );
+};
 
 export default SignUp;
