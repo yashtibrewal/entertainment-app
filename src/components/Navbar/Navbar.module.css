@@ -3,5 +3,7 @@
 @tailwind utilities;
 
 .navbarLinkItem {
-    @apply group-hover:text-userHover group-focus:text-userHoverColor text-2xl text-userTextColor
+    @apply group-hover:text-userHover group-focus:text-userHoverColor  text-userTextColor
 }
+
+

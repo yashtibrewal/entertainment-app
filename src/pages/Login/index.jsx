@@ -18,15 +18,13 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useAuth();
+  const { login, state } = useAuth();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const { addToast } = useToast(); 
 
-  const loginUser = async () => {
-    setLoading(true);
+  const loginUser = async (e) => {
     try {
-      const result = await loginUserApi(email, password);
+      const result = await loginUserApi(email, password, state);
       if (result.isSuccess) {
         login(result);
         navigate("/");
@@ -38,13 +36,19 @@ const Login = () => {
     } catch (error) {
       console.error(error);
       addToast("An unexpected error occurred. Please try again.", "error"); 
-    } finally {
-      setLoading(false);
-    }
-    setLoading(false);
+    } 
   }
+  
+    const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      document.getElementById('loginUser').click();
+    }
+  };
 
-  // if (loading) return <> addToast("Loading...")</>;
+  if (state.loading) return <> addToast("Loading...")</>;
+
+  // if(loading) return <>Logging in.</>
+
 
   return (
     <div className="flex flex-col justify-center items-center bg-gray-900 w-[100vw] h-[100vh] text-white">
@@ -61,6 +65,7 @@ const Login = () => {
         <h1 className="mb-6 font-semibold text-2xl">Login</h1>
 
         {/* Form */}
+        <form onKeyDown={handleKeyDown}>
         <div className="flex flex-col gap-2 w-full">
           <div className="relative">
             <input
@@ -85,12 +90,13 @@ const Login = () => {
           <button
             type="button"
             onClick={loginUser}
+            id='loginUser'
             className="gap-4 bg-red-500 hover:bg-red-600 py-2 rounded-lg font-medium text-sm text-white transition-all"
           >
             Login to your account
           </button>
         </div>
-
+        </form>
         {/* Additional Links */}
         <p className="mt-4 text-center text-gray-400 text-sm">
           Don't have an account?{' '}

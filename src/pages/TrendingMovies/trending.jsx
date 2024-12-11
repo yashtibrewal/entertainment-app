@@ -78,16 +78,12 @@ const Trending = ({ trendingMovies }) => {
 
         style={{
           transform: `translateX(-${currentIndex * cardWidth}px)`,
-          width: `${trendingMovies.length * cardWidth}px`,
+          width: `${trendingMovies.length * cardWidth}px`,cursor:"grab"
         }}
       >
-
         {trendingMovies.map((card, index) => (
-
           <div onClick={(e) => { handleClick(card.id, card.media_type) }} key={index} className="flex-shrink-0">
             <TrendingCard {...card} />
-
-         
           </div>
         ))}
       </div>
