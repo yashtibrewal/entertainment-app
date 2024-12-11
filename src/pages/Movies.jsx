@@ -21,7 +21,7 @@ function Movies() {
     error,
   } = useSelector((state) => state.movies);
   const movieBookmarks = useSelector((state) => state.movies.movieBookmarks);
-
+ 
   useEffect(() => {
     dispatch(fetchAllMovies());
     dispatch(fetchAllMovieBookmarks());
