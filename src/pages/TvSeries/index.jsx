@@ -6,12 +6,15 @@ import {
   fetchAllTVSeries,
   fetchAllTVSeriesBookmarks,
 } from "../../store/Redux/TvSeriesSlice";
+import { clearSearchResults, searchTVSeries } from "../../store/Redux/SearchSlice"; // Import the search action
 import { MEDIA_TYPE } from "../../constants";
 import styles from "../../components/common-media/content.module.css";
 import { SeriesSection } from "./SerieisSection";
+import { useOutletContext } from "react-router-dom";
 
 export default function TVSeriesPage() {
   const dispatch = useDispatch();
+  const { searchQuery } = useOutletContext();
   const {
     searchedTVSeries,
     popular,
@@ -21,21 +24,37 @@ export default function TVSeriesPage() {
     tvSeriesBookmarks,
     loading,
     error,
-  } = useSelector((state) => state.tvSeries);
+  } = useSelector((state) => ({
+    ...state.tvSeries,
+    searchedTVSeries: state.search.tvSeries,
+  }));
+
   const [popularTVSeries, setPopularTVSeries] = useState([]);
   const [trendingTVSeries, setTrendingTVSeries] = useState([]);
   const [airingTodaySeries, setAiringTodaySeries] = useState([]);
   const [onTheAirSeries, setOnTheAirSeries] = useState([]);
   const [uniqueSet, setUniqueSet] = useState(new Set());
 
+
   useEffect(() => {
     dispatch(fetchAllTVSeries());
     dispatch(fetchAllTVSeriesBookmarks());
   }, [dispatch]);
 
-  /**
-   * Takes in single tvSerieis and populates its bookmark.
-   */
+  useEffect(() => {
+    // debouncing implemented 
+   const id=setTimeout(()=>{
+    if (searchQuery) {
+      dispatch(searchTVSeries(searchQuery));  
+    }else{
+      dispatch(clearSearchResults());
+    }
+   },1000)
+  return function(){
+   clearTimeout(id)
+  }
+  }, [searchQuery, dispatch]);
+
   const populateBookmark = useCallback(
     (tvSeries) => {
       let bookmark = false;
@@ -58,8 +77,8 @@ export default function TVSeriesPage() {
   const setMediaAndBookmarkFields = useCallback(
     (tvSeries, setterFunction) => {
       const tvSeriesWithMedia = tvSeries.map(setMediaAsTVSeries);
-      const tvSerieisWithBookmark = tvSeriesWithMedia.map(populateBookmark);
-      setterFunction(tvSerieisWithBookmark);
+      const tvSeriesWithBookmark = tvSeriesWithMedia.map(populateBookmark);
+      setterFunction(tvSeriesWithBookmark);
     },
     [populateBookmark]
   );
@@ -67,7 +86,7 @@ export default function TVSeriesPage() {
   useEffect(() => {
     const tempSet = new Set();
     trending.forEach((trend) => tempSet.add(trend.id));
-    setUniqueSet(trending);
+    setUniqueSet(tempSet);
     setMediaAndBookmarkFields(trending, setTrendingTVSeries);
   }, [trending, setMediaAndBookmarkFields]);
 
@@ -101,13 +120,24 @@ export default function TVSeriesPage() {
   if (loading) return <p>Loading TV series...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  if (searchedTVSeries.length > 0) {
+  if (searchQuery && searchedTVSeries.length > 0) {
+    const processedSearchedTVSeries = searchedTVSeries.map(setMediaAsTVSeries);
+
     return (
       <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
-        <h1 className={styles.headings}>Searched Results</h1>
+        <h1 className={styles.headings}>Search Results</h1>
         <div className={styles.content}>
-          <List cards={searchedTVSeries} />
+          <List cards={processedSearchedTVSeries} />
         </div>
+      </div>
+    );
+  }
+
+  if (searchQuery && searchedTVSeries.length === 0) {
+    return (
+      <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
+        <h1 className={styles.headings}>Search Results</h1>
+        <p>No results found for "{searchQuery}"</p>
       </div>
     );
   }

@@ -7,10 +7,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 const List = ({ cards }) => {
 
+  const filteredCards = cards.filter((item) => item.poster_path);
+
+
   return (
     <>
       {
-        cards.map((card) => (
+        filteredCards.map((card) => (
           // TODO: add this in best practice
           <Card key={uuidv4()} {...card}
           />

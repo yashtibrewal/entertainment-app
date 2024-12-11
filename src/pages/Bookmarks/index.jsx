@@ -76,14 +76,18 @@ function Bookmarks() {
       })
       .finally(() => setLoading(false));
   }, []);
+  // 
+  const filterContentBySearch = (contentList, searchQuery, key) => {
+    if (!searchQuery) return contentList;
+    const lowerCaseQuery = searchQuery.toLowerCase();
+    return contentList.filter(
+      (content) =>
+        content[key] && content[key].toLowerCase().includes(lowerCaseQuery)
+    );
+  };
 
-  const filteredMovies = bookmarkedMovies.filter(movie =>
-    movie.title.toLowerCase().includes(searchQuery.toLowerCase()) // Filter movies by title
-  );
-
-  const filteredTvSeries = bookmarkedTvSeries.filter(tvSeries =>
-    tvSeries.title.toLowerCase().includes(searchQuery.toLowerCase()) // Filter tv series by title
-  );
+  const filteredMovies = filterContentBySearch(bookmarkedMovies, searchQuery, "title");
+  const filteredTvSeries = filterContentBySearch(bookmarkedTvSeries, searchQuery, "name");
 
   const noBookmarkMessage = () => {
     if (!filteredMovies.length && !filteredTvSeries.length) {
