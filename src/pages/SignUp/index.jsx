@@ -22,20 +22,28 @@ const SignUp = () => {
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      document.getElementById('signUp').click();
+      signUpUser();
     }
   };
+  // save
+  async function signUpUser() {
+    const result = await registerUser(name, email, password);
+
+    if (result.isSuccess) {
+      addToast('Account created successfully!', 'success');
+      navigate('/login');
+    } else {
+      addToast(result.message || 'Sign up failed. Please try again.', 'error');
+    }
+  }
+  
   
   const signup = async (event) => {
     event.preventDefault();
 
   
     //clear previous error message
-    setError('');
-    setNameError('');
-    setEmailError('');
-    setCnfPasswordError('');
-    setPasswordError('');
+    cleanFields();
 
   
     // Frontend validation
@@ -56,34 +64,30 @@ const SignUp = () => {
       return;
     }
     
-    // Call the registerUser API if validation passes
-    const result = await registerUser(name, email, password);
-    if (result.isSuccess) {
-      navigate("/login");
-    } else {
-      setError(result.message); 
-      console.error(error);
-    }
-
     // Check if passwords match
     if (password !== repeatPassword) {
       addToast('Passwords do not match', 'error'); 
       return;
     }
 
-    try {
-      const result = await registerUser(name, email, password);
+    function cleanFields() {
+      setError('');
+      setNameError('');
+      setEmailError('');
+      setCnfPasswordError('');
+      setPasswordError('');
+    }
+    // Take this function ouside thunfctio
+    
 
-      if (result.isSuccess) {
-        addToast('Account created successfully!', 'success'); 
-        navigate('/login');
-      } else {
-        addToast(result.message || 'Sign up failed. Please try again.', 'error');
-      }
+    try {
+      await signUpUser();
     } catch (error) {
       console.error(error);
       addToast('An unexpected error occurred. Please try again.', 'error'); 
     }
+
+  
   };
   
   const handleFocus = () => {
