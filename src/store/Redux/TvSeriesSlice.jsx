@@ -5,11 +5,18 @@ import { tokens } from '../localstorage';
 
 const BASE_URL = TMDB_BASE_URL;
 
+function fetchTmdbToken (){
+  return  localStorage.getItem('tmdbToken');
+}
+function fetchBookmarkToken (){
+  return  localStorage.getItem('entertainmentAppToken');
+}
+
 export const fetchAllTVSeries = createAsyncThunk(
   'tvSeries/fetchAllTVSeries',
   async (_, thunkAPI) => {
     try {
-      const tmdbToken = tokens.tmdbToken;
+      const tmdbToken = fetchTmdbToken();
       console.info('fetchAllTVSeries:tmdbToken', tmdbToken);
       if (!tmdbToken) {
         return thunkAPI.rejectWithValue('TMDB token not found in local storage.');
@@ -51,7 +58,7 @@ export const fetchAllTVSeriesBookmarks = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       console.info('fetchAllTVSeriesBookmarks called');
-      const entertainmentAppToken = tokens.entertainmentAppToken
+      const entertainmentAppToken = fetchBookmarkToken();
 
       if (!entertainmentAppToken) {
         return thunkAPI.rejectWithValue('entertainmentAppToken token not found in local storage.');
