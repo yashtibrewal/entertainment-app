@@ -7,13 +7,16 @@ import { tokens } from '../../store/localstorage';
 const BASE_TMDB_URL = TMDB_BASE_URL;
 const BASE_ENTERTAINMENT_APP_URL = BASE_LOCAL_URL;
 
-
+// fetching tmdbtokens in real time from local storage
+function fetchTmdbToken (){
+  return  localStorage.getItem('tmdbToken');
+}
 export const fetchAllMovies = createAsyncThunk(
   'movies/fetchAllMovies',
   async (_, thunkAPI) => {
     try {
       console.info('fetchAllMovies called');
-      const tmdbToken = tokens.tmdbToken;
+      const tmdbToken = fetchTmdbToken();
 
       if (!tmdbToken) {
         return thunkAPI.rejectWithValue('TMDB token not found in local storage.');
