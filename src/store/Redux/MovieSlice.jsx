@@ -11,6 +11,9 @@ const BASE_ENTERTAINMENT_APP_URL = BASE_LOCAL_URL;
 function fetchTmdbToken (){
   return  localStorage.getItem('tmdbToken');
 }
+function fetchBookmarkToken (){
+  return  localStorage.getItem('entertainmentAppToken');
+}
 export const fetchAllMovies = createAsyncThunk(
   'movies/fetchAllMovies',
   async (_, thunkAPI) => {
@@ -59,7 +62,7 @@ export const fetchAllMovieBookmarks = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       console.info('fetchAllMovieBookmarks called');
-      const entertainmentAppToken = localStorage.getItem('entertainmentAppToken');
+      const entertainmentAppToken = fetchBookmarkToken();
 
       if (!entertainmentAppToken) {
         return thunkAPI.rejectWithValue('entertainmentAppToken token not found in local storage.');
