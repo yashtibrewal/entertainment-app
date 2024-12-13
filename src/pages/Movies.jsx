@@ -6,6 +6,10 @@ import styles from './../components/common-media/content.module.css';
 import { useOutletContext } from 'react-router-dom';
 import { clearSearchResults, searchMovies } from "../store/Redux/SearchSlice";
 import LoaderSpinner from "../components/LoaderSpinner";
+<<<<<<< Updated upstream
+=======
+import { InternalServerError } from "./InternalServerError";
+>>>>>>> Stashed changes
 
 function Movies() {
   const dispatch = useDispatch();
@@ -71,7 +75,11 @@ console.log("searchedMovies:",searchedMovies);
   );
 
   if (loading) return <LoaderSpinner/>;
+<<<<<<< Updated upstream
   if (error) return <p>Error: {error}</p>;
+=======
+  if (error) return <InternalServerError/>;
+>>>>>>> Stashed changes
 
   // Render search results if a search query exists and results are available
   if (searchQuery && searchedMovies.length > 0) {

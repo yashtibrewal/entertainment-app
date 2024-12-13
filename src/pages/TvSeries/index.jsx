@@ -12,6 +12,10 @@ import styles from "../../components/common-media/content.module.css";
 import { SeriesSection } from "./SerieisSection";
 import { useOutletContext } from "react-router-dom";
 import LoaderSpinner from "../../components/LoaderSpinner";
+<<<<<<< Updated upstream
+=======
+import { InternalServerError } from "../InternalServerError";
+>>>>>>> Stashed changes
 
 export default function TVSeriesPage() {
   const dispatch = useDispatch();
@@ -119,8 +123,13 @@ export default function TVSeriesPage() {
     setMediaAndBookmarkFields(uniqueOnTheAir, setOnTheAirSeries);
   }, [onTheAir, setMediaAndBookmarkFields, setAiringTodaySeries]);
 
+<<<<<<< Updated upstream
   if (loading) return <LoaderSpinner />;
   if (error) return <p>Error: {error}</p>;
+=======
+  if (loading) return <LoaderSpinner/>;
+  if (error) return <InternalServerError/>;
+>>>>>>> Stashed changes
 
   if (searchQuery) {
     if (searchLoading) {
