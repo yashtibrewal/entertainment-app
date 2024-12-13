@@ -1,10 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../store/auth";
 import logoutUserApi from "./api";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../components/ToastContext";
+import LoaderSpinner from "../../components/LoaderSpinner";
 
 function Logout() {
+  const [showContent, setShowContent] = useState(false);
+
   const { logout, state } = useAuth();
   const navigate = useNavigate();
   const { addToast } = useToast(); 
@@ -19,6 +22,7 @@ function Logout() {
         const result = await logoutUserApi();
         if (result.isSuccess) {
           addToast("Logged out successfully!", "success");
+          setShowContent(true); 
         } else {
           addToast(result.message || "Logout failed. Please try again.", "error"); 
         }
@@ -27,12 +31,15 @@ function Logout() {
         addToast("An unexpected error occurred during logout.", "error"); 
       } finally {
         logout();
-        navigate("/login");
       }
     };
 
     logoutUser();
   }, [logout, navigate, state.token, addToast]);
+
+  if (showContent) {
+    return <LoaderSpinner/>; 
+  }
 
   return null; 
 }
