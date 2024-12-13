@@ -11,8 +11,8 @@ import { MEDIA_TYPE } from "../../constants";
 import styles from "../../components/common-media/content.module.css";
 import { SeriesSection } from "./SerieisSection";
 import { useOutletContext } from "react-router-dom";
-import LoaderSpinner from "../../components/LoaderSpinner";
 import { InternalServerError } from "../InternalServerError";
+import { GeneralLoading } from "../../components/Loading/GeneralLoading";
 
 export default function TVSeriesPage() {
   const dispatch = useDispatch();
@@ -120,7 +120,7 @@ export default function TVSeriesPage() {
     setMediaAndBookmarkFields(uniqueOnTheAir, setOnTheAirSeries);
   }, [onTheAir, setMediaAndBookmarkFields, setAiringTodaySeries]);
 
-  if (loading) return <LoaderSpinner/>;
+  if (loading) return <GeneralLoading/>;
   if (error) return <InternalServerError/>;
 
   if (searchQuery) {
@@ -128,7 +128,7 @@ export default function TVSeriesPage() {
       return (
         <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
           <h1 className={styles.headings}>Search Results</h1>
-          <LoaderSpinner /> {/* Show loading while searching */}
+          <GeneralLoading /> {/* Show loading while searching */}
         </div>
       );
     }
