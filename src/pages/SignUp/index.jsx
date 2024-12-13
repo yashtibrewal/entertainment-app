@@ -105,7 +105,7 @@ const SignUp = () => {
       </div>
   
       {/* Form Container */}
-      <form action="" className="bg-gray-800 shadow-lg p-6 rounded-xl w-80" onKeyDown={handleKeyDown}>
+      <div action="" className="bg-gray-800 shadow-lg p-6 rounded-xl w-80" onKeyDown={handleKeyDown}>
         <h1 className="mb-6 font-semibold text-2xl">Sign Up</h1>
 
         {/* Form */}
@@ -178,11 +178,11 @@ const SignUp = () => {
         {/* Additional Links */}
         <p className="mt-4 text-center text-gray-400 text-sm">
           Already have an account?{' '}
-          <Link href="/login" className="text-red-500 hover:underline cursor-pointer">
+          <a href="/login" className="text-red-500 hover:underline cursor-pointer">
             Login
-          </Link>
+          </a>
         </p>
-      </form>
+      </div>
     </div>
   );
 };
