@@ -6,7 +6,7 @@
 export default function Content() {
   return (
     <div className="content text-white">
-     <a href="/login">Login</a>
+      Component
     </div>
   );
 }

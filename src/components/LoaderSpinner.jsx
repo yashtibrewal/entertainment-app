@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import './LoaderSpinner.css'
 import { useNavigate } from "react-router";
 import Content from "./content";
+import LandingPage from "./LandingPage";
 
 
 const LoaderSpinner = () => {
@@ -26,7 +27,7 @@ const LoaderSpinner = () => {
   }, [navigate]);
 
   if (showContent) {
-    return <Content />; 
+    return <LandingPage/>; 
   }
  
   return (
