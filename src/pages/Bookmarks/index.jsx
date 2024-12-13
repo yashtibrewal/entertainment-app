@@ -8,10 +8,7 @@ import { getMovieApi } from "../movie/api";
 import { getTvSeriesApi } from "../../components/tv/api.js";
 import styles from '../../components/common-media/content.module.css';
 import LoaderSpinner from "../../components/LoaderSpinner";
-<<<<<<< Updated upstream
-=======
 import { InternalServerError } from "../InternalServerError";
->>>>>>> Stashed changes
 function Bookmarks() {
 
   const [bookmarkedMovies, setBookmarkedMovies] = useState([]);
@@ -84,15 +81,8 @@ function Bookmarks() {
       })
       .finally(() => setLoading(false));
   }, [])
-<<<<<<< Updated upstream
 
   if (loading)<LoaderSpinner/>
-=======
-
-  if (loading) return <LoaderSpinner/>
-   
-
->>>>>>> Stashed changes
 
   const noBookmarkMessage = () => {
 
