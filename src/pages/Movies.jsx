@@ -5,6 +5,7 @@ import { fetchAllMovieBookmarks, fetchAllMovies } from "../store/Redux/MovieSlic
 import styles from './../components/common-media/content.module.css';
 import { useOutletContext } from 'react-router-dom';
 import { clearSearchResults, searchMovies } from "../store/Redux/SearchSlice";
+import LoaderSpinner from "../components/LoaderSpinner";
 
 function Movies() {
   const dispatch = useDispatch();
@@ -69,7 +70,7 @@ console.log("searchedMovies:",searchedMovies);
     populateBookmark(addMediaType(movie))
   );
 
-  if (loading) return <p>Loading movies...</p>;
+  if (loading) return <LoaderSpinner/>;
   if (error) return <p>Error: {error}</p>;
 
   // Render search results if a search query exists and results are available

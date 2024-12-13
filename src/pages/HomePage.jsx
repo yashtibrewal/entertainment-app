@@ -18,6 +18,7 @@ import {
 } from "../store/Redux/TvSeriesSlice";
 import { MEDIA_TYPE } from "../constants";
 import { useLocation, useOutletContext } from "react-router-dom";
+import LoaderSpinner from "../components/LoaderSpinner";
 
 export default function HomePage() {
   const [popMovies, setPopMovies] = useState([]);
@@ -157,7 +158,7 @@ export default function HomePage() {
   const processedSearchedMovies = movies.map((movie) => setMediaType(movie));
   const processedTvSeries = tvSeries.map((movie) => setMediaType(movie));
 
-  if (moviesLoading) return <p>Loading movies...</p>;
+  if (moviesLoading && tvSeriesLoading) return <LoaderSpinner/>;
   if (moviesError) return <p>Error: {moviesError}</p>;
 
   if (searchQuery && movies.length > 0) {

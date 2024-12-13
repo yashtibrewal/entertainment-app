@@ -8,6 +8,7 @@ import Caste from "../../components/common-media/Caste";
 import ReviewStars from "../../components/common-media/ReviewStars";
 import TitleValue from "../../components/common-media/TitleValue";
 import Genre from "../../components/common-media/Genre";
+import LoaderSpinner from "../LoaderSpinner";
 
 function TV() {
   const { id } = useParams();
@@ -38,7 +39,7 @@ function TV() {
   }, [id, state.tmdbToken]);
 
   return loading ? (
-    <div>Loading</div>
+    <LoaderSpinner />
   ) : (
     <div className="flex gap-x-10 bg-black px-12 lg:px-24 xl:px-48 lg:py-6 2xl:py-12 min-h-screen">
       {/* Poster Section */}

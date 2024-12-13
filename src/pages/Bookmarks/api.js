@@ -2,6 +2,7 @@ import { BASE_LOCAL_URL } from "../../constants";
 import { tokens } from "../../store/localstorage";
 
 export const getBookmarkedMovies = async () => {
+  console.log(" from api :",tokens);
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -21,7 +22,7 @@ export const getBookmarkedMovies = async () => {
     };
 
   } catch (error) {
-    console.error('Error: ', error);
+    // console.error('Error: ', error);
     return {
       isSuccess: false,
       message: error.message
