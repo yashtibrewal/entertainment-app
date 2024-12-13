@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LoaderSpinner from "../components/LoaderSpinner";
+import WelcomeSpinner from "../components/Loading/LoaderSpinner";
 
 export function UnAuthorized() {
     const [countdown, setCountdown] = useState(5);
@@ -24,7 +24,7 @@ export function UnAuthorized() {
     }, [navigate]);
 
     if (showContent) {
-        return <LoaderSpinner/>; 
+        return <WelcomeSpinner/>; 
       }
 
     return (

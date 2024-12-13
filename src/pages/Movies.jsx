@@ -5,8 +5,8 @@ import { fetchAllMovieBookmarks, fetchAllMovies } from "../store/Redux/MovieSlic
 import styles from './../components/common-media/content.module.css';
 import { useOutletContext } from 'react-router-dom';
 import { clearSearchResults, searchMovies } from "../store/Redux/SearchSlice";
-import LoaderSpinner from "../components/LoaderSpinner";
 import { InternalServerError } from "./InternalServerError";
+import {GeneralLoading} from '../components/Loading/GeneralLoading';
 
 function Movies() {
   const dispatch = useDispatch();
@@ -90,7 +90,7 @@ function Movies() {
     }
   }, [searchQuery]);
 
-  if (localLoading) return <LoaderSpinner></LoaderSpinner>
+  if (localLoading) return <GeneralLoading></GeneralLoading>
   if (error) return <p>Error: {error}</p>;
 
   // Render search results if a search query exists and results are available
@@ -108,7 +108,7 @@ function Movies() {
   // Render no search results message if a query exists but no results
   if (searchQuery && searchedMovies.length === 0) {
     // Case" There is a search in progress
-    return <LoaderSpinner></LoaderSpinner>
+    return <GeneralLoading></GeneralLoading>
   }
   // Render all movies by default
   return (

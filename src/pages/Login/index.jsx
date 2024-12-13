@@ -6,8 +6,8 @@ import loginUserApi from './api';
 import { useAuth } from '../../store/auth';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../../components/ToastContext'; 
-import LoaderSpinner from '../../components/LoaderSpinner';
 import { InternalServerError } from '../InternalServerError';
+import { GeneralLoading } from '../../components/Loading/GeneralLoading';
 
 const Login = () => {
   // Initialize AOS
@@ -47,10 +47,7 @@ const Login = () => {
     }
   };
 
-  if (state.loading) return <LoaderSpinner/>
-
-  // if(loading) return <>Logging in.</>
-
+  if (state.loading) return <GeneralLoading></GeneralLoading>
 
   return (
     <div className="flex flex-col justify-center items-center bg-gray-900 w-[100vw] h-[100vh] text-white">
