@@ -11,6 +11,7 @@ import { MEDIA_TYPE } from "../../constants";
 import styles from "../../components/common-media/content.module.css";
 import { SeriesSection } from "./SerieisSection";
 import { useOutletContext } from "react-router-dom";
+import LoaderSpinner from "../../components/LoaderSpinner";
 
 export default function TVSeriesPage() {
   const dispatch = useDispatch();
@@ -29,12 +30,12 @@ export default function TVSeriesPage() {
     searchedTVSeries: state.search.tvSeries,
   }));
 
+  const [searchLoading, setSearchLoading] = useState(false); // Add search loading state
   const [popularTVSeries, setPopularTVSeries] = useState([]);
   const [trendingTVSeries, setTrendingTVSeries] = useState([]);
   const [airingTodaySeries, setAiringTodaySeries] = useState([]);
   const [onTheAirSeries, setOnTheAirSeries] = useState([]);
   const [uniqueSet, setUniqueSet] = useState(new Set());
-
 
   useEffect(() => {
     dispatch(fetchAllTVSeries());
@@ -42,17 +43,18 @@ export default function TVSeriesPage() {
   }, [dispatch]);
 
   useEffect(() => {
-    // debouncing implemented 
-   const id=setTimeout(()=>{
-    if (searchQuery) {
-      dispatch(searchTVSeries(searchQuery));  
-    }else{
-      dispatch(clearSearchResults());
-    }
-   },1000)
-  return function(){
-   clearTimeout(id)
-  }
+    // Debouncing implemented
+    const id = setTimeout(() => {
+      if (searchQuery) {
+        setSearchLoading(true); // Set search loading to true
+        dispatch(searchTVSeries(searchQuery)).finally(() => setSearchLoading(false)); // Update loading after API call
+      } else {
+        setSearchLoading(false); // Reset loading state if query is cleared
+        dispatch(clearSearchResults());
+      }
+    }, 1000);
+
+    return () => clearTimeout(id);
   }, [searchQuery, dispatch]);
 
   const populateBookmark = useCallback(
@@ -117,27 +119,36 @@ export default function TVSeriesPage() {
     setMediaAndBookmarkFields(uniqueOnTheAir, setOnTheAirSeries);
   }, [onTheAir, setMediaAndBookmarkFields, setAiringTodaySeries]);
 
-  if (loading) return <p>Loading TV series...</p>;
+  if (loading) return <LoaderSpinner />;
   if (error) return <p>Error: {error}</p>;
 
-  if (searchQuery && searchedTVSeries.length > 0) {
+  if (searchQuery) {
+    if (searchLoading) {
+      return (
+        <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
+          <h1 className={styles.headings}>Search Results</h1>
+          <LoaderSpinner /> {/* Show loading while searching */}
+        </div>
+      );
+    }
+  
+    if (!searchLoading && searchedTVSeries.length === 0) {
+      return (
+        <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
+          <h1 className={styles.headings}>Search Results</h1>
+          <p>No results found for "{searchQuery}"</p>
+        </div>
+      );
+    }
+  
     const processedSearchedTVSeries = searchedTVSeries.map(setMediaAsTVSeries);
-
+  
     return (
       <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
         <h1 className={styles.headings}>Search Results</h1>
         <div className={styles.content}>
           <List cards={processedSearchedTVSeries} />
         </div>
-      </div>
-    );
-  }
-
-  if (searchQuery && searchedTVSeries.length === 0) {
-    return (
-      <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
-        <h1 className={styles.headings}>Search Results</h1>
-        <p>No results found for "{searchQuery}"</p>
       </div>
     );
   }
