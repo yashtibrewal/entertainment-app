@@ -13,8 +13,7 @@ const ProtectedRoute = () => {
   }
 
 if (!state.isLoggedIn) {
-  
-  if (location.pathname === "/home") {
+  if (location.pathname === "/") {
     return <LoaderSpinner />;
   }
   return <UnAuthorized/>;

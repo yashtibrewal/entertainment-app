@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import './LoaderSpinner.css'
 import { useNavigate } from "react-router";
 import { useAuth } from "../store/auth";
+import LandingPage from "./LandingPage";
 
 const LoaderSpinner = () => {
 
@@ -26,11 +27,7 @@ const LoaderSpinner = () => {
   }, [navigate]);
 
   if (showContent) {
-    if(state.isLoggedIn){
-      navigate("/home")
-    }else{
-      navigate("/login");
-    }
+    return <LandingPage/>
   }
  
   return (
