@@ -19,10 +19,7 @@ import {
 import { MEDIA_TYPE } from "../constants";
 import { useLocation, useOutletContext } from "react-router-dom";
 import LoaderSpinner from "../components/LoaderSpinner";
-<<<<<<< Updated upstream
-=======
 import { InternalServerError } from "./InternalServerError";
->>>>>>> Stashed changes
 
 export default function HomePage() {
   const [popMovies, setPopMovies] = useState([]);
@@ -162,13 +159,8 @@ export default function HomePage() {
   const processedSearchedMovies = movies.map((movie) => setMediaType(movie));
   const processedTvSeries = tvSeries.map((movie) => setMediaType(movie));
 
-<<<<<<< Updated upstream
-  if (moviesLoading && tvSeriesLoading) return <LoaderSpinner/>;
-  if (moviesError) return <p>Error: {moviesError}</p>;
-=======
   if (moviesLoading) return <LoaderSpinner/>;
   if (moviesError) return <InternalServerError/>;
->>>>>>> Stashed changes
 
   if (searchQuery && movies.length > 0) {
     return (

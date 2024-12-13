@@ -7,10 +7,7 @@ import { useAuth } from '../../store/auth';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../../components/ToastContext'; 
 import LoaderSpinner from '../../components/LoaderSpinner';
-<<<<<<< Updated upstream
-=======
 import { InternalServerError } from '../InternalServerError';
->>>>>>> Stashed changes
 
 const Login = () => {
   // Initialize AOS
@@ -50,11 +47,7 @@ const Login = () => {
     }
   };
 
-<<<<<<< Updated upstream
-  if (state.loading) return <LoaderSpinner />;
-=======
   if (state.loading) return <LoaderSpinner/>
->>>>>>> Stashed changes
 
   // if(loading) return <>Logging in.</>
 

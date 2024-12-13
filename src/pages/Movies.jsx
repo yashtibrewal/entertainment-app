@@ -6,6 +6,7 @@ import styles from './../components/common-media/content.module.css';
 import { useOutletContext } from 'react-router-dom';
 import { clearSearchResults, searchMovies } from "../store/Redux/SearchSlice";
 import LoaderSpinner from "../components/LoaderSpinner";
+import { InternalServerError } from "./InternalServerError";
 
 function Movies() {
   const dispatch = useDispatch();
