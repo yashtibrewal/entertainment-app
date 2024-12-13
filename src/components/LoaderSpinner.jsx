@@ -27,7 +27,11 @@ const LoaderSpinner = () => {
   }, [navigate]);
 
   if (showContent) {
-    return <LandingPage/>; 
+    if(state.isLoggedIn){
+      navigate("/home")
+    }else{
+      navigate("/login");
+    }
   }
  
   return (

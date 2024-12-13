@@ -29,7 +29,7 @@ const Login = () => {
       const result = await loginUserApi(email, password, state);
       if (result.isSuccess) {
         login(result);
-        navigate("/");
+        navigate("/home");
         addToast("Logged in successfully!", "success"); 
       } else {
         console.error(result);

@@ -39,17 +39,13 @@ function TV() {
   }, [id, state.tmdbToken]);
 
   return loading ? (
-<<<<<<< Updated upstream
     <LoaderSpinner />
-=======
-   <LoaderSpinner/>
->>>>>>> Stashed changes
   ) : (
     <div className="flex gap-x-10 bg-black px-12 lg:px-24 xl:px-48 lg:py-6 2xl:py-12 min-h-screen">
       {/* Poster Section */}
       <div className="w-1/3">
         <img
-          alt="poster image"
+          alt="poster"
           className="rounded"
           src={`${configurationResponse?.images?.base_url}/${configurationResponse?.images?.poster_sizes?.[6]}/${tvSeriesResponse?.poster_path}`}
         />
