@@ -7,6 +7,48 @@
   pointer-events: none;
 }
 
+#main-body{
+  margin-left: 90px;
+}
+#sticky{
+
+  position: fixed;
+  top:5px;
+  z-index:50
+}
+/* #card{
+  width: auto;
+} */
+
+
+@media only screen and (max-width:1441px){
+  #card{
+    width: 10rem;
+  }
+}
+@media only screen and (max-width:1025px){
+  #card{
+    width: 12rem;
+  }
+}
+@media only screen and (max-width:769px){
+  #card{
+    width: 12rem;
+  }
+}
+
+@media only screen and (max-width:426px){
+  #card{
+    width: 11rem;
+    margin: 5px;
+  }
+}
+@media only screen and (max-width:376px){
+  #card{
+    width: 19rem;
+    margin: 0px;
+  }
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -72,9 +114,9 @@
 }
 
 @media (max-width: 768px) {
-  .main-container {
+  /* .main-container {
     flex-direction: column;
-  }
+  } */
 
   .flexing {
     flex: 1;
@@ -106,6 +148,8 @@
     height: 34vh;
 
   }
+
+
 }
 
 
@@ -132,6 +176,15 @@
     }  
     content-sec{
       padding-left: 10px;
+    }
+    #main-body{
+      margin-left: 0px;
+    }
+    #sticky{
+    
+      position:static;
+      top:0px;
+      z-index:0;
     }
   }
 
