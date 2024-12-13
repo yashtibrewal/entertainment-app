@@ -6,6 +6,7 @@ import loginUserApi from './api';
 import { useAuth } from '../../store/auth';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../../components/ToastContext'; 
+import LoaderSpinner from '../../components/LoaderSpinner';
 
 const Login = () => {
   // Initialize AOS
@@ -45,7 +46,7 @@ const Login = () => {
     }
   };
 
-  if (state.loading) return <> addToast("Loading...")</>;
+  if (state.loading) return <LoaderSpinner />;
 
   // if(loading) return <>Logging in.</>
 
