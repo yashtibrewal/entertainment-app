@@ -38,7 +38,7 @@ const Navbar = () => {
   }
    
   const PAGES = {
-    HOME: "/",
+    HOME: "/home",
     MOVIES: "/movies",
     TV_SERIEIS: "/tv-series",
     BOOKMARK: "/bookmark"
