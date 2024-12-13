@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import LoaderSpinner from "../components/LoaderSpinner";
 
 export function UnAuthorized() {
     const [countdown, setCountdown] = useState(5);
+    const [showContent, setShowContent] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -11,7 +14,7 @@ export function UnAuthorized() {
             setCountdown((prev) => {
                 if (prev === 1) {
                     clearInterval(timer);
-                    navigate("/login");  
+                    setShowContent(true); 
                 }
                 return prev - 1;
             });
@@ -19,6 +22,10 @@ export function UnAuthorized() {
 
         return () => clearInterval(timer);  
     }, [navigate]);
+
+    if (showContent) {
+        return <LoaderSpinner/>; 
+      }
 
     return (
         <div className="bg-black">
