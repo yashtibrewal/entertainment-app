@@ -1,15 +1,17 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import List from "../components/Content/List";
 import { fetchAllMovieBookmarks, fetchAllMovies } from "../store/Redux/MovieSlice";
 import styles from './../components/common-media/content.module.css';
 import { useOutletContext } from 'react-router-dom';
 import { clearSearchResults, searchMovies } from "../store/Redux/SearchSlice";
+import LoaderSpinner from "../components/LoaderSpinner";
 
 function Movies() {
   const dispatch = useDispatch();
   const { searchQuery } = useOutletContext();
-
+  // Using local loading variable.
+  const [localLoading, setLocalLoading] = useState(true);
   const {
     searchedMovies,
     popularMovies,
@@ -20,18 +22,18 @@ function Movies() {
     loading,
     error,
   } = useSelector((state) => ({...state.movies,searchedMovies:state.search.movies}));
-console.log("searchedMovies:",searchedMovies);
+  
   useEffect(() => {
     // Fetch all movies and bookmarks on component mount
     dispatch(fetchAllMovies());
     dispatch(fetchAllMovieBookmarks());
   }, [dispatch]);
 
+  // debouncing implemented
   useEffect(() => {
-// debouncing implemented
     const id=setTimeout(()=>{
       if (searchQuery) {
-        dispatch(searchMovies(searchQuery));
+        dispatch(searchMovies(searchQuery))
       }else{
         // clearing search result when iput is empty
         dispatch(clearSearchResults());
@@ -55,21 +57,39 @@ console.log("searchedMovies:",searchedMovies);
     [movieBookmarks]
   );
 
-  const allMovies = [
-    ...popularMovies,
-    ...trendingMovies,
-    ...nowPlayingMovies,
-    ...upcomingMovies,
-  ]
-    .map(addMediaType)
-    .filter((movie, index, self) => self.findIndex((m) => m.id === movie.id) === index) // Remove duplicates
-    .map(populateBookmark);
+  const allMovies = useMemo(() => {
+    return [
+      ...popularMovies,
+      ...trendingMovies,
+      ...nowPlayingMovies,
+      ...upcomingMovies,
+    ]
+      .map(addMediaType)
+      .filter((movie, index, self) => self.findIndex((m) => m.id === movie.id) === index) // Remove duplicates
+      .map(populateBookmark);
+  }, [popularMovies, trendingMovies, nowPlayingMovies, upcomingMovies, addMediaType, populateBookmark]);
+  
 
-  const processedSearchedMovies = searchedMovies.map((movie) =>
-    populateBookmark(addMediaType(movie))
-  );
+    const processedSearchedMovies = useMemo(() => {
+      return searchedMovies.map((movie) => {
+        return populateBookmark(addMediaType(movie));
+      });
+    }, [searchedMovies, addMediaType, populateBookmark]);
+    
 
-  if (loading) return <p>Loading movies...</p>;
+  useEffect(()=> {
+    setLocalLoading(loading);
+  }, [loading]);
+
+  // When searchQuery is being typed, show loading.
+  // Don't show loading when there exists search
+  useEffect(()=> {
+    if(searchQuery && !searchMovies.length) {
+      setLocalLoading(true);
+    }
+  }, [searchQuery]);
+
+  if (localLoading) return <LoaderSpinner></LoaderSpinner>
   if (error) return <p>Error: {error}</p>;
 
   // Render search results if a search query exists and results are available
@@ -86,14 +106,9 @@ console.log("searchedMovies:",searchedMovies);
 
   // Render no search results message if a query exists but no results
   if (searchQuery && searchedMovies.length === 0) {
-    return (
-      <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
-        <h1 className={styles.headings}>Search Results</h1>
-        <p>No results found for "{searchQuery}"</p>
-      </div>
-    );
+    // Case" There is a search in progress
+    return <LoaderSpinner></LoaderSpinner>
   }
-
   // Render all movies by default
   return (
     <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] gap-y-5 home-width">
