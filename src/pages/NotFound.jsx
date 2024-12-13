@@ -16,7 +16,7 @@ export function NotFound() {
             <div className=" text-white text-2xl p-8 rounded-lg text-center">
                
                 <p className="text-xl mt-4 font-bold">Oops! The page you're looking for doesn't exist.</p>
-                <a href="/"
+                <a href="/home"
                     className="text-blue-400 font-semibold mt-6 inline-block hover:underline">
                     Go Back to Homepage                
                 </a>
