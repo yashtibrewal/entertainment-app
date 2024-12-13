@@ -175,11 +175,11 @@ export default function HomePage() {
   return (
     <div className="overflow-x-hidden">
       {/* Trending Section */}
-      <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)]">
+      <div className="md:ml-4 p-4 ">
         <Trending trendingMovies={trendingMoviesLocal} />
       </div>
 
-      <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
+      <div className="md:ml-4 p-4  home-width">
         <h1 className="mb-4 font-semibold text-2xl text-white">
           Recommended for you
         </h1>
