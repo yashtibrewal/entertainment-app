@@ -1,12 +1,19 @@
 import { BASE_LOCAL_URL } from "../../constants";
 import { tokens } from "../../store/localstorage";
 
+function getEntertainmentToken(){
+  return localStorage.getItem('entertainmentAppToken')
+}
+
 export const getBookmarkedMovies = async () => {
+  const entertainmentAppToken=getEntertainmentToken();
+
   console.log(" from api :",tokens);
+ 
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
-  headers.append("Authorization", `Bearer ${tokens.entertainmentAppToken}`);
+  headers.append("Authorization", `Bearer ${entertainmentAppToken}`);
 
   const requestOptions = {
     method: "GET",
@@ -32,8 +39,9 @@ export const getBookmarkedMovies = async () => {
 
 
 export const getBookmarkedTVSeries = async () => {
+  const entertainmentAppToken=getEntertainmentToken();
 
-  const entertainmentAppToken = tokens.entertainmentAppToken;
+ 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("Authorization", `Bearer ${entertainmentAppToken}`);
