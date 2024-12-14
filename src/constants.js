@@ -1,6 +1,6 @@
-// console.log('base url', process.env.REACT_APP_TMDB_BASE_URL)
-// console.log('base image url', process.env.REACT_APP_BASE_IMAGE_URL)
-// console.log('base local url', process.env.REACT_APP_BASE_LOCAL_URL)
+console.log('base url', process.env.REACT_APP_TMDB_BASE_URL)
+console.log('base image url', process.env.REACT_APP_BASE_IMAGE_URL)
+console.log('base local url', process.env.REACT_APP_BASE_LOCAL_URL)
 
 export const TMDB_BASE_URL = process.env.REACT_APP_TMDB_BASE_URL;
 export const BASE_IMAGE_URL = process.env.REACT_APP_BASE_IMAGE_URL;
