@@ -1,25 +1,27 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { BASE_LOCAL_URL, TMDB_BASE_URL } from '../../constants';
-import { tokens } from '../localstorage';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import { BASE_LOCAL_URL, TMDB_BASE_URL } from "../../constants";
+import { tokens } from "../localstorage";
 
 const BASE_URL = TMDB_BASE_URL;
 
-function fetchTmdbToken (){
-  return  localStorage.getItem('tmdbToken');
+function fetchTmdbToken() {
+  return localStorage.getItem("tmdbToken");
 }
-function fetchBookmarkToken (){
-  return  localStorage.getItem('entertainmentAppToken');
+function fetchBookmarkToken() {
+  return localStorage.getItem("entertainmentAppToken");
 }
 
 export const fetchAllTVSeries = createAsyncThunk(
-  'tvSeries/fetchAllTVSeries',
+  "tvSeries/fetchAllTVSeries",
   async (_, thunkAPI) => {
     try {
       const tmdbToken = fetchTmdbToken();
-      console.info('fetchAllTVSeries:tmdbToken', tmdbToken);
+      console.info("fetchAllTVSeries:tmdbToken", tmdbToken);
       if (!tmdbToken) {
-        return thunkAPI.rejectWithValue('TMDB token not found in local storage.');
+        return thunkAPI.rejectWithValue(
+          "TMDB token not found in local storage."
+        );
       }
 
       const requests = [
@@ -40,50 +42,50 @@ export const fetchAllTVSeries = createAsyncThunk(
       const results = await Promise.allSettled(requests);
 
       const [popular, trending, airingToday, onTheAir] = results.map((result) =>
-        result.status === 'fulfilled' ? result.value.data.results : []
+        result.status === "fulfilled" ? result.value.data.results : []
       );
 
       return { popular, trending, airingToday, onTheAir };
     } catch (error) {
-      console.error('Error fetching TV series:', error);
+      console.error("Error fetching TV series:", error);
       return thunkAPI.rejectWithValue(
-        error.response?.data?.status_message || 'Failed to fetch TV series.'
+        error.response?.data?.status_message || "Failed to fetch TV series."
       );
     }
   }
 );
 
 export const fetchAllTVSeriesBookmarks = createAsyncThunk(
-  'tvSeries/fetchAllTVSeriesBookmarks',
+  "tvSeries/fetchAllTVSeriesBookmarks",
   async (_, thunkAPI) => {
     try {
-      console.info('fetchAllTVSeriesBookmarks called');
+      console.info("fetchAllTVSeriesBookmarks called");
       const entertainmentAppToken = fetchBookmarkToken();
 
       if (!entertainmentAppToken) {
-        return thunkAPI.rejectWithValue('entertainmentAppToken token not found in local storage.');
+        return thunkAPI.rejectWithValue(
+          "entertainmentAppToken token not found in local storage."
+        );
       }
 
-      const result = await axios.get(`${BASE_LOCAL_URL}tv/bookmarks`, {
+      const result = await axios.get(`${BASE_LOCAL_URL}/tv/bookmarks`, {
         headers: { Authorization: `Bearer ${entertainmentAppToken}` },
-      })
+      });
       // console.log(result);
       return result.data;
-
     } catch (error) {
-      console.error('Error fetching bookmarks:', error);
+      console.error("Error fetching bookmarks:", error);
       return thunkAPI.rejectWithValue(
-        error.response?.data?.status_message || "Failed to fetch movies' bookmarks."
+        error.response?.data?.status_message ||
+          "Failed to fetch movies' bookmarks."
       );
     }
-
   }
-)
-
+);
 
 // Redux Slice for TV Series
 const tvSeriesSlice = createSlice({
-  name: 'tvSeries',
+  name: "tvSeries",
   initialState: {
     popular: [], // updated state key
     trending: [],
@@ -98,7 +100,7 @@ const tvSeriesSlice = createSlice({
     setSearchedTVSeries(state, action) {
       // console.log('action.payload', action.payload);
       state.searchedTVSeries = [...action.payload];
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -117,10 +119,13 @@ const tvSeriesSlice = createSlice({
         state.tvSeriesBookmarks = action.payload;
         state.loading = false;
       })
-      .addCase(fetchAllTVSeries.rejected || fetchAllTVSeriesBookmarks.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      });
+      .addCase(
+        fetchAllTVSeries.rejected || fetchAllTVSeriesBookmarks.rejected,
+        (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+        }
+      );
   },
 });
 

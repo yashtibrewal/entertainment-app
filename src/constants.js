@@ -1,7 +1,10 @@
-export const TMDB_BASE_URL = 'https://api.themoviedb.org/3/';
-export const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
-// export const BASE_LOCAL_URL = "https://entertainment-app-backend-k2wa.onrender.com/";
-export const BASE_LOCAL_URL="http://localhost:4000/"
+// console.log('base url', process.env.REACT_APP_TMDB_BASE_URL)
+// console.log('base image url', process.env.REACT_APP_BASE_IMAGE_URL)
+// console.log('base local url', process.env.REACT_APP_BASE_LOCAL_URL)
+
+export const TMDB_BASE_URL = process.env.REACT_APP_TMDB_BASE_URL;
+export const BASE_IMAGE_URL = process.env.REACT_APP_BASE_IMAGE_URL;
+export const BASE_LOCAL_URL = process.env.REACT_APP_BASE_LOCAL_URL;
 
 
 export const MEDIA_TYPE = {
