@@ -15,7 +15,7 @@ import TVSeries from "./pages/TvSeries";
 import { SingleTVSerieis } from "./pages/TvSeries/SingleTVSeries";
 import { NotFound } from "./pages/NotFound";
 import { useEffect } from "react";
-import LoaderSpinner from "./components/LoaderSpinner";
+import WelcomeSpinner from "./components/Loading/LoaderSpinner";
 const RouteChangeHandler = () => {
   const location = useLocation();
 
@@ -45,7 +45,7 @@ function App() {
           <Route path="/tv/:id" element={<SingleTVSerieis />} />
         </Route>
         <Route path="/logout" element={<Logout />} />
-        <Route path="/" element={<LoaderSpinner />} />
+        <Route path="/" element={<WelcomeSpinner />} />
         <Route path="*" element={ <NotFound/> }/>
       </Routes>
     </AuthProvider>

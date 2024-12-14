@@ -1,7 +1,8 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../store/auth';
-import LoaderSpinner from './LoaderSpinner';
 import { UnAuthorized } from "../pages/UnAuthorizedPage";
+import WelcomeSpinner from './Loading/LoaderSpinner';
+import { GeneralLoading } from './Loading/GeneralLoading';
 
 
 const ProtectedRoute = () => {
@@ -9,15 +10,15 @@ const ProtectedRoute = () => {
   const { state } = useAuth();
 
   if (state.loading) {
-    return <LoaderSpinner/>
+    return <GeneralLoading/>
   }
 
-if (!state.isLoggedIn) {
-  if (location.pathname === "/") {
-    return <LoaderSpinner />;
+  if (!state.isLoggedIn) {
+    if (location.pathname === "/") {
+      return <WelcomeSpinner />;
+    }
+    return <UnAuthorized/>;
   }
-  return <UnAuthorized/>;
-}
 
   return <Outlet />; 
 };

@@ -18,8 +18,8 @@ import {
 } from "../store/Redux/TvSeriesSlice";
 import { MEDIA_TYPE } from "../constants";
 import { useLocation, useOutletContext } from "react-router-dom";
-import LoaderSpinner from "../components/LoaderSpinner";
 import { InternalServerError } from "./InternalServerError";
+import { GeneralLoading } from "../components/Loading/GeneralLoading";
 
 export default function HomePage() {
   const [popMovies, setPopMovies] = useState([]);
@@ -159,7 +159,7 @@ export default function HomePage() {
   const processedSearchedMovies = movies.map((movie) => setMediaType(movie));
   const processedTvSeries = tvSeries.map((movie) => setMediaType(movie));
 
-  if (moviesLoading) return <LoaderSpinner/>;
+  if (moviesLoading) return <GeneralLoading></GeneralLoading>
   if (moviesError) return <InternalServerError/>;
 
   if (searchQuery && movies.length > 0) {
@@ -175,11 +175,11 @@ export default function HomePage() {
   return (
     <div className="overflow-x-hidden">
       {/* Trending Section */}
-      <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)]">
+      <div className="md:ml-4 p-4 ">
         <Trending trendingMovies={trendingMoviesLocal} />
       </div>
 
-      <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
+      <div className="md:ml-4 p-4  home-width">
         <h1 className="mb-4 font-semibold text-2xl text-white">
           Recommended for you
         </h1>

@@ -3,7 +3,7 @@ import { useAuth } from "../../store/auth";
 import logoutUserApi from "./api";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../components/ToastContext";
-import LoaderSpinner from "../../components/LoaderSpinner";
+import WelcomeSpinner from "../../components/Loading/LoaderSpinner";
 
 function Logout() {
   const [showContent, setShowContent] = useState(false);
@@ -38,7 +38,7 @@ function Logout() {
   }, [logout, navigate, state.token, addToast]);
 
   if (showContent) {
-    return <LoaderSpinner/>; 
+    return <WelcomeSpinner/>; 
   }
 
   return null; 

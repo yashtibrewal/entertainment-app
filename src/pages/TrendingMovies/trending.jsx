@@ -73,7 +73,7 @@ const Trending = ({ trendingMovies }) => {
     >
       <h1 className={styles.headings}>Trending</h1>
       <div
-        className={`flex gap-3 transition-transform duration-300 ease-out ${isOverflowing ? "" : "justify-center"
+        className={`flex gap-[1.75rem] transition-transform duration-300 ease-out ${isOverflowing ? "" : "justify-center"
           }`}
 
         style={{

@@ -40,7 +40,7 @@ const Card = ({
   return (
     <div
       onClick={handleNavigation}
-      className="relative flex flex-col w-48 hover:cursor-pointer"
+      className="relative flex flex-col xl:w-[9rem]  hover:cursor-pointer" id="card"
     >
       <img
         src={`${BASE_IMAGE_URL}${poster_path}`}
@@ -57,7 +57,7 @@ const Card = ({
       ></Bookmark>
 
       {/* Content section below the image */}
-      <div className="content-sec px-2 py-1 text-white text-xs">
+      <div className="content-sec py-1 text-white text-xs">
         <ul className="flex content-sec gap-x-3 mt-2">
           <li className="flex flex-col items-center text-white text-xs">
             <span className="mr-1">{formatedDate}</span>
