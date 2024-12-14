@@ -1,16 +1,18 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { TMDB_BASE_URL } from '../../constants';
-import { tokens } from '../localstorage';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import { TMDB_BASE_URL } from "../../constants";
+import { tokens } from "../localstorage";
 
 //searching movies
 export const searchMovies = createAsyncThunk(
-  'search/searchMovies',
+  "search/searchMovies",
   async (query, thunkAPI) => {
     try {
       const tmdbToken = tokens.tmdbToken;
       if (!tmdbToken) {
-        return thunkAPI.rejectWithValue('TMDB token not found in local storage.');
+        return thunkAPI.rejectWithValue(
+          "TMDB token not found in local storage."
+        );
       }
 
       const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
@@ -20,21 +22,23 @@ export const searchMovies = createAsyncThunk(
 
       return response.data.results;
     } catch (error) {
-      console.error('Error searching movies:', error);
+      console.error("Error searching movies:", error);
       return thunkAPI.rejectWithValue(
-        error.response?.data?.status_message || 'Failed to search movies.'
+        error.response?.data?.status_message || "Failed to search movies."
       );
     }
   }
 );
 //Tv Series
 export const searchTVSeries = createAsyncThunk(
-  'search/searchTVSeries',
+  "search/searchTVSeries",
   async (query, thunkAPI) => {
     try {
-      const tmdbToken = tokens.tmdbToken
+      const tmdbToken = tokens.tmdbToken;
       if (!tmdbToken) {
-        return thunkAPI.rejectWithValue('TMDB token not found in local storage.');
+        return thunkAPI.rejectWithValue(
+          "TMDB token not found in local storage."
+        );
       }
 
       const response = await axios.get(`${TMDB_BASE_URL}/search/tv`, {
@@ -44,16 +48,16 @@ export const searchTVSeries = createAsyncThunk(
 
       return response.data.results;
     } catch (error) {
-      console.error('Error searching TV series:', error);
+      console.error("Error searching TV series:", error);
       return thunkAPI.rejectWithValue(
-        error.response?.data?.status_message || 'Failed to search TV series.'
+        error.response?.data?.status_message || "Failed to search TV series."
       );
     }
   }
 );
 
 const searchSlice = createSlice({
-  name: 'search',
+  name: "search",
   initialState: {
     movies: [],
     tvSeries: [],
@@ -64,8 +68,7 @@ const searchSlice = createSlice({
     clearSearchResults: (state, action) => {
       state.movies = [];
       state.tvSeries = [];
-    }
-    
+    },
   },
   extraReducers: (builder) => {
     builder
