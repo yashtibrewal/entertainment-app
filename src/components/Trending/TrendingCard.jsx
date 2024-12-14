@@ -29,7 +29,7 @@ const TrendingCard = ({ id, bookmark,first_air_date, poster_path, title,name,rel
   return (
     <div className="bg-black shadow-lg rounded-lg w-96 text-white overflow-hidden trending-cart">
       <div className="relative">
-        <img src={`${BASE_IMAGE_URL}${poster_path}`} alt={title} className="w-full h-48 object-cover" />
+        <img src={`${BASE_IMAGE_URL}/${poster_path}`} alt={title} className="w-full h-48 object-cover" />
         <div onClick={handleBookMarkClick} className="top-2 right-2 absolute bg-black bg-opacity-75 p-2.5 rounded-full cursor-pointer">
           {bookmarked ? (
             <FaBookmark className="text-white" />

@@ -16,7 +16,7 @@ const logoutUserApi = async () => {
   try {
     // Send request and handle the response
 
-    const response = await fetch(`${BASE_LOCAL_URL}user/logout`, requestOptions)
+    const response = await fetch(`${BASE_LOCAL_URL}/user/logout`, requestOptions)
     const result = await response.json();
 
     if (response.status === 200) {

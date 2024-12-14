@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_LOCAL_URL, TMDB_BASE_URL } from "../../constants";
-import { tokens } from "../localstorage";
 
 const BASE_URL = TMDB_BASE_URL;
 
