@@ -56,6 +56,7 @@ export default function HomePage() {
   const { searchQuery } = useOutletContext();
 
   const { movies, tvSeries } = useSelector((state) => state.search);
+ 
   useEffect(() => {
     const id = setTimeout(() => {
       if (searchQuery) {
