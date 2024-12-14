@@ -14,7 +14,7 @@ export const getBookmarkedMovies = async () => {
   };
 
   try {
-    const response = await fetch(`${BASE_LOCAL_URL}movie/bookmarks?language=en-US`, requestOptions);
+    const response = await fetch(`${BASE_LOCAL_URL}/movie/bookmarks?language=en-US`, requestOptions);
     const result = await response.json()
     return {
       isSuccess: true,
@@ -44,7 +44,7 @@ export const getBookmarkedTVSeries = async () => {
   };
 
   try {
-    const response = await fetch(`${BASE_LOCAL_URL}tv/bookmarks?language=en-US`, requestOptions);
+    const response = await fetch(`${BASE_LOCAL_URL}/tv/bookmarks?language=en-US`, requestOptions);
     const result = await response.json()
     return {
       isSuccess: true,

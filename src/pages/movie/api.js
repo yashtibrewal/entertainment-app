@@ -13,7 +13,7 @@ const getMovieApi = async (movie_id) => {
   };
 
   try {
-    const response = await fetch(`${TMDB_BASE_URL}movie/${movie_id}?language=en-US`, requestOptions);
+    const response = await fetch(`${TMDB_BASE_URL}/movie/${movie_id}?language=en-US`, requestOptions);
     //  console.log(response);
     const result = await response.json()
     return {
@@ -42,7 +42,7 @@ const getMovieCastApi = async (movie_id) => {
   };
 
   try {
-    const response = await fetch(`${TMDB_BASE_URL}movie/${movie_id}/credits?language=en-US`, requestOptions);
+    const response = await fetch(`${TMDB_BASE_URL}/movie/${movie_id}/credits?language=en-US`, requestOptions);
     const result = await response.json()
     return {
       isSuccess: true,
@@ -60,7 +60,7 @@ const getMovieCastApi = async (movie_id) => {
 
 const getConfigurationSizesApi = async (tmdbToken) => {
 
-  const url = `${TMDB_BASE_URL}configuration`;
+  const url = `${TMDB_BASE_URL}/configuration`;
   const options = {
     method: 'GET',
     headers: {

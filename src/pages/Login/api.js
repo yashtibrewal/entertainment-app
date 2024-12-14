@@ -23,7 +23,7 @@ const loginUserApi = async (email, password, store) => {
 
   try {
     // Send request and handle the response
-    const response = await fetch(`${BASE_LOCAL_URL}user/login`, requestOptions);
+    const response = await fetch(`${BASE_LOCAL_URL}/user/login`, requestOptions);
     const result = await response.json()
     if (response.status === 200) {
       result.isSuccess = true;
