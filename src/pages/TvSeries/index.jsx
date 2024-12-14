@@ -17,21 +17,17 @@ import { GeneralLoading } from "../../components/Loading/GeneralLoading";
 export default function TVSeriesPage() {
   const dispatch = useDispatch();
   const { searchQuery } = useOutletContext();
-  const {
-    searchedTVSeries,
-    popular,
-    trending,
-    airingToday,
-    onTheAir,
-    tvSeriesBookmarks,
-    loading,
-    error,
-  } = useSelector((state) => ({
-    ...state.tvSeries,
-    searchedTVSeries: state.search.tvSeries,
-  }));
+  const searchedTVSeries = useSelector((state) => state.search.tvSeries);
+  const popular = useSelector((state) => state.tvSeries.popular);
+  const trending = useSelector((state) => state.tvSeries.trending);
+  const airingToday = useSelector((state) => state.tvSeries.airingToday);
+  const onTheAir = useSelector((state) => state.tvSeries.onTheAir);
+  const tvSeriesBookmarks = useSelector((state) => state.tvSeries.tvSeriesBookmarks);
+  const loading = useSelector((state) => state.tvSeries.loading);
+  const error = useSelector((state) => state.tvSeries.error);
 
-  const [searchLoading, setSearchLoading] = useState(false); // Add search loading state
+   // Add search loading state
+  const [searchLoading, setSearchLoading] = useState(false);
   const [popularTVSeries, setPopularTVSeries] = useState([]);
   const [trendingTVSeries, setTrendingTVSeries] = useState([]);
   const [airingTodaySeries, setAiringTodaySeries] = useState([]);

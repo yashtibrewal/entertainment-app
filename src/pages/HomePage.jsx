@@ -17,7 +17,7 @@ import {
   fetchAllTVSeriesBookmarks,
 } from "../store/Redux/TvSeriesSlice";
 import { MEDIA_TYPE } from "../constants";
-import { useLocation, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { InternalServerError } from "./InternalServerError";
 import { GeneralLoading } from "../components/Loading/GeneralLoading";
 
@@ -28,22 +28,18 @@ export default function HomePage() {
   const [mergedTrending, setMergedTrending] = useState([]);
 
   const dispatch = useDispatch();
-  const {
-    searchedMovies,
-    popularMovies,
-    trendingMovies,
-    movieBookmarks,
-    loading: moviesLoading,
-    error: moviesError,
-  } = useSelector((state) => state.movies);
+  const popularMovies = useSelector(state => state.movies.popularMovies);
+  const trendingMovies = useSelector(state => state.movies.trendingMovies);
+  const movieBookmarks = useSelector(state => state.movies.movieBookmarks);
+  const searchedMovies = useSelector(state => state.movies.searchedMovies);
+  const moviesLoading = useSelector(state=> state.movies.loading);
+  const moviesError = useSelector(state => state.movies.error);
 
-  const {
-    trending: trendingTVSeries,
-    popular: popularTVSeries,
-    tvSeriesBookmarks,
-    loading: tvSeriesLoading,
-    error: tvSeriesError,
-  } = useSelector((state) => state.tvSeries);
+  const trendingTVSeries = useSelector(state => state.tvSeries.trending);
+  const popularTVSeries = useSelector(state => state.tvSeries.popularTVSeries);
+  const tvSeriesBookmarks = useSelector(state => state.tvSeries.tvSeriesBookmarks);
+  const tvSeriesLoading = useSelector(state => state.tvSeries.loading);
+  const tvSeriesError = useSelector(state => state.tvSeries.error);
 
   useEffect(() => {
     dispatch(fetchAllMovies());
@@ -55,7 +51,9 @@ export default function HomePage() {
   // search implemented
   const { searchQuery } = useOutletContext();
 
-  const { movies, tvSeries } = useSelector((state) => state.search);
+  const movies = useSelector(state => state.search.movies);
+  const tvSeries = useSelector(state => state.search.tvSeries);
+
   useEffect(() => {
     const id = setTimeout(() => {
       if (searchQuery) {
