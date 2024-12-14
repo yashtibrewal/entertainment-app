@@ -3,12 +3,17 @@ import axios from "axios";
 import { TMDB_BASE_URL } from "../../constants";
 import { tokens } from "../localstorage";
 
+
+function fetchTmdbToken (){
+  return  localStorage.getItem('tmdbToken');
+}
 //searching movies
 export const searchMovies = createAsyncThunk(
   "search/searchMovies",
   async (query, thunkAPI) => {
     try {
-      const tmdbToken = tokens.tmdbToken;
+      const tmdbToken = fetchTmdbToken();
+      console.log(tmdbToken);
       if (!tmdbToken) {
         return thunkAPI.rejectWithValue(
           "TMDB token not found in local storage."
@@ -20,7 +25,7 @@ export const searchMovies = createAsyncThunk(
         params: { query },
       });
 
-      return response.data.results;
+      return await response.data.results;
     } catch (error) {
       console.error("Error searching movies:", error);
       return thunkAPI.rejectWithValue(
@@ -34,7 +39,7 @@ export const searchTVSeries = createAsyncThunk(
   "search/searchTVSeries",
   async (query, thunkAPI) => {
     try {
-      const tmdbToken = tokens.tmdbToken;
+      const tmdbToken = fetchTmdbToken();
       if (!tmdbToken) {
         return thunkAPI.rejectWithValue(
           "TMDB token not found in local storage."
@@ -46,7 +51,7 @@ export const searchTVSeries = createAsyncThunk(
         params: { query },
       });
 
-      return response.data.results;
+      return await response.data.results;
     } catch (error) {
       console.error("Error searching TV series:", error);
       return thunkAPI.rejectWithValue(
