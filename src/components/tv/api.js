@@ -13,7 +13,7 @@ const getTvSeriesApi = async (tv_series_id) => {
   };
 
   try {
-    const response = await fetch(`${TMDB_BASE_URL}tv/${tv_series_id}?language=en-US`, requestOptions);
+    const response = await fetch(`${TMDB_BASE_URL}/tv/${tv_series_id}?language=en-US`, requestOptions);
     const result = await response.json()
     return {
       isSuccess: true,
@@ -42,7 +42,7 @@ const getTvSeriesCastApi = async (tv_series_id, tmdbToken) => {
   };
 
   try {
-    const response = await fetch(`${TMDB_BASE_URL}tv/${tv_series_id}/credits?language=en-US`, requestOptions);
+    const response = await fetch(`${TMDB_BASE_URL}/tv/${tv_series_id}/credits?language=en-US`, requestOptions);
     const result = await response.json()
     return {
       isSuccess: true,

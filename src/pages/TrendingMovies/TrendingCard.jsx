@@ -13,7 +13,9 @@ const TrendingCard = ({ id, poster_path, bookmark, name, title,first_air_date  ,
     <div className="bg-black shadow-lg rounded-lg w-96 text-white overflow-hidden trending-cart ">
 
       <div className="relative">
-        <img src={`${BASE_IMAGE_URL}${poster_path}`} alt={title} className="w-full h-48 object-cover" />
+
+        <img src={`${BASE_IMAGE_URL}/${poster_path}`} alt={title} className="w-full h-48 object-cover" />
+
         {/* <Bookmark
           className={styles.bookmark}
           id={id} bookmark={bookmark} media_type={media_type} key={uuidv4()}></Bookmark> */}

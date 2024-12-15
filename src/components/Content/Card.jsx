@@ -43,7 +43,7 @@ const Card = ({
       className="relative flex flex-col xl:w-[9rem]  hover:cursor-pointer" id="card"
     >
       <img
-        src={`${BASE_IMAGE_URL}${poster_path}`}
+        src={`${BASE_IMAGE_URL}/${poster_path}`}
         alt={title}
         className="w-full h-42 object-cover"
       />

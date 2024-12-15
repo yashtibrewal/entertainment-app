@@ -10,7 +10,12 @@ import styles from '../../components/common-media/content.module.css';
 import { InternalServerError } from "../InternalServerError";
 import WelcomeSpinner from "../../components/Loading/LoaderSpinner.jsx";
 import { GeneralLoading } from "../../components/Loading/GeneralLoading.jsx";
+
+=======
+import { useOutletContext } from "react-router";
+
 function Bookmarks() {
+  const { searchQuery } = useOutletContext(); 
 
   const [bookmarkedMovies, setBookmarkedMovies] = useState([]);
   // TODO: handle for bookmarked tv series.
@@ -85,29 +90,74 @@ function Bookmarks() {
 
   if (loading) return <GeneralLoading></GeneralLoading>
 
-  const noBookmarkMessage = () => {
+  
 
-    if(!bookmarkedMovies.length && !bookmarkedTvSeries.length)
-    {   
-      return <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] gap-y-5 home-width">
-            <h1 className={styles.headings + ' mt-10'}>No Movies or T.V. Series Bookmarked.</h1>
-          </div>
-    }else {
+  const filteredMovies = bookmarkedMovies.filter(movie =>
+    movie.title && movie.title.toLowerCase().includes(searchQuery.toLowerCase()) // Filter movies by title
+  );
+  
+  const filteredTvSeries = bookmarkedTvSeries.filter(tvSeries =>
+    tvSeries.title && tvSeries.title.toLowerCase().includes(searchQuery.toLowerCase()) // Filter tv series by title
+  );
+
+
+  
+
+  if (loading)<WelcomeSpinner/>
+
+  const noBookmarkMessage = () => {
+    if (!bookmarkedMovies.length && !bookmarkedTvSeries.length) {
+      return (
+        <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] gap-y-5 home-width">
+          <h1 className={`${styles.headings} mt-10`}>
+            No Movies or TV Series Bookmarked.
+          </h1>
+        </div>
+      );
+    }
+    if (!filteredMovies.length && !filteredTvSeries.length) {
+      return (
+        <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] gap-y-5 home-width">
+          <h1 className={`${styles.headings} mt-10`}>
+            No Movies or TV Series Match Your Search.
+          </h1>
+        </div>
+      );
+    }
+    if (searchQuery) {
       return (
         <div className="ml-4 Bookmarks">
-          <h1 className={styles.headings + ' mt-10'}>Bookmarked Movies and T.V. Series</h1>
+          <h1 className={`${styles.headings} mt-10`}>
+            Search Results from Bookmarked Movies and TV Series
+          </h1>
           <div className={style.content}>
-            <List cards={[...bookmarkedMovies, ...bookmarkedTvSeries]}></List>
+            <List cards={[...filteredMovies, ...filteredTvSeries]} />
           </div>
         </div>
       );
     }
+    return (
+      <div className="ml-4 Bookmarks">
+        <h1 className={`${styles.headings} mt-10`}>
+          Bookmarked Movies and TV Series
+        </h1>
+        <div className={style.content}>
+          <List cards={[...bookmarkedMovies, ...bookmarkedTvSeries]} />
+        </div>
+      </div>
+    );
+  };
 
+  if (loading) {
+    return (
+      <div className="m-10">
+        <h1>Loading</h1>
+        <p>{UI_MESSAGES.RENDER_LOADING}</p>
+      </div>
+    );
   }
 
-
   return noBookmarkMessage();
-
 }
 
 export default Bookmarks;

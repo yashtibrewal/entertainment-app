@@ -14,7 +14,7 @@ const toggleMovieBookmark = async (movie_id, bookmarked) => {
     bookmark: !bookmarked
   });
 
-  const url = `${BASE_LOCAL_URL}movie/bookmark/${movie_id}`
+  const url = `${BASE_LOCAL_URL}/movie/bookmark/${movie_id}`
 
 
   const requestOptions = {
@@ -49,7 +49,7 @@ const toggleTVSeriesBookmark = async (movie_id, bookmarked) => {
     bookmark: !bookmarked
   });
 
-  const url = `${BASE_LOCAL_URL}tv/bookmark/${movie_id}`
+  const url = `${BASE_LOCAL_URL}/tv/bookmark/${movie_id}`
 
 
   const requestOptions = {

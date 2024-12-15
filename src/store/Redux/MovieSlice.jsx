@@ -1,29 +1,34 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { BASE_LOCAL_URL, TMDB_BASE_URL } from '../../constants';
 
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import { BASE_LOCAL_URL, TMDB_BASE_URL } from "../../constants";
 
 const BASE_TMDB_URL = TMDB_BASE_URL;
 const BASE_ENTERTAINMENT_APP_URL = BASE_LOCAL_URL;
 
 // fetching tmdbtokens in real time from local storage
-function fetchTmdbToken (){
-  return  localStorage.getItem('tmdbToken');
+
+function fetchTmdbToken() {
+  return localStorage.getItem("tmdbToken");
 }
-function fetchBookmarkToken (){
-  return  localStorage.getItem('entertainmentAppToken');
+function fetchBookmarkToken() {
+  return localStorage.getItem("entertainmentAppToken");
+
 }
 export const fetchAllMovies = createAsyncThunk(
-  'movies/fetchAllMovies',
+  "movies/fetchAllMovies",
   async (_, thunkAPI) => {
     try {
-      console.info('fetchAllMovies called');
+
+      console.info("fetchAllMovies called");
+
       const tmdbToken = fetchTmdbToken();
 
       if (!tmdbToken) {
-        return thunkAPI.rejectWithValue('TMDB token not found in local storage.');
+        return thunkAPI.rejectWithValue(
+          "TMDB token not found in local storage."
+        );
       }
-     
 
       const requests = [
         axios.get(`${BASE_TMDB_URL}/movie/popular`, {
@@ -37,55 +42,59 @@ export const fetchAllMovies = createAsyncThunk(
         }),
         axios.get(`${BASE_TMDB_URL}/movie/upcoming`, {
           headers: { Authorization: `Bearer ${tmdbToken}` },
-        })
+        }),
       ];
 
       const results = await Promise.allSettled(requests);
 
       const [popular, trending, nowPlaying, upcoming] = results.map((result) =>
-        result.status === 'fulfilled' ? result.value.data.results : []
+        result.status === "fulfilled" ? result.value.data.results : []
       );
 
       return { popular, trending, nowPlaying, upcoming };
     } catch (error) {
-      console.error('Error fetching movies:', error);
+      console.error("Error fetching movies:", error);
       return thunkAPI.rejectWithValue(
-        error.response?.data?.status_message || 'Failed to fetch movies.'
+        error.response?.data?.status_message || "Failed to fetch movies."
       );
     }
   }
 );
 
 export const fetchAllMovieBookmarks = createAsyncThunk(
-  'movies/fetchAllMovieBookmarks',
+  "movies/fetchAllMovieBookmarks",
   async (_, thunkAPI) => {
     try {
-      console.info('fetchAllMovieBookmarks called');
+
+      console.info("fetchAllMovieBookmarks called");
+
       const entertainmentAppToken = fetchBookmarkToken();
 
       if (!entertainmentAppToken) {
-        return thunkAPI.rejectWithValue('entertainmentAppToken token not found in local storage.');
+        return thunkAPI.rejectWithValue(
+          "entertainmentAppToken token not found in local storage."
+        );
       }
-      
 
-      const result = await axios.get(`${BASE_ENTERTAINMENT_APP_URL}movie/bookmarks`, {
-        headers: { Authorization: `Bearer ${entertainmentAppToken}` },
-      })
+      const result = await axios.get(
+        `${BASE_ENTERTAINMENT_APP_URL}/movie/bookmarks`,
+        {
+          headers: { Authorization: `Bearer ${entertainmentAppToken}` },
+        }
+      );
       return result.data;
-
     } catch (error) {
-      console.error('Error fetching bookmarks:', error);
+      console.error("Error fetching bookmarks:", error);
       return thunkAPI.rejectWithValue(
-        error.response?.data?.status_message || "Failed to fetch movies' bookmarks."
+        error.response?.data?.status_message ||
+          "Failed to fetch movies' bookmarks."
       );
     }
-
   }
-)
-
+);
 
 const movieSlice = createSlice({
-  name: 'movies',
+  name: "movies",
   initialState: {
     popularMovies: [],
     trendingMovies: [],
@@ -98,8 +107,8 @@ const movieSlice = createSlice({
   },
   reducers: {
     setSearchedMovies(state, action) {
-      state.searchedMovies = [...action.payload]
-    }
+      state.searchedMovies = [...action.payload];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -118,10 +127,13 @@ const movieSlice = createSlice({
       .addCase(fetchAllMovieBookmarks.fulfilled, (state, action) => {
         state.movieBookmarks = action.payload;
       })
-      .addCase(fetchAllMovieBookmarks.rejected || fetchAllMovies.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
+      .addCase(
+        fetchAllMovieBookmarks.rejected || fetchAllMovies.rejected,
+        (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+        }
+      );
   },
 });
 

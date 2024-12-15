@@ -16,7 +16,8 @@ const LandingPage = () => {
             <h1 className='text-white text-5xl font-serif'>See what's next</h1>
             <p className='text-white text-[2.6rem]  items-center font-serif pb-10'>Watch anywhere. Cancel anytime</p>
             <button className='bg-red-800  outline-none border-none flex items-center justify-center cursor-pointer px-10 rounded-[30px]  pb-0'>
-                <button className='uppercase text-[2rem] text-white font-fantasy group-hover:bg-[#07a6f1]  px-4 py-2 transition-all duration-1000'>watch free for 30 days</button>
+
+               <a href="/sign-up"> <button className='uppercase text-[2rem] text-white font-fantasy group-hover:bg-[#07a6f1]  px-4 py-2 transition-all duration-1000'>watch free for 30 days</button></a>
               
             </button>
         </div>
