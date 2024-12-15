@@ -6,6 +6,8 @@ import loginUserApi from './api';
 import { useAuth } from '../../store/auth';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../../components/ToastContext'; 
+import { InternalServerError } from '../InternalServerError';
+import { GeneralLoading } from '../../components/Loading/GeneralLoading';
 
 const Login = () => {
   // Initialize AOS
@@ -27,7 +29,7 @@ const Login = () => {
       const result = await loginUserApi(email, password, state);
       if (result.isSuccess) {
         login(result);
-        navigate("/");
+        navigate("/home");
         addToast("Logged in successfully!", "success"); 
       } else {
         console.error(result);
@@ -35,7 +37,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error(error);
-      addToast("An unexpected error occurred. Please try again.", "error"); 
+      return <InternalServerError/>
     } 
   }
   
@@ -45,10 +47,7 @@ const Login = () => {
     }
   };
 
-  if (state.loading) return <> addToast("Loading...")</>;
-
-  // if(loading) return <>Logging in.</>
-
+  if (state.loading) return <GeneralLoading></GeneralLoading>
 
   return (
     <div className="flex flex-col justify-center items-center bg-gray-900 w-[100vw] h-[100vh] text-white">

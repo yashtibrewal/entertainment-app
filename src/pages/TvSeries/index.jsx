@@ -6,12 +6,17 @@ import {
   fetchAllTVSeries,
   fetchAllTVSeriesBookmarks,
 } from "../../store/Redux/TvSeriesSlice";
+import { clearSearchResults, searchTVSeries } from "../../store/Redux/SearchSlice"; // Import the search action
 import { MEDIA_TYPE } from "../../constants";
 import styles from "../../components/common-media/content.module.css";
 import { SeriesSection } from "./SerieisSection";
+import { useOutletContext } from "react-router-dom";
+import { InternalServerError } from "../InternalServerError";
+import { GeneralLoading } from "../../components/Loading/GeneralLoading";
 
 export default function TVSeriesPage() {
   const dispatch = useDispatch();
+  const { searchQuery } = useOutletContext();
   const {
     searchedTVSeries,
     popular,
@@ -21,7 +26,12 @@ export default function TVSeriesPage() {
     tvSeriesBookmarks,
     loading,
     error,
-  } = useSelector((state) => state.tvSeries);
+  } = useSelector((state) => ({
+    ...state.tvSeries,
+    searchedTVSeries: state.search.tvSeries,
+  }));
+
+  const [searchLoading, setSearchLoading] = useState(false); // Add search loading state
   const [popularTVSeries, setPopularTVSeries] = useState([]);
   const [trendingTVSeries, setTrendingTVSeries] = useState([]);
   const [airingTodaySeries, setAiringTodaySeries] = useState([]);
@@ -33,9 +43,21 @@ export default function TVSeriesPage() {
     dispatch(fetchAllTVSeriesBookmarks());
   }, [dispatch]);
 
-  /**
-   * Takes in single tvSerieis and populates its bookmark.
-   */
+  useEffect(() => {
+    // Debouncing implemented
+    const id = setTimeout(() => {
+      if (searchQuery) {
+        setSearchLoading(true); // Set search loading to true
+        dispatch(searchTVSeries(searchQuery)).finally(() => setSearchLoading(false)); // Update loading after API call
+      } else {
+        setSearchLoading(false); // Reset loading state if query is cleared
+        dispatch(clearSearchResults());
+      }
+    }, 1000);
+
+    return () => clearTimeout(id);
+  }, [searchQuery, dispatch]);
+
   const populateBookmark = useCallback(
     (tvSeries) => {
       let bookmark = false;
@@ -58,8 +80,8 @@ export default function TVSeriesPage() {
   const setMediaAndBookmarkFields = useCallback(
     (tvSeries, setterFunction) => {
       const tvSeriesWithMedia = tvSeries.map(setMediaAsTVSeries);
-      const tvSerieisWithBookmark = tvSeriesWithMedia.map(populateBookmark);
-      setterFunction(tvSerieisWithBookmark);
+      const tvSeriesWithBookmark = tvSeriesWithMedia.map(populateBookmark);
+      setterFunction(tvSeriesWithBookmark);
     },
     [populateBookmark]
   );
@@ -67,7 +89,7 @@ export default function TVSeriesPage() {
   useEffect(() => {
     const tempSet = new Set();
     trending.forEach((trend) => tempSet.add(trend.id));
-    setUniqueSet(trending);
+    setUniqueSet(tempSet);
     setMediaAndBookmarkFields(trending, setTrendingTVSeries);
   }, [trending, setMediaAndBookmarkFields]);
 
@@ -98,15 +120,35 @@ export default function TVSeriesPage() {
     setMediaAndBookmarkFields(uniqueOnTheAir, setOnTheAirSeries);
   }, [onTheAir, setMediaAndBookmarkFields, setAiringTodaySeries]);
 
-  if (loading) return <p>Loading TV series...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <GeneralLoading/>;
+  if (error) return <InternalServerError/>;
 
-  if (searchedTVSeries.length > 0) {
+  if (searchQuery) {
+    if (searchLoading) {
+      return (
+        <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
+          <h1 className={styles.headings}>Search Results</h1>
+          <GeneralLoading /> {/* Show loading while searching */}
+        </div>
+      );
+    }
+  
+    if (!searchLoading && searchedTVSeries.length === 0) {
+      return (
+        <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
+          <h1 className={styles.headings}>Search Results</h1>
+          <p>No results found for "{searchQuery}"</p>
+        </div>
+      );
+    }
+  
+    const processedSearchedTVSeries = searchedTVSeries.map(setMediaAsTVSeries);
+  
     return (
       <div className="md:ml-4 p-4 max-w-[calc(100vw-120px)] home-width">
-        <h1 className={styles.headings}>Searched Results</h1>
+        <h1 className={styles.headings}>Search Results</h1>
         <div className={styles.content}>
-          <List cards={searchedTVSeries} />
+          <List cards={processedSearchedTVSeries} />
         </div>
       </div>
     );

@@ -1,16 +1,23 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../store/auth';
-import { UnAuthorized } from '../pages/UnAuthorizedPage';
+import { UnAuthorized } from "../pages/UnAuthorizedPage";
+import WelcomeSpinner from './Loading/LoaderSpinner';
+import { GeneralLoading } from './Loading/GeneralLoading';
+
 
 const ProtectedRoute = () => {
+  const location = useLocation();
   const { state } = useAuth();
 
   if (state.loading) {
-    return <div>Checking Auth...</div>; // Display loading indicator while authentication status is being checked
+    return <GeneralLoading/>
   }
-/// if user is logged out show unauthorised
+
   if (!state.isLoggedIn) {
-    return UnAuthorized();
+    if (location.pathname === "/") {
+      return <WelcomeSpinner />;
+    }
+    return <UnAuthorized/>;
   }
 
   return <Outlet />; 

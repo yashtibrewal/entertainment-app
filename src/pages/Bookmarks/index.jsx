@@ -7,6 +7,9 @@ import List from "../../components/Content/List";
 import { getMovieApi } from "../movie/api";
 import { getTvSeriesApi } from "../../components/tv/api.js";
 import styles from '../../components/common-media/content.module.css';
+import { InternalServerError } from "../InternalServerError";
+import WelcomeSpinner from "../../components/Loading/LoaderSpinner.jsx";
+import { GeneralLoading } from "../../components/Loading/GeneralLoading.jsx";
 function Bookmarks() {
 
   const [bookmarkedMovies, setBookmarkedMovies] = useState([]);
@@ -66,7 +69,7 @@ function Bookmarks() {
         return [moviesWithMediaTypeAndBookmark, tvSeriesWithMediaTypeAndBookmark];
 
       } catch (error) {
-        console.error(error);
+        return <InternalServerError/>
       } finally {
         setLoading(false);
       }
@@ -80,13 +83,7 @@ function Bookmarks() {
       .finally(() => setLoading(false));
   }, [])
 
-  if (loading) {
-    return <div className="m-10">
-      <h1>Loading</h1>
-      <p>{UI_MESSAGES.RENDER_LOADING}</p>
-    </div>
-  }
-
+  if (loading) return <GeneralLoading></GeneralLoading>
 
   const noBookmarkMessage = () => {
 

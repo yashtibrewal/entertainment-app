@@ -1,19 +1,24 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BASE_LOCAL_URL, TMDB_BASE_URL } from '../../constants';
-import { tokens } from '../../store/localstorage';
 
 
 const BASE_TMDB_URL = TMDB_BASE_URL;
 const BASE_ENTERTAINMENT_APP_URL = BASE_LOCAL_URL;
 
-
+// fetching tmdbtokens in real time from local storage
+function fetchTmdbToken (){
+  return  localStorage.getItem('tmdbToken');
+}
+function fetchBookmarkToken (){
+  return  localStorage.getItem('entertainmentAppToken');
+}
 export const fetchAllMovies = createAsyncThunk(
   'movies/fetchAllMovies',
   async (_, thunkAPI) => {
     try {
       console.info('fetchAllMovies called');
-      const tmdbToken = tokens.tmdbToken;
+      const tmdbToken = fetchTmdbToken();
 
       if (!tmdbToken) {
         return thunkAPI.rejectWithValue('TMDB token not found in local storage.');
@@ -56,7 +61,7 @@ export const fetchAllMovieBookmarks = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       console.info('fetchAllMovieBookmarks called');
-      const entertainmentAppToken = localStorage.getItem('entertainmentAppToken');
+      const entertainmentAppToken = fetchBookmarkToken();
 
       if (!entertainmentAppToken) {
         return thunkAPI.rejectWithValue('entertainmentAppToken token not found in local storage.');
